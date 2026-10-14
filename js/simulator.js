@@ -28,7 +28,7 @@ export function createSimulator(container, options = {}) {
   let shape = null;
   let used = false;     // simulator_use hodisasi sessiyada bir marta
   let drag = null;      // sudrash: { id, x, y } — qaysi barmoq va oxirgi nuqta
-  let visible = true;
+  let visible = false;  // ekranga chiqmaguncha chizmaymiz (IntersectionObserver hal qiladi)
   let rafId = 0;
   let lastTime = 0;
 

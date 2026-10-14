@@ -5,14 +5,13 @@ import {
   projectPerspective, projectOrthographic, maxNorm,
 } from './math4d.js';
 import { buildControls } from './sim-controls.js';
-import { drawFrame } from './sim-render.js';
+import { drawFrame, readPalette } from './sim-render.js';
 import { wrap, defaultAngles, autoPlanes } from './sim-angles.js';
+import { attachInput } from './sim-input.js';
 
-export const ALL_CONTROLS = ['dims', 'projection', 'drag', 'auto', 'size', 'sliders', 'reset'];
+export const ALL_CONTROLS = ['dims', 'projection', 'drag', 'auto', 'size', 'sliders', 'reset', 'lamp'];
 const CAMERA_DISTANCE = 2.5; // shakl radiusiga nisbatan (math4d.js'dagi projectPerspective'ga qara)
 const FILL = 0.85;           // shakl canvas'ning qancha qismini egallaydi
-const DRAG_DEG_PER_PX = 0.5; // sudrashda 1 piksel = 0.5°
-const KEY_STEP = 5;          // strelka bosilganda 5°
 
 // Simulyatorni container ichida yaratadi va boshqarish funksiyalarini qaytaradi
 export function createSimulator(container, options = {}) {
@@ -23,11 +22,11 @@ export function createSimulator(container, options = {}) {
 
   const state = {
     n: startDim, angles: {}, auto: !reduceMotion, speed: 20, size: 1,
-    dragMode: '3d', projection: 'perspective', scale: 0,
+    dragMode: '3d', projection: 'perspective', scale: 0, distance: CAMERA_DISTANCE,
   };
   let shape = null;
+  let stretch = null;   // kirish animatsiyasi: har oʻq qanchalik choʻzilgan (null — toʻliq shakl)
   let used = false;     // simulator_use hodisasi sessiyada bir marta
-  let drag = null;      // sudrash: { id, x, y } — qaysi barmoq va oxirgi nuqta
   let visible = false;  // ekranga chiqmaguncha chizmaymiz (IntersectionObserver hal qiladi)
   let rafId = 0;
   let lastTime = 0;
@@ -35,20 +34,31 @@ export function createSimulator(container, options = {}) {
   container.classList.add('sim');
   const ui = buildControls(container, { dims, controls }, {
     dim: (n) => { markUsed(); setDim(n); },
-    projection: (p) => { state.projection = p; requestFrame(); },
+    projection: (p) => { state.projection = p; showLamp(); requestFrame(); },
     dragMode: (m) => { state.dragMode = m; },
     toggleAuto: () => { state.auto = !state.auto; ui.syncState(state); requestFrame(); },
     speed: (v) => { state.speed = v; },
     size: (v) => { state.size = v; requestFrame(); },
     angle: (i, j, v) => { state.angles[`${i}-${j}`] = v; requestFrame(); },
+    // Chiroq surilsa, shakl aylanishdan toʻxtaydi: formula raqamlarini oʻqish oson boʻlsin
+    lamp: (d) => { markUsed(); state.auto = false; ui.syncState(state); state.distance = d / Math.sqrt(state.n); showLamp(); requestFrame(); },
     reset,
   });
   const canvas = ui.canvas;
   const ctx = canvas.getContext('2d');
+  let palette = readPalette(container);
+
+  // Tashqi modullar (masalan, kirish animatsiyasi) uchun
+  const sim = {
+    state, canvas, stage: ui.stage, info: ui.info, intro: null, setDim, reset, requestFrame,
+    setStretch: (s) => { stretch = s; },
+    refreshInfo: () => ui.refreshInfo(),
+  };
 
   // Foydalanuvchi simulyatordan haqiqatan foydalandi. Simulyator statistikani bilmaydi:
   // u faqat "simulator:use" hodisasini chiqaradi, analytics.js esa uni tinglaydi.
   function markUsed() {
+    sim.intro?.finish(); // foydalanuvchi teginsa, animatsiya darhol tugaydi
     if (used) return;
     used = true;
     container.dispatchEvent(new CustomEvent('simulator:use', { bubbles: true, detail: { dim: state.n } }));
@@ -57,11 +67,13 @@ export function createSimulator(container, options = {}) {
   // Oʻlchamni almashtirish: yangi uchlar, qirralar va boshlangʻich burchaklar
   function setDim(n) {
     state.n = n;
+    state.distance = CAMERA_DISTANCE;
     const vertices = makeVertices(n);
     shape = { vertices, edges: makeEdges(vertices) };
     state.angles = defaultAngles(n);
-    ui.setDim(n, vertices.length, shape.edges.length);
+    ui.setDim(n, vertices.length, shape.edges.length, CAMERA_DISTANCE * Math.sqrt(n));
     ui.syncState(state);
+    showLamp();
     requestFrame();
   }
 
@@ -78,49 +90,21 @@ export function createSimulator(container, options = {}) {
   }
 
   // Ekrandagi siljishni burishga aylantiradi: 3D rejim — XZ/YZ, 4D rejim — X/Y bilan oxirgi oʻq
-  function rotateBy(dx, dy, force4d) {
-    const n = state.n;
-    if (n === 2) {
-      turn(0, 1, -dx + dy);
-    } else {
-      const k = force4d || state.dragMode === '4d' ? n - 1 : 2;
-      turn(0, k, -dx);
-      turn(1, k, dy);
-    }
-    ui.syncAngles(state.angles);
-    requestFrame();
-  }
-
-  // Faqat birinchi barmoq kuzatiladi: ikkinchi barmoq tegsa, shakl sakrab ketmasligi kerak
-  canvas.addEventListener('pointerdown', (e) => {
-    if (drag) return;
-    drag = { id: e.pointerId, x: e.clientX, y: e.clientY };
-    try { canvas.setPointerCapture(e.pointerId); } catch { /* baʼzi brauzerlarda ushlab boʻlmaydi */ }
-    markUsed();
-  });
-  canvas.addEventListener('pointermove', (e) => {
-    if (!drag || e.pointerId !== drag.id) return;
-    const dx = (e.clientX - drag.x) * DRAG_DEG_PER_PX;
-    const dy = (e.clientY - drag.y) * DRAG_DEG_PER_PX;
-    drag = { id: drag.id, x: e.clientX, y: e.clientY };
-    rotateBy(dx, dy, e.shiftKey);
-  });
-  // window'da tinglaymiz: barmoq canvas'dan tashqarida qoʻyib yuborilsa ham sudrash tugaydi
-  const endDrag = (e) => {
-    if (!drag || e.pointerId !== drag.id) return;
-    drag = null;
-    requestFrame();
-  };
-  window.addEventListener('pointerup', endDrag);
-  window.addEventListener('pointercancel', endDrag);
-
-  // Klaviatura: strelkalar bilan burish (Shift — 4D)
-  canvas.addEventListener('keydown', (e) => {
-    const moves = { ArrowLeft: [-KEY_STEP, 0], ArrowRight: [KEY_STEP, 0], ArrowUp: [0, -KEY_STEP], ArrowDown: [0, KEY_STEP] };
-    if (!moves[e.key]) return;
-    e.preventDefault();
-    markUsed();
-    rotateBy(...moves[e.key], e.shiftKey);
+  const input = attachInput(canvas, {
+    start: markUsed,
+    end: requestFrame,
+    turn(dx, dy, force4d) {
+      const n = state.n;
+      if (n === 2) {
+        turn(0, 1, -dx + dy);
+      } else {
+        const k = force4d || state.dragMode === '4d' ? n - 1 : 2;
+        turn(0, k, -dx);
+        turn(1, k, dy);
+      }
+      ui.syncAngles(state.angles);
+      requestFrame();
+    },
   });
 
   // Canvas oʻlchami: CSS piksel × devicePixelRatio (retina ekranda ham tiniq)
@@ -132,24 +116,42 @@ export function createSimulator(container, options = {}) {
     requestFrame();
   }
 
+  // Proyeksiya: perspektiv (chiroq d masofada) yoki ortogonal
+  const project = (points) => (state.projection === 'perspective'
+    ? projectPerspective(points, state.distance)
+    : projectOrthographic(points));
+
+  // Hozirgi burchaklar boʻyicha burish matritsasi
+  function rotation() {
+    const rotations = listPlanes(state.n).map(([i, j]) => [i, j, (state.angles[`${i}-${j}`] * Math.PI) / 180]);
+    return composeRotations(state.n, rotations);
+  }
+
+  // Chiroq ostidagi formula (canvas ekrandan chiqib ketgan boʻlsa ham yangilanadi)
+  function showLamp(full = applyMatrix(rotation(), shape.vertices)) {
+    const n = state.n;
+    if (n > 2) ui.showLamp?.({ d: state.distance * Math.sqrt(n), ws: full.map((p) => p[n - 1]), n, perspective: state.projection === 'perspective' });
+  }
+
   // Bitta kadr: burish → proyeksiya → miqyosni silliq moslash → chizish
   function render(dt) {
     const n = state.n;
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
-    const rotations = listPlanes(n).map(([i, j]) => [i, j, (state.angles[`${i}-${j}`] * Math.PI) / 180]);
-    const rotated = applyMatrix(composeRotations(n, rotations), shape.vertices);
+    const matrix = rotation();
+    const full = applyMatrix(matrix, shape.vertices);
+    const rotated = stretch ? applyMatrix(matrix, shape.vertices.map((v) => v.map((x, i) => x * (stretch[i] ?? 1)))) : full;
     const radius = Math.sqrt(n); // giperkub uchining markazdan masofasi
     const depth = rotated.map((p) => (n > 2 ? p[n - 1] / radius : 0));
-    const projected = state.projection === 'perspective'
-      ? projectPerspective(rotated, CAMERA_DISTANCE)
-      : projectOrthographic(rotated);
+    const projected = project(rotated);
 
-    // Avtomatik moslash: maqsadli miqyosga sakramasdan, asta-sekin yaqinlashamiz
-    const target = (Math.min(width, height) / 2) * FILL / (maxNorm(projected) || 1);
+    // Avtomatik moslash: maqsadli miqyosga sakramasdan, asta-sekin yaqinlashamiz.
+    // Animatsiyada miqyos toʻliq shakldan olinadi, aks holda nuqta ham ekranni toʻldirardi.
+    const target = (Math.min(width, height) / 2) * FILL / (maxNorm(stretch ? project(full) : projected) || 1);
     state.scale = state.scale ? state.scale + (target - state.scale) * Math.min(1, dt * 4) : target;
 
-    drawFrame(ctx, { projected, depth, edges: shape.edges, scale: state.scale * state.size, width, height });
+    drawFrame(ctx, { projected, depth, edges: shape.edges, scale: state.scale * state.size, width, height, palette });
+    showLamp(full);
     return Math.abs(target - state.scale) > 0.5; // hali moslashyaptimi
   }
 
@@ -157,13 +159,14 @@ export function createSimulator(container, options = {}) {
   function frame(now) {
     const dt = lastTime ? Math.min(0.1, (now - lastTime) / 1000) : 0;
     lastTime = now;
-    const spinning = state.auto && !drag && state.speed > 0;
+    const intro = sim.intro?.tick(dt) ?? false;
+    const spinning = state.auto && !intro && !input.dragging() && state.speed > 0; // animatsiyada aylanmaydi
     if (spinning) {
       for (const [i, j, factor] of autoPlanes(state.n)) turn(i, j, state.speed * factor * dt);
       ui.syncAngles(state.angles);
     }
     const settling = render(dt);
-    if (visible && (spinning || settling)) {
+    if (visible && (spinning || settling || intro)) {
       rafId = requestAnimationFrame(frame);
     } else {
       rafId = 0;
@@ -182,7 +185,9 @@ export function createSimulator(container, options = {}) {
     if (visible) requestFrame();
   }).observe(canvas);
   new ResizeObserver(resize).observe(canvas);
+  // Yorugʻ/qorongʻi rejim almashsa, ranglar qayta oʻqiladi
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { palette = readPalette(container); requestFrame(); });
 
   setDim(startDim);
-  return { setDim, reset, state };
+  return sim;
 }

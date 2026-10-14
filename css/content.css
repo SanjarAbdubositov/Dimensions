@@ -1,78 +1,89 @@
 /* content.css — dars, test, lugʻat va matnli sahifalar uslubi (style.css'dan keyin ulanadi). */
 
-/* ---------- Qoralama belgisi ---------- */
+/* ---------- Qoralama belgisi: oddiy, sariq emas (oltin faqat progress uchun) ---------- */
 .draft-banner, .draft-badge {
-  background: var(--warn-bg); color: var(--warn-text);
-  border-radius: 8px; padding: 0.6rem 0.9rem; font-weight: 600;
+  border: 1px dashed var(--field); color: var(--text);
+  border-radius: var(--radius); padding: 0.5rem 0.9rem; font-size: 0.95rem;
 }
-.draft-badge { display: inline-block; font-size: 0.85rem; padding: 0.3rem 0.7rem; }
-.placeholder { border: 2px dashed var(--border); border-radius: 8px; padding: 0.75rem 1rem; color: var(--muted); }
+.draft-badge { display: inline-block; font-size: 0.85rem; padding: 0.25rem 0.7rem; }
+.placeholder { border: 2px dashed var(--border); border-radius: var(--radius); padding: 0.75rem 1rem; color: var(--muted); }
+
+/* ---------- Dars sarlavhasi: emblema, raqam, nom, progress ---------- */
+.lesson { padding-top: 1.5rem; }
+.lesson-head { display: flex; gap: 1rem; align-items: center; }
+.lesson-head h1 { margin: 0; }
+.lesson-head + * { margin-top: 1rem; }
+.eyebrow { margin: 0 0 0.25rem; color: var(--muted); font-size: 0.9rem; font-variant-numeric: tabular-nums; }
 
 /* ---------- Dars matni ---------- */
-.lesson { padding-top: 1.5rem; }
-.eyebrow { margin: 0 0 0.25rem; color: var(--muted); font-size: 0.9rem; }
-.prose h2 { margin-top: 2.25rem; }
-.prose h3 { margin: 1.5rem 0 0.5rem; font-size: 1.1rem; }
+.prose h2 { margin-top: 2.5rem; }
+.prose h3 { margin: 1.5rem 0 0.5rem; }
 .prose ul, .prose ol { padding-left: 1.4rem; margin: 0 0 1rem; }
 .prose li { margin-bottom: 0.35rem; }
-.prose blockquote {
-  margin: 1.25rem 0; padding: 0.75rem 1rem;
-  background: var(--accent-soft); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0;
-}
+.prose blockquote { margin: 1.5rem 0; padding: 0.1rem 0 0.1rem 1rem; border-left: 3px solid var(--accent); }
 .prose blockquote p:last-child { margin-bottom: 0; }
-code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em; background: var(--accent-soft); padding: 0.1em 0.3em; border-radius: 4px; }
-pre { overflow-x: auto; background: var(--canvas-bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.9rem 1rem; line-height: 1.45; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.88em; background: var(--accent-soft); padding: 0.1em 0.3em; border-radius: 3px; }
+/* Formula, jadval va kod telefonda oʻz ichida gorizontal suriladi, sahifa emas */
+pre { overflow-x: auto; background: var(--canvas-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.9rem 1rem; line-height: 1.45; }
 pre code { background: none; padding: 0; }
+.formula { overflow-x: auto; white-space: nowrap; }
+.formula code { font-size: 1em; padding: 0.3em 0.6em; }
 .table-wrap { overflow-x: auto; margin: 0 0 1rem; }
 table { border-collapse: collapse; min-width: 100%; font-variant-numeric: tabular-nums; }
-th, td { border: 1px solid var(--border); padding: 0.4rem 0.45rem; text-align: center; font-size: 0.92rem; }
-th { background: var(--surface); }
+th, td { border-bottom: 1px solid var(--border); padding: 0.45rem 0.5rem; text-align: center; font-size: 0.95rem; }
+th { border-bottom: 2px solid var(--text); }
 td:first-child, th:first-child { text-align: left; }
-.lesson-sim { margin: 1.25rem 0; }
+.lesson-sim { margin: 1.5rem 0; }
+
+/* ---------- "Chuqurroq": formulalar va qoʻshimcha tafsilotlar shu yerda ---------- */
+.deeper { margin: 1.5rem 0; border-left: 3px solid var(--border); padding: 0 0 0 1rem; }
+.deeper summary { cursor: pointer; font-weight: 600; color: var(--accent); min-height: 2.75rem; display: flex; align-items: center; }
+.deeper[open] { border-left-color: var(--accent); }
+.deeper[open] summary { margin-bottom: 0.5rem; }
 
 /* ---------- Bashorat elementi ---------- */
-.predict { margin: 1.25rem 0; display: grid; gap: 0.75rem; }
+.predict { margin: 1.5rem 0; display: grid; gap: 0.75rem; }
 .predict-title { margin: 0; font-weight: 700; }
 .predict-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: 0.75rem; }
 .predict-field { display: grid; gap: 0.25rem; }
-.predict-field label { font-weight: 600; font-size: 0.9rem; }
+.predict-field label { font-weight: 600; font-size: 0.95rem; }
 .predict-field input, .quiz-option input[type="number"] {
   font: inherit; min-height: 2.75rem; padding: 0.4rem 0.6rem; width: 100%;
-  border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text);
+  border: 1px solid var(--field); border-radius: var(--radius); background: var(--surface); color: var(--text);
 }
-.predict-mark { font-size: 0.85rem; min-height: 1.2em; }
+.predict-mark { font-size: 0.9rem; min-height: 1.2em; font-weight: 600; }
 .predict-status { margin: 0; }
 .is-correct .predict-mark { color: var(--ok); }
 .is-wrong .predict-mark { color: var(--bad); }
 .predict button { justify-self: start; }
 
-/* ---------- Test ---------- */
+/* ---------- Test: toʻgʻri/notoʻgʻri — rang, chap chiziq VA ✓/✗ matni ---------- */
 .lesson-quiz { margin-top: 2.5rem; }
-.quiz { display: grid; gap: 1rem; }
-.quiz-question { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); padding: 0.75rem 1rem 1rem; margin: 0; }
+.quiz { display: grid; gap: 1.25rem; }
+.quiz-question { border: 0; border-left: 3px solid var(--border); padding: 0 0 0 1rem; margin: 0; }
 .quiz-question legend { float: left; width: 100%; font-weight: 600; padding: 0; margin-bottom: 0.4rem; }
 .quiz-question legend + * { clear: both; } /* uzun savol ramkaning ichida qolsin */
-.quiz-option { display: flex; align-items: flex-start; gap: 0.6rem; padding: 0.55rem 0.4rem; border-radius: 8px; cursor: pointer; min-height: 2.75rem; }
-.quiz-option input { margin-top: 0.3rem; width: 1.15rem; height: 1.15rem; accent-color: var(--accent); flex: none; }
+.quiz-option { display: flex; align-items: flex-start; gap: 0.6rem; padding: 0.45rem 0.5rem; border-radius: var(--radius); cursor: pointer; min-height: 2.75rem; }
+.quiz-option input { margin-top: 0.35rem; width: 1.15rem; height: 1.15rem; accent-color: var(--accent); flex: none; }
 .quiz-option:hover { background: var(--accent-soft); }
-.quiz-option.is-answer { outline: 2px solid var(--ok); }
-.quiz-question.is-correct { border-color: var(--ok); }
-.quiz-question.is-wrong { border-color: var(--bad); }
-.quiz-feedback { margin: 0.5rem 0 0; font-size: 0.95rem; }
+.quiz-option.is-answer { box-shadow: inset 0 0 0 2px var(--ok); }
+.quiz-question.is-correct { border-left-color: var(--ok); }
+.quiz-question.is-wrong { border-left-color: var(--bad); }
+.quiz-feedback { margin: 0.5rem 0 0; font-size: 1rem; animation: reveal 0.25s ease-out; }
+.is-correct .quiz-feedback { color: var(--ok); }
+.is-wrong .quiz-feedback { color: var(--bad); }
+@keyframes reveal { from { opacity: 0; transform: translateY(-4px); } }
 .quiz-status { margin: 0; font-weight: 600; }
 .quiz button { justify-self: start; }
-.notice { background: var(--accent-soft); border-radius: 8px; padding: 0.75rem 1rem; }
+.notice { background: var(--accent-soft); border-radius: var(--radius); padding: 0.75rem 1rem; }
 
 /* ---------- Oldingi / keyingi dars ---------- */
-.lesson-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 2.5rem; }
-.lesson-nav-link {
-  display: grid; padding: 0.75rem 1rem; text-decoration: none; color: var(--text);
-  border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface);
-}
-.lesson-nav-link small { color: var(--muted); }
+.lesson-nav:empty { display: none; } /* boʻsh holatda joy egallamasin: kontent yuklanganda sakramasin */
+.lesson-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 2.5rem; border-top: 1px solid var(--border); padding-top: 1rem; }
+.lesson-nav-link { display: grid; padding: 0.5rem 0; text-decoration: none; color: var(--text); font-weight: 600; }
+.lesson-nav-link small { color: var(--muted); font-weight: 400; }
 .lesson-nav-link.next { text-align: right; grid-column: 2; }
-.lesson-nav-link:hover { border-color: var(--accent); }
-
+.lesson-nav-link:hover span { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- Lugʻat ---------- */
 .glossary dt { font-weight: 700; margin-top: 1.25rem; }
@@ -86,15 +97,17 @@ td:first-child, th:first-child { text-align: left; }
 .star-row { display: flex; gap: 0.25rem; }
 .star {
   display: grid; place-items: center; width: 2.75rem; height: 2.75rem;
-  font-size: 1.9rem; line-height: 1; cursor: pointer; color: var(--muted); border-radius: 8px;
+  font-size: 1.9rem; line-height: 1; cursor: pointer; color: var(--muted); border-radius: var(--radius);
+  transition: transform 0.1s;
 }
-.star.on { color: var(--star); }
+.star:active { transform: scale(0.9); }
+.star.on { color: var(--accent); }
 .stars input:focus-visible + .star { outline: 3px solid var(--accent); outline-offset: 1px; }
 .feedback-label { font-weight: 600; }
 .feedback textarea {
   font: inherit; width: 100%; padding: 0.6rem 0.75rem; resize: vertical;
-  border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text);
+  border: 1px solid var(--field); border-radius: var(--radius); background: var(--surface); color: var(--text);
 }
-.feedback-warning { margin: 0; font-size: 0.9rem; font-weight: 600; color: var(--warn-text); background: var(--warn-bg); border-radius: 6px; padding: 0.35rem 0.6rem; }
+.feedback-warning { margin: 0; font-size: 0.95rem; font-weight: 600; color: var(--bad); background: var(--bad-soft); border-radius: var(--radius); padding: 0.35rem 0.6rem; }
 .feedback button[type="submit"] { justify-self: start; margin-top: 0.25rem; }
 .feedback-status { margin: 0; }

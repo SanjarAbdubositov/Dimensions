@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { parseFrontmatter, parseDirective, countWords } from '../js/markdown.js';
+import { parseFrontmatter, parseDirective, countWords, DEEPER_START } from '../js/markdown.js';
 import { validateQuiz } from '../js/quiz.js';
 import { LESSONS } from '../js/lessons.js';
 import { ALL_CONTROLS } from '../js/simulator.js';
@@ -31,7 +31,15 @@ for (const lesson of LESSONS) {
   });
 
   test(`${lesson.id}-dars: direktivalar toʻgʻri yozilgan`, () => {
-    const lines = read(`content/lessons/${lesson.id}.md`).split('\n').filter((l) => l.startsWith(':::'));
+    const all = read(`content/lessons/${lesson.id}.md`).split('\n').filter((l) => l.startsWith(':::'));
+    // ":::chuqurroq …" bloklari ochilgan va yopilgan (":::") boʻlishi kerak
+    let open = 0;
+    for (const line of all) {
+      if (DEEPER_START.test(line.trim())) { assert.equal(open, 0, `ichma-ich chuqurroq: ${line}`); open = 1; }
+      else if (line.trim() === ':::') { assert.equal(open, 1, 'ortiqcha yopuvchi :::'); open = 0; }
+    }
+    assert.equal(open, 0, 'chuqurroq bloki yopilmagan');
+    const lines = all.filter((l) => !DEEPER_START.test(l.trim()) && l.trim() !== ':::');
     for (const line of lines) {
       const d = parseDirective(line);
       assert.ok(d, `notoʻgʻri direktiva: ${line}`);

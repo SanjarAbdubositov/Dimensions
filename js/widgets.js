@@ -16,6 +16,19 @@ export function mountDirectives(root) {
     else if (node.dataset.directive === 'predict') mountPredict(node, params);
     else node.remove(); // nomaʼlum direktiva — koʻrsatmaymiz
   }
+  watchScrollables(root);
+}
+
+// Ekranga sigʻmagan formula, jadval va kod oʻz ichida suriladi. Klaviatura bilan ham surish uchun
+// ular faqat haqiqatan sigʻmaganda Tab bilan tanlanadigan boʻladi (oʻlcham oʻzgarsa — qayta tekshiriladi)
+function watchScrollables(root) {
+  const observer = new ResizeObserver((entries) => {
+    for (const { target } of entries) {
+      if (target.scrollWidth > target.clientWidth + 1) target.setAttribute('tabindex', '0');
+      else target.removeAttribute('tabindex');
+    }
+  });
+  root.querySelectorAll('.formula, .table-wrap, pre').forEach((node) => observer.observe(node));
 }
 
 // Kichik simulyator: dims va controls parametrlari bilan

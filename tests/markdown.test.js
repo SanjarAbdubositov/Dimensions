@@ -62,3 +62,20 @@ test('simulyator direktivasi joy-egallovchiga aylanadi', () => {
 test('soʻzlarni sanash kod va direktivalarni hisobga olmaydi', () => {
   assert.equal(countWords('Bir ikki uch.\n\n```\nkod kod kod\n```\n:::simulator dims=4:::\n— toʻrt'), 4);
 });
+
+test('chuqurroq bloki: yigʻiladigan <details>, ichida oddiy Markdown', () => {
+  const html = renderMarkdown(':::chuqurroq Formula\nMatn **qalin**.\n\n`d / (d − w)`\n:::\nKeyingi paragraf.');
+  assert.match(html, /^<details class="deeper"><summary>Chuqurroq: Formula<\/summary>/);
+  assert.match(html, /<strong>qalin<\/strong>/);
+  assert.match(html, /<p class="formula"><code>d \/ \(d − w\)<\/code><\/p><\/details>/);
+  assert.match(html, /<\/details>\n<p>Keyingi paragraf\.<\/p>$/);
+});
+
+test('chuqurroq sarlavhasi ham ekranlanadi', () => {
+  assert.ok(!renderMarkdown(':::chuqurroq <img src=x>\na\n:::').includes('<img'));
+});
+
+test('yolgʻiz formula alohida sinf oladi, gap ichidagi kod — yoʻq', () => {
+  assert.equal(renderMarkdown('`x + y`'), '<p class="formula"><code>x + y</code></p>');
+  assert.equal(renderMarkdown('Bu `x` son.'), '<p>Bu <code>x</code> son.</p>');
+});

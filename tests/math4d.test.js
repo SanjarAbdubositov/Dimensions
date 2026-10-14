@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import {
   makeVertices, makeEdges, listPlanes, identity, planeRotation, multiply,
   applyMatrix, norm, perspectiveStep, projectPerspective, projectOrthographic,
+  projectPetrie, convexHull,
 } from '../js/math4d.js';
 
 const EPS = 1e-9;
@@ -143,4 +144,29 @@ test('simulyator burchaklari: −180..180 oraligʻi va boshlangʻich koʻrinish'
   assert.equal(Object.keys(defaultAngles(4)).length, 6, '4D: 6 ta tekislik');
   assert.equal(defaultAngles(4)['0-3'], 20, 'XW biroz burilgan');
   assert.deepEqual(autoPlanes(4).map(([i, j]) => `${i}-${j}`), ['0-3', '1-2']);
+});
+
+// Rozetka-emblemalar shu ikki funksiyaga tayanadi: soya chegarasi haqiqatan 2n burchakmi?
+for (const n of [3, 4, 5]) {
+  test(`${n}-kubning Petrie proyeksiyasi: tashqi chegara ${2 * n} burchakli va muntazam`, () => {
+    const hull = convexHull(projectPetrie(makeVertices(n)));
+    assert.equal(hull.length, 2 * n);
+    const r = hull.map(norm);
+    r.forEach((x) => assert.ok(Math.abs(x - r[0]) < EPS, 'hamma burchak markazdan bir xil masofada'));
+    const side = (k) => norm([hull[k][0] - hull[(k + 1) % hull.length][0], hull[k][1] - hull[(k + 1) % hull.length][1]]);
+    hull.forEach((_, k) => assert.ok(Math.abs(side(k) - side(0)) < EPS, 'hamma tomon teng'));
+  });
+}
+
+test('convexHull: kvadrat ichidagi va tomonidagi nuqtalar tashlanadi', () => {
+  const hull = convexHull([[0, 0], [2, 0], [2, 2], [0, 2], [1, 1], [1, 0]]);
+  assert.equal(hull.length, 4);
+});
+
+test('4-kub soyasi 360°/8 = 45° ga burilganda oʻzgarmaydi (8 tomonlama simmetriya)', () => {
+  const pts = projectPetrie(makeVertices(4));
+  const key = (p) => `${p[0].toFixed(6)},${p[1].toFixed(6)}`.replace(/-0\.000000/g, '0.000000');
+  const a = Math.PI / 4;
+  const turned = pts.map(([x, y]) => [x * Math.cos(a) - y * Math.sin(a), x * Math.sin(a) + y * Math.cos(a)]);
+  assert.deepEqual(new Set(turned.map(key)), new Set(pts.map(key)));
 });

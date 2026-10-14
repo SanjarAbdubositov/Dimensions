@@ -1,7 +1,8 @@
 // markdown.js — darslar uchun juda oddiy Markdown parser (tashqi kutubxonasiz).
 // Sof funksiyalar: DOM yoʻq, shuning uchun Node'da test qilinadi.
 // Qoʻllab-quvvatlanadi: sarlavha, paragraf, roʻyxat, jadval, iqtibos (>), kod bloki,
-// **qalin**, *kursiv*, `kod`, [havola](url) va :::nom kalit=qiymat::: direktivalari.
+// **qalin**, *kursiv*, `kod`, [havola](url), :::nom kalit=qiymat::: direktivalari
+// va yigʻiladigan blok: ":::chuqurroq Sarlavha" … ":::" (formulalar va tafsilotlar uchun).
 
 // Frontmatter: fayl boshidagi --- ... --- orasidagi "kalit: qiymat" qatorlari
 export function parseFrontmatter(text) {
@@ -80,6 +81,7 @@ function renderTable(lines) {
 }
 
 const BLOCK_START = /^(#{1,4}\s|```|>|\||[-*]\s|\d+\.\s|:::)/;
+export const DEEPER_START = /^:::chuqurroq(?:\s+(.+))?$/;
 
 // Asosiy funksiya: Markdown matnni HTML qatoriga aylantiradi
 export function renderMarkdown(text) {
@@ -104,6 +106,13 @@ export function renderMarkdown(text) {
       i++; // yopuvchi ```
       const cls = lang ? ` class="language-${escapeHtml(lang)}"` : '';
       out.push(`<pre><code${cls}>${escapeHtml(code.join('\n'))}</code></pre>`);
+    } else if (DEEPER_START.test(line.trim())) {
+      const title = DEEPER_START.exec(line.trim())[1];
+      i++;
+      const inner = collect((l) => l.trim() !== ':::');
+      i++; // yopuvchi :::
+      const summary = title ? `Chuqurroq: ${renderInline(title)}` : 'Chuqurroq';
+      out.push(`<details class="deeper"><summary>${summary}</summary>${renderMarkdown(inner.join('\n'))}</details>`);
     } else if (parseDirective(line)) {
       out.push(renderDirective(parseDirective(line)));
       i++;
@@ -126,7 +135,10 @@ export function renderMarkdown(text) {
       const para = [line];
       i++;
       para.push(...collect((l) => l.trim() && !BLOCK_START.test(l)));
-      out.push(`<p>${renderInline(para.join(' '))}</p>`);
+      const text = para.join(' ');
+      // Yolgʻiz formula (faqat `kod`) — alohida qator, telefonda oʻz ichida suriladi
+      const cls = /^`[^`]+`$/.test(text.trim()) ? ' class="formula"' : '';
+      out.push(`<p${cls}>${renderInline(text)}</p>`);
     }
   }
   return out.join('\n');

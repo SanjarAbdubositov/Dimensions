@@ -9,6 +9,8 @@ import { mountDirectives } from './widgets.js';
 import { el } from './dom.js';
 import { track } from './analytics.js';
 import { renderFeedback } from './feedback.js';
+import { createRosette } from './rosette.js';
+import { renderProgress } from './progress-bar.js';
 
 const header = document.getElementById('lesson-header');
 const body = document.getElementById('lesson-body');
@@ -17,6 +19,7 @@ const nav = document.getElementById('lesson-nav');
 const feedbackBox = document.getElementById('lesson-feedback');
 
 let reachedEnd = false; // dars matni oxirigacha koʻrildimi (lesson_complete uchun)
+let updateProgress = () => {}; // test topshirilganda progress chizigʻini yangilash
 
 // Faylni matn sifatida yuklash (topilmasa xato)
 async function fetchText(url) {
@@ -25,15 +28,19 @@ async function fetchText(url) {
   return res.text();
 }
 
-// Sarlavha qismi: "N-dars · ≈ M daqiqa", nom va (kerak boʻlsa) qoralama belgisi
+// Sarlavha qismi: emblema, "N-dars · ≈ M daqiqa", nom, (kerak boʻlsa) qoralama belgisi va progress.
+// Emblema — (N+1) oʻlchamli kubning soyasi, bosh sahifadagi roʻyxatdagi bilan bir xil.
 function renderHeader(id, meta) {
-  const parts = [`${id}-dars`];
+  const parts = [`${id}-dars / ${LESSONS.length}`];
   if (meta.minutes) parts.push(`≈ ${meta.minutes} daqiqa`);
-  header.replaceChildren(
-    el('p', { class: 'eyebrow', text: parts.join(' · ') }),
-    el('h1', { text: meta.title }),
-  );
+  header.replaceChildren(el('div', { class: 'lesson-head' }, [
+    createRosette(id + 1, 56, { label: true }),
+    el('div', {}, [el('p', { class: 'eyebrow', text: parts.join(' · ') }), el('h1', { text: meta.title })]),
+  ]));
   if (meta.draft) header.append(el('p', { class: 'draft-banner', role: 'note', text: 'Qoralama — muallif hali qayta yozmagan' }));
+  const progress = el('p');
+  header.append(progress);
+  updateProgress = renderProgress(progress);
   document.title = `${meta.title} — Toʻrtinchi oʻlchov`;
 }
 
@@ -45,9 +52,9 @@ function renderNav(id) {
     el('small', { text: label }), el('span', { text: title }),
   ]);
   nav.replaceChildren(
-    prev ? link(`lesson.html?id=${prev.id}`, '← Oldingi dars', prev.title, 'prev') : el('span'),
+    prev ? link(`lesson.html?id=${prev.id}`, 'Oldingi dars', prev.title, 'prev') : el('span'),
     next
-      ? link(`lesson.html?id=${next.id}`, 'Keyingi dars →', next.title, 'next')
+      ? link(`lesson.html?id=${next.id}`, 'Keyingi dars', next.title, 'next')
       : link('index.html#darslar', 'Hammasi tugadi', 'Darslar roʻyxatiga', 'next'),
   );
 }
@@ -61,6 +68,7 @@ async function renderLessonQuiz(id) {
   renderQuiz(holder, quiz, {
     onSubmit: (result) => {
       markCompleted(id, result.score, result.max);
+      updateProgress();
       track('quiz_submit', { lessonId: id, score: result.score, maxScore: result.max });
       // "Tugatdi" = matn oxirigacha oʻqildi VA test topshirildi
       if (reachedEnd) track('lesson_complete', { lessonId: id }, { once: `lesson_complete_${id}` });

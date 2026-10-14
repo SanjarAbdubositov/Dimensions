@@ -19,12 +19,14 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="fonts/literata.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Asosiy qismga oʻtish</a>
   <header class="site-header">
-    <div class="wrap">
+    <div class="wrap wrap-wide">
       <a class="brand" href="index.html">Toʻrtinchi oʻlchov</a>
       <nav class="site-nav" aria-label="Asosiy menyu">
         <a href="#darslar">Darslar</a>
@@ -35,38 +37,55 @@
     </div>
   </header>
 
-  <main id="main" class="wrap">
+  <main id="main" class="wrap wrap-wide home">
     <section class="hero">
-      <h1>Toʻrtinchi oʻlchovni koʻrish mumkinmi?</h1>
-      <p class="lead">Biz uch oʻlchamli dunyoda yashaymiz. Lekin matematika 4, 7 va hatto 200 oʻlcham bilan bemalol ishlaydi — sunʼiy intellekt aynan shunday qiladi.</p>
-      <p>6 ta qisqa darsda nuqtadan tesseraktgacha boramiz, 4D shaklni oʻz qoʻlingiz bilan aylantirasiz va AI soʻzlarni qanday “koʻrishini” bilib olasiz. Hammasi telefonda ishlaydi.</p>
-      <div class="btn-row">
-        <a class="btn" href="lesson.html?id=1">Darslarni boshlash</a>
-        <a class="btn btn-secondary" href="simulator.html">Simulyatorni ochish</a>
+      <div class="hero-text">
+        <h1>Toʻrtinchi oʻlchovni koʻrish mumkinmi?</h1>
+        <p class="lead">Biz uch oʻlchamli dunyoda yashaymiz. Lekin matematika 4, 7 va hatto 200 oʻlcham bilan bemalol ishlaydi — sunʼiy intellekt aynan shunday qiladi.</p>
+        <p>6 ta qisqa darsda nuqtadan tesseraktgacha boramiz, 4D shaklni oʻz qoʻlingiz bilan aylantirasiz va AI soʻzlarni qanday “koʻrishini” bilib olasiz. Hammasi telefonda ishlaydi.</p>
+        <div class="btn-row">
+          <a class="btn" href="lesson.html?id=1">Darslarni boshlash</a>
+          <a class="btn btn-secondary" href="simulator.html">Simulyatorni ochish</a>
+        </div>
+      </div>
+      <div class="hero-sim">
+        <div id="mini-sim"></div>
+        <p class="hint">Shaklni barmoq yoki sichqoncha bilan sudrab aylantiring.</p>
       </div>
     </section>
 
-    <section aria-labelledby="try-title">
-      <h2 id="try-title">Sinab koʻring</h2>
-      <p>Oʻlchamni tanlang va shaklni barmogʻingiz yoki sichqoncha bilan sudrab aylantiring.</p>
-      <div id="mini-sim"></div>
+    <section class="rosette-note" aria-labelledby="rosette-title">
+      <div class="rosette-big" data-cube="4"></div>
+      <div>
+        <h2 id="rosette-title">Soya va naqsh</h2>
+        <p>Tesserakt soyasi va koshin naqshi bir xil 8 tomonlama simmetriyaga ega.</p>
+        <p class="emblem-note">Bu rasm qoʻlda chizilmagan, kompyuter hisoblagan: bu 4 oʻlchamli kubning (tesseraktning) Petrie tekisligiga tushgan soyasi. Uni 45° ga bursangiz, rasm oʻzgarmaydi.</p>
+        <!-- JOY: tarixiy maʼlumot shu yerga yoziladi, faqat docs/TEKSHIRISH.md dagi manbalar tekshirilgandan keyin. -->
+        <details class="deeper">
+          <summary>Chuqurroq</summary>
+          <p>Tesseraktning har bir uchi — toʻrtta ±1 sondan iborat: (x, y, z, w). Soya olish uchun har bir oʻqqa tekislikda bitta yoʻnalish beramiz: x — 0°, y — 45°, z — 90°, w — 135°. Uchning soyasi shu toʻrt yoʻnalishning ±1 marta yigʻindisi.</p>
+          <p>Bu tekislik <strong>Petrie</strong> (yoki <strong>Coxeter</strong>) tekisligi deyiladi. n oʻlchamli kubning shu tekislikdagi soyasi tashqi chegarasi har doim muntazam 2n burchak boʻladi: kubda 6, tesseraktda 8. Saytdagi testlar buni n = 3, 4, 5 uchun tekshiradi.</p>
+        </details>
+      </div>
     </section>
 
     <section id="darslar" aria-labelledby="lessons-title">
       <h2 id="lessons-title">Darslar</h2>
+      <p id="home-progress" class="progress">Tugatilgan darslar: 0 / 6</p>
       <ol class="lesson-list">
-        <li><a href="lesson.html?id=1" data-lesson="1"><span>Nuqtadan tesseraktgacha<small>Kesimlar, choʻzish va sanash</small></span></a></li>
-        <li><a href="lesson.html?id=2" data-lesson="2"><span>Vektorlar va koordinatalar<small>(x, y, z, w) va masofa</small></span></a></li>
-        <li><a href="lesson.html?id=3" data-lesson="3"><span>Aylanish: tekislikda burish<small>4D da 6 ta tekislik</small></span></a></li>
-        <li><a href="lesson.html?id=4" data-lesson="4"><span>Perspektiv proyeksiya: soya<small>4D shaklni 3D ga tushirish</small></span></a></li>
-        <li><a href="lesson.html?id=5" data-lesson="5"><span>Amaliy topshiriq<small>Somonchalar, fonar va qogʻoz</small></span></a></li>
-        <li><a href="lesson.html?id=6" data-lesson="6"><span>AI: 200 oʻlchamda fikrlash<small>Embeddinglar va PCA</small></span></a></li>
+        <li><a href="lesson.html?id=1" data-lesson="1"><span class="emblem-slot" data-cube="2"></span><span>Nuqtadan tesseraktgacha<small>Kesimlar, choʻzish va sanash</small></span></a></li>
+        <li><a href="lesson.html?id=2" data-lesson="2"><span class="emblem-slot" data-cube="3"></span><span>Vektorlar va koordinatalar<small>(x, y, z, w) va masofa</small></span></a></li>
+        <li><a href="lesson.html?id=3" data-lesson="3"><span class="emblem-slot" data-cube="4"></span><span>Aylanish: tekislikda burish<small>4D da 6 ta tekislik</small></span></a></li>
+        <li><a href="lesson.html?id=4" data-lesson="4"><span class="emblem-slot" data-cube="5"></span><span>Perspektiv proyeksiya: soya<small>4D shaklni 3D ga tushirish</small></span></a></li>
+        <li><a href="lesson.html?id=5" data-lesson="5"><span class="emblem-slot" data-cube="6"></span><span>Amaliy topshiriq<small>Somonchalar, fonar va qogʻoz</small></span></a></li>
+        <li><a href="lesson.html?id=6" data-lesson="6"><span class="emblem-slot" data-cube="7"></span><span>AI: 200 oʻlchamda fikrlash<small>Embeddinglar va PCA</small></span></a></li>
       </ol>
+      <p class="emblem-note">Har dars yonidagi belgi — kubning Petrie tekisligidagi soyasi: 1-darsda 2 oʻlchamli kub (kvadrat), 6-darsda 7 oʻlchamli kub. Har safar soya chegarasiga 2 ta burchak qoʻshiladi.</p>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="wrap">
+    <div class="wrap wrap-wide">
       <p>Kod — MIT litsenziyasi, dars matnlari — CC BY 4.0.</p>
       <p><a href="about.html">Loyiha haqida</a> · <a href="privacy.html">Maxfiylik</a> · <a href="privacy.html#statistika" data-analytics-settings>Statistika sozlamalari</a></p>
     </div>

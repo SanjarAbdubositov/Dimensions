@@ -82,16 +82,20 @@ Lighthouse — Chromeʼga oʻrnatilgan, sahifa tezligi va qulayligini baholaydig
 
 **Maqsad** (asosiy promptdagi M5 qabul mezoni): Performance ≥ 90 va Accessibility ≥ 90.
 
-**Lokal oʻlchov natijalari.** Lighthouse 12, mobil rejim, men lokal serverda oʻlchaganman:
+**Lokal oʻlchov natijalari.** Lighthouse 12, mobil rejim, men lokal serverda oʻlchaganman. “Koshin” dizaynidan oldin va keyin:
 
-| Sahifa | Performance | Accessibility | Best practices | SEO |
-|---|---|---|---|---|
-| Bosh sahifa | 100 | 100 | 100 | 100 |
-| Dars (1-dars) | 99 | 100 | 100 | 100 |
-| Simulyator | 100 | 100 | 100 | 100 |
-| Oldin/keyin testi | 100 | 100 | 100 | 100 |
-| Lugʻat, Loyiha haqida, Maxfiylik | 100 | 100 | 100 | 100 |
-| Admin panel | 100 | 100 | 100 | 54* |
+| Sahifa | Performance (oldin → keyin) | Accessibility | Best practices | SEO | LCP (oldin → keyin) |
+|---|---|---|---|---|---|
+| Bosh sahifa | 99 → 99 | 100 | 100 | 100 | 1.8 → 1.9 s |
+| Dars (1-dars) | 99 → 95–99 | 100 | 100 | 100 | 1.7 → 2.1 s |
+| Simulyator | 100 → 100 | 100 | 100 | 100 | 1.4 → 1.5 s |
+| Oldin/keyin testi | 100 → 100 | 100 | 100 | 100 | 1.3 → 1.7 s |
+| Lugʻat, Loyiha haqida, Maxfiylik | 100 → 100 | 100 | 100 | 100 | 1.3–1.4 → 1.4 s |
+| Admin panel | 100 → 99 | 100 | 100 | 54* | 1.4 → 1.7 s |
+
+LCP oʻsishining asosiy sababi — Literata shrifti (28 KB). CLS hamma joyda 0.
+
+Sekin 3G (400 kbit/s, 400 ms kechikish, CPU 4×, gzip bilan, 3 oʻlchov medianasi): bosh sahifa LCP 1.1 → 1.4 s, 1-dars 2.8 → 3.3 s, simulyator 1.2 → 1.4 s, lugʻat 1.2 → 1.3 s.
 
 \* Admin panelda SEO ataylab past: sahifa `noindex` — qidiruv tizimlari uni koʻrsatmasligi kerak.
 

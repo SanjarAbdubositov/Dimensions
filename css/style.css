@@ -135,6 +135,7 @@ small, .hint { font-size: 0.85rem; }
 .sim-info { position: absolute; left: 0.75rem; top: 0.5rem; right: 0.75rem; margin: 0; font-size: 0.85rem; color: var(--muted); pointer-events: none; }
 .sim-skip { position: absolute; right: 0.5rem; bottom: 0.5rem; background: var(--surface); font-size: 0.9rem; }
 .sim-side { display: grid; gap: var(--gap); align-content: start; }
+.sim > *, .sim-panel > *, .sim-row > * { min-width: 0; } /* uzun formula panelni ekrandan kengaytirmasin */
 .sim-panel { display: grid; gap: 0.9rem; }
 .sim-row { display: grid; gap: 0.35rem; }
 .sim-label { font-size: 0.85rem; font-weight: 600; color: var(--muted); }
@@ -172,6 +173,7 @@ small, .hint { font-size: 0.85rem; }
 .lamp input::-webkit-slider-thumb { -webkit-appearance: none; width: 1.75rem; height: 2.3rem; margin-top: -1.1rem; border: 0; background: var(--lamp) center / contain no-repeat; cursor: grab; }
 .lamp input::-moz-range-thumb { width: 1.75rem; height: 2.3rem; border: 0; background: var(--lamp) center / contain no-repeat; cursor: grab; }
 .lamp p { margin: 0; }
+.lamp input:focus-visible { outline-offset: -3px; }
 :root { --lamp: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 32'%3E%3Cpath d='M12 2a9 9 0 0 0-5 16.5V22h10v-3.5A9 9 0 0 0 12 2z' fill='%23b07810'/%3E%3Cpath d='M8 25h8M9 29h6' stroke='%23142033' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E"); }
 @media (prefers-color-scheme: dark) { :root { --lamp: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 32'%3E%3Cpath d='M12 2a9 9 0 0 0-5 16.5V22h10v-3.5A9 9 0 0 0 12 2z' fill='%23f0b442'/%3E%3Cpath d='M8 25h8M9 29h6' stroke='%23e6ecf5' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E"); } }
 .lamp-formula { font-variant-numeric: tabular-nums; font-size: 0.95rem; overflow-x: auto; white-space: nowrap; margin: 0.5rem 0 0; }

@@ -7,11 +7,16 @@ import { markStarted, markCompleted } from './progress.js';
 import { renderQuiz } from './quiz-ui.js';
 import { mountDirectives } from './widgets.js';
 import { el } from './dom.js';
+import { track } from './analytics.js';
+import { renderFeedback } from './feedback.js';
 
 const header = document.getElementById('lesson-header');
 const body = document.getElementById('lesson-body');
 const quizBox = document.getElementById('lesson-quiz');
 const nav = document.getElementById('lesson-nav');
+const feedbackBox = document.getElementById('lesson-feedback');
+
+let reachedEnd = false; // dars matni oxirigacha koʻrildimi (lesson_complete uchun)
 
 // Faylni matn sifatida yuklash (topilmasa xato)
 async function fetchText(url) {
@@ -54,8 +59,23 @@ async function renderLessonQuiz(id) {
   const holder = el('div');
   quizBox.append(holder);
   renderQuiz(holder, quiz, {
-    onSubmit: (result) => markCompleted(id, result.score, result.max),
+    onSubmit: (result) => {
+      markCompleted(id, result.score, result.max);
+      track('quiz_submit', { lessonId: id, score: result.score, maxScore: result.max });
+      // "Tugatdi" = matn oxirigacha oʻqildi VA test topshirildi
+      if (reachedEnd) track('lesson_complete', { lessonId: id }, { once: `lesson_complete_${id}` });
+    },
   });
+}
+
+// Matn oxiriga koʻrinmas belgi qoʻyib, u ekranda paydo boʻlganini kuzatamiz
+function watchLessonEnd() {
+  const marker = el('div', { class: 'lesson-end', 'aria-hidden': 'true' });
+  body.after(marker);
+  const observer = new IntersectionObserver((entries) => {
+    if (entries.some((e) => e.isIntersecting)) { reachedEnd = true; observer.disconnect(); }
+  });
+  observer.observe(marker);
 }
 
 // Xato xabari (masalan, dars topilmasa yoki internet uzilsa)
@@ -73,7 +93,10 @@ async function init() {
   body.innerHTML = renderMarkdown(markdown);
   mountDirectives(body);
   markStarted(id);
+  track('lesson_start', { lessonId: id }, { once: `lesson_start_${id}` });
+  watchLessonEnd();
   renderNav(id);
+  renderFeedback(feedbackBox, id);
   try {
     await renderLessonQuiz(id);
   } catch {

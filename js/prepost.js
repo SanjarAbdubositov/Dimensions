@@ -54,7 +54,7 @@ async function init() {
   const message = el('p', { class: 'notice', role: 'status', hidden: '' });
   const holder = el('div');
   root.replaceChildren(el('h1', { text: TEXT[type].title }), el('p', { class: 'lead', text: TEXT[type].intro }), message, holder);
-  renderQuiz(holder, quiz, { reveal: type === 'post', onSubmit: (r) => afterSubmit(r, message) });
+  renderQuiz(holder, quiz, { reveal: type === 'post', allowRetry: false, onSubmit: (r) => afterSubmit(r, message) });
 }
 
 init().catch(() => {

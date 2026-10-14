@@ -13,6 +13,9 @@
   --canvas-bg: #f3f1f8;
   --warn-bg: #fff3c4;
   --warn-text: #5c4400;
+  --ok: #1d7a3a;
+  --ok-soft: #dcf3e2;
+  --bad: #b3261e;
   --radius: 12px;
   --gap: 1rem;
   color-scheme: light dark;
@@ -32,6 +35,9 @@
     --canvas-bg: #0c0b11;
     --warn-bg: #4a3c0a;
     --warn-text: #ffe8a3;
+    --ok: #6fdc8c;
+    --ok-soft: #173d24;
+    --bad: #ff8a80;
   }
 }
 
@@ -145,3 +151,10 @@ a { color: var(--accent); text-underline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; }
 }
+
+/* ---------- Bosh sahifadagi dars holati ---------- */
+.lesson-list a { flex-wrap: wrap; }
+.lesson-list a > span:first-of-type { flex: 1; min-width: 12rem; }
+.status { font-size: 0.8rem; font-weight: 600; padding: 0.15rem 0.6rem; border-radius: 999px; white-space: nowrap; }
+.status-started { background: var(--warn-bg); color: var(--warn-text); }
+.status-completed { background: var(--ok-soft); color: var(--ok); }

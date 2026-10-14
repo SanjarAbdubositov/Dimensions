@@ -16,6 +16,7 @@
       <nav class="site-nav" aria-label="Asosiy menyu">
         <a href="#darslar">Darslar</a>
         <a href="simulator.html">Simulyator</a>
+        <a href="glossary.html">Lugʻat</a>
         <a href="about.html">Loyiha haqida</a>
       </nav>
     </div>
@@ -41,12 +42,12 @@
     <section id="darslar" aria-labelledby="lessons-title">
       <h2 id="lessons-title">Darslar</h2>
       <ol class="lesson-list">
-        <li><a href="lesson.html?id=1"><span>Nuqtadan tesseraktgacha<small>Kesimlar, choʻzish va sanash</small></span></a></li>
-        <li><a href="lesson.html?id=2"><span>Vektorlar va koordinatalar<small>(x, y, z, w) va masofa</small></span></a></li>
-        <li><a href="lesson.html?id=3"><span>Aylanish: tekislikda burish<small>4D da 6 ta tekislik</small></span></a></li>
-        <li><a href="lesson.html?id=4"><span>Perspektiv proyeksiya: soya<small>4D shaklni 3D ga tushirish</small></span></a></li>
-        <li><a href="lesson.html?id=5"><span>Amaliy topshiriq<small>Somonchalar, fonar va qogʻoz</small></span></a></li>
-        <li><a href="lesson.html?id=6"><span>AI: 200 oʻlchamda fikrlash<small>Embeddinglar va PCA</small></span></a></li>
+        <li><a href="lesson.html?id=1" data-lesson="1"><span>Nuqtadan tesseraktgacha<small>Kesimlar, choʻzish va sanash</small></span></a></li>
+        <li><a href="lesson.html?id=2" data-lesson="2"><span>Vektorlar va koordinatalar<small>(x, y, z, w) va masofa</small></span></a></li>
+        <li><a href="lesson.html?id=3" data-lesson="3"><span>Aylanish: tekislikda burish<small>4D da 6 ta tekislik</small></span></a></li>
+        <li><a href="lesson.html?id=4" data-lesson="4"><span>Perspektiv proyeksiya: soya<small>4D shaklni 3D ga tushirish</small></span></a></li>
+        <li><a href="lesson.html?id=5" data-lesson="5"><span>Amaliy topshiriq<small>Somonchalar, fonar va qogʻoz</small></span></a></li>
+        <li><a href="lesson.html?id=6" data-lesson="6"><span>AI: 200 oʻlchamda fikrlash<small>Embeddinglar va PCA</small></span></a></li>
       </ol>
     </section>
   </main>
@@ -58,9 +59,6 @@
     </div>
   </footer>
 
-  <script type="module">
-    import { createSimulator } from './js/simulator.js';
-    createSimulator(document.getElementById('mini-sim'), { dims: [2, 3, 4], controls: ['dims'] });
-  </script>
+  <script type="module" src="js/home.js"></script>
 </body>
 </html>

@@ -40,7 +40,8 @@ export function createSimulator(container, options = {}) {
     speed: (v) => { state.speed = v; },
     size: (v) => { state.size = v; requestFrame(); },
     angle: (i, j, v) => { state.angles[`${i}-${j}`] = v; requestFrame(); },
-    lamp: (d) => { markUsed(); state.distance = d / Math.sqrt(state.n); showLamp(); requestFrame(); },
+    // Chiroq surilsa, shakl aylanishdan toʻxtaydi: formula raqamlarini oʻqish oson boʻlsin
+    lamp: (d) => { markUsed(); state.auto = false; ui.syncState(state); state.distance = d / Math.sqrt(state.n); showLamp(); requestFrame(); },
     reset,
   });
   const canvas = ui.canvas;

@@ -83,6 +83,19 @@ Dars matnlari va testlarni Claude (AI) qoralama sifatida yozgan. Quyidagi faktla
 - [ ] Supabase kutubxonasining (jsDelivr) hajmi va yuklanish tezligi oʻlchanmagan: bu muhitdan jsDelivr yopiq edi. U faqat “Roziman” bosilgandan keyin yuklanadi.
 - [ ] Supabaseʼda **Site URL** va **Redirect URLs** ni koʻrsating — `DEPLOY.md`, 2-boʻlim.
 
+## Dizayn (Koshin)
+
+- [ ] ❓ **Tarixiy daʼvolar saytga yozilmagan.** `index.html` da “Soya va naqsh” boʻlimida joy qoldirilgan (HTML izoh). Manbalar bilan tekshirilgandan keyin qoʻshiladi:
+  - Samarqand koshinlarida (masalan, Shohi Zinda, Registon) 8 burchakli yulduz naqshi bormi, qaysi binoda, qaysi asrda?
+  - Darb-i Imom (Isfahon, 1453) — girih naqshlari haqida nima deyish mumkin?
+  - Lu va Steinhardt, 2007, *Science* — “Decagonal and quasi-crystalline tilings in medieval Islamic architecture”. Maqolaning aniq nomi, soni va sahifasi; u nimani daʼvo qiladi va nimani daʼvo qilmaydi.
+- [ ] ❓ “Tesserakt soyasi va koshin naqshi bir xil 8 tomonlama simmetriyaga ega” — matematik qismi testda tekshirilgan (soya 45° burilganda oʻzgarmaydi). “Koshin naqshi” umumiy soʻz: aniq qaysi naqsh nazarda tutilishini muallif tanlashi va tekshirishi kerak.
+- [ ] Literata shriftida oʻzbek kirill harfi **ҳ / Ҳ (U+04B3 / U+04B2)** yoʻq (rus va qozoq harflari bor — `tools/font-check.py`). Agar sayt oʻzbek kirilida ham chiqsa, bu harf boshqa shriftda koʻrinadi.
+- [ ] Hozir saytga faqat lotin harflari yuklanadi. Rus yoki qozoq tili qoʻshilganda kirill qismini `tools/font-subset.py` bilan yarating (izohda yozilgan).
+- [ ] 2, 3, 4-darslarda formulalar “Chuqurroq” bloklariga koʻchirildi, asosiy matn soʻz bilan tushuntirildi. 4-darsga chiroq haqida paragraf qoʻshildi. Matnlarni oʻqib chiqing.
+- [ ] Simulyatorda w ranglari oʻrtada (firuza → zafar oraligʻida) zaytun rangga oʻtadi — palitraning tabiiy natijasi. Yoqmasa, `--w-mid` ni oʻzgartirish mumkin.
+- [ ] Bosh sahifadagi emblemalar: n-dars yonida (n+1) oʻlchamli kub. Bu dizayn qarori, dars mavzusiga bogʻliq emas.
+
 ## Hali qoralama boʻlgan fayllar
 
 | Fayl | Belgisi |

@@ -1,14 +1,15 @@
 # font-subset.py — Literata shriftini sayt uchun kichraytiradi (bir martalik, build qadam emas).
-# Natija repoda saqlanadi: fonts/literata.woff2 va fonts/literata-italic.woff2.
+# Natija repoda saqlanadi: fonts/literata.woff2 (≈ 28 KB). Kursiv fayl yoʻq: u kam ishlatiladi,
+# brauzer kursivni oʻzi yasaydi va sahifa 33 KB yengilroq boʻladi (dars LCP 2.3 s → 2.1 s).
 #
 # Qayta yaratish:
 #   pip install fonttools brotli
 #   npm pack @fontsource-variable/literata@5.3.0 && tar -xzf fontsource-variable-literata-5.3.0.tgz
 #   python3 tools/font-subset.py package/files/literata-latin-wght-normal.woff2 fonts/literata.woff2
-#   python3 tools/font-subset.py package/files/literata-latin-wght-italic.woff2 fonts/literata-italic.woff2
 #
-# Nima qoladi: lotin harflari (oʻzbek, ingliz, Latin-1), ʻ (U+02BB), ʼ (U+02BC), tire va qoʻshtirnoqlar,
-# daraja va indeks raqamlari, minus belgisi. Ogʻirlik oʻqi 400–700 bilan cheklanadi.
+# Nima qoladi: ASCII, «» ° ± · kabi belgilar, É é í ü × ÷, ʻ (U+02BB), ʼ (U+02BC), tire va
+# qoʻshtirnoqlar, daraja va indeks raqamlari, minus belgisi. Ogʻirlik oʻqi 400–700 bilan cheklanadi.
+# Roʻyxatda yoʻq harf (masalan, ä) chiqsa, u tizim shriftida koʻrinadi — RANGES ga qoʻshing.
 # Kirill harflari (rus, qozoq) kerak boʻlsa: cyrillic va cyrillic-ext fayllaridan alohida fayl yarating
 # va style.css da unicode-range bilan ulang. Faqat oʻsha harflar uchragan sahifada yuklanadi.
 import sys
@@ -16,7 +17,7 @@ from fontTools.ttLib import TTFont
 from fontTools.varLib import instancer
 from fontTools import subset
 
-RANGES = '20-7E,A0-FF,131,152-153,2BB-2BC,2C6,2DA,2DC,2013-2014,2018-201E,2022,2026,2032-2033,2039-203A,2070-2079,207F,2080-2089,2212,2215,FEFF'
+RANGES = '20-7E,A0-BF,C9,D7,E9,ED,F7,FC,2BB-2BC,2013-2014,2018-201E,2022,2026,2032-2033,2070-2079,207F,2080-2089,2212,FEFF'
 
 
 # "20-7E,A0" → [0x20, ..., 0x7E, 0xA0]

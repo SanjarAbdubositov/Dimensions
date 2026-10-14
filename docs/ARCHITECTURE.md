@@ -54,9 +54,9 @@ Bitta qadam formulasi darsdagidek: `(x, y, z) · d / (d − w)`. U oxirgi oʻqni
 
 **Yechim:** `projectPerspective(points, distance)` da `distance` — shakl radiusiga **nisbatan** masofa. Har qadamda radius qayta oʻlchanadi va `d = distance × radius`. Masalan, `distance = 2.5` — “kamera eng uzoq uchdan 2.5 baravar uzoqda”. Har bir nuqtaning |w| qiymati radiusdan katta boʻlolmaydi, shuning uchun `distance > 1` boʻlsa kamera hech qachon shakl ichida qolmaydi. `distance ≤ 1` boʻlsa funksiya xato beradi.
 
-### Rang
+### Rang va qalinlik
 
-Rang oxirgi oʻq qiymatini bildiradi (proyeksiyadan **oldin**, aylanishdan keyin): koʻk — uzoq (w manfiy), qizil — yaqin (w musbat). Qiymat √n ga boʻlinadi, chunki giperkub uchining markazdan masofasi √n.
+Oxirgi oʻq qiymati (proyeksiyadan **oldin**, aylanishdan keyin) **ikki** belgi bilan koʻrsatiladi: rang (kobalt koʻk — uzoq, firuza — oʻrta, zafar — yaqin) va chiziq qalinligi/xiraligi (uzoq — ingichka va xira, yaqin — qalin va toʻq). Rangni ajrata olmaydigan odam qalinlikka qaraydi. Qiymat √n ga boʻlinadi, chunki giperkub uchining markazdan masofasi √n. Ranglar CSS oʻzgaruvchilaridan (`--w-far`, `--w-mid`, `--w-near`) oʻqiladi, shuning uchun qorongʻi rejimda oʻzi almashadi. Hisob — `depthStyle()` (`js/sim-render.js`).
 
 ### Darslarga qoʻshish
 
@@ -291,3 +291,42 @@ Bu loyihadagi yagona “ildizni bilish kerak” boʻlgan joy. Qolgan hamma yoʻl
 - Fikr formasidagi yulduzlar holatni rang bilan emas, shakl bilan ham koʻrsatadi (★ / ☆).
 - Admin jadvallari telefonda yon tomonga suriladi, shuning uchun ular klaviatura bilan ham fokuslanadi (`tabindex="0"`).
 - axe-core barcha sahifalarda, ikkala rejimda va interaktiv holatlarda (banner, quiz natijasi, admin hisoboti) xatosiz oʻtdi.
+
+## Dizayn: “Koshin”
+
+Yoʻnalish: Samarqand koshinlarining ranglari (sir oq fon, lojuvard siyoh matn, kobalt, firuza, anor, zafar) va tesseraktning simmetrik soyasi. Bezak uchun fon naqshlari yoʻq: yagona “naqsh” — matematik hisoblangan rozetka.
+
+| Fayl | Vazifasi |
+|---|---|
+| `fonts/literata.woff2` | Literata shrifti, faqat oʻzbek lotin matni uchun kerakli belgilar va 400–700 ogʻirlik (28 KB). Kursiv fayl yoʻq — brauzer oʻzi yasaydi. Litsenziya — `fonts/OFL.txt` |
+| `tools/font-subset.py`, `tools/font-check.py` | Shriftni kichraytirish va kerakli harflar (ʻ ʼ, kirill, qozoq) borligini tekshirish |
+| `css/home.css` | Faqat bosh sahifa: hero, “Soya va naqsh”, darslar roʻyxati |
+| `js/rosette.js` | Rozetka-emblema: n-kubning Petrie tekisligidagi soyasi, SVG |
+| `js/sim-intro.js` | Bosh sahifadagi kirish animatsiyasi (nuqta → tesserakt) |
+| `js/sim-input.js` | Simulyatorni sichqoncha, barmoq va klaviatura bilan boshqarish |
+| `js/progress-bar.js` | “Tugatilgan darslar: 2 / 6” va zafar rangli chiziq |
+
+### Rozetka qanday hisoblanadi
+
+n oʻlchamli kubning har bir uchi — n ta ±1 son. Har bir oʻqqa tekislikda bitta yoʻnalish beriladi: k-oʻq k·180°/n burchakka qaragan birlik vektorga tushadi (`projectPetrie`, `js/math4d.js`). Uchning soyasi shu vektorlarning ±1 marta yigʻindisi. Bu **Petrie** (Coxeter) tekisligiga proyeksiya: soyaning tashqi chegarasi muntazam 2n burchak boʻladi, chunki n ta turli yoʻnalishdagi kesmalar yigʻindisi doim 2n burchak beradi, yoʻnalishlar teng taqsimlangani uchun esa u muntazam. Tesseraktda (n = 4) bu sakkiz burchak, rasm 45° ga burilganda oʻzgarmaydi. Testlar (`tests/math4d.test.js`): `convexHull` bilan chegara n = 3, 4, 5 da 6, 8, 10 burchakli va muntazam ekani, 4-kub soyasi 45° burishda oʻzgarmasligi tekshiriladi.
+
+Bosh sahifadagi darslar yonida (dars raqami + 1) oʻlchamli kub turadi: 1-darsda kvadrat, 6-darsda 7-kub. Bu dizayn qarori, dars mavzusi bilan bogʻliq emas — sahifada shunday yozilgan.
+
+### Kirish animatsiyasi
+
+Tesseraktning 16 ta uchi har bir oʻq boʻylab 0 dan 1 gacha “choʻziladi” (`introStretch`): hamma oʻq 0 — nuqta, birinchisi 1 — kesma va hokazo. Bitta kod yoʻli, alohida shakl yoʻq: oxirida choʻzish olib tashlanadi va oddiy jonli simulyator qoladi. ≈ 3.5 s, “Oʻtkazib yuborish” tugmasi bor, sessiyada bir marta (`sessionStorage`). `prefers-reduced-motion` yoqilgan boʻlsa animatsiya umuman boʻlmaydi — darhol yakuniy holat. Foydalanuvchi shaklga tegsa, animatsiya darhol tugaydi.
+
+### Chiroq (faqat 4-dars)
+
+`:::simulator … controls=…,lamp:::` — suriladigan chiroq (oddiy `<input type="range">`, shuning uchun barmoq, sichqoncha va strelkalar bilan ishlaydi). U `d` ni oʻzgartiradi, ostida eng yaqin va eng uzoq uch uchun `d / (d − w)` jonli hisoblanadi. Koʻrsatilgan `d` — uch koordinatalari ±1 boʻlgan birliklarda (4D da radius 2, shuning uchun d > 2). Formula canvas ekrandan chiqib ketgan boʻlsa ham yangilanadi.
+
+### Oʻqish va tipografiya
+
+- Matn 18px, qator oraligʻi 1.6, sarlavhalar taxminan 1.25 shkalada. Matn kengligi `28em`: oʻlchovda qator ≤ 64 belgi (talab ≤ 68).
+- Shrift — bitta oila (Literata) + kod uchun tizim monospace. `font-display: swap`; yuklanguncha Noto Serif / Georgia Literata oʻlchamiga moslanadi (`size-adjust`), shuning uchun almashganda matn sakramaydi.
+- Formulalar, jadvallar va kod telefonda oʻz ichida suriladi. Sigʻmasa — Tab bilan tanlanadigan boʻladi (`watchScrollables`, `js/widgets.js`).
+- “Chuqurroq” bloklari: `:::chuqurroq Sarlavha` … `:::` → `<details>`. Formulalar shu ichida, asosiy matn 13 yoshli tushunadigan tilda.
+
+### Harakat qoidalari
+
+Faqat `transform` va `opacity`. Oʻz-oʻzidan harakat — faqat bosh sahifadagi bitta animatsiya. Qolgani foydalanuvchi biror narsa qilganda: tugma bosilganda choʻkishi, test javobi chiqishi, dars tugaganda progress chizigʻining toʻlishi. Oltin (zafar) rang faqat progress va “yaqin” uchun.

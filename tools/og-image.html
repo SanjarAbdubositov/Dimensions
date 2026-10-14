@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <title>og-image generatori</title>
+  <!--
+    Ulashish rasmi (og-image.png, 1200×630) shu sahifadan olinadi.
+    Tesserakt saytning oʻz matematikasi (js/math4d.js) bilan chiziladi.
+    Qayta yaratish: sahifani server orqali oching (python -m http.server),
+    brauzer oynasini 1200×630 qiling va skrinshot oling. Batafsil: docs/DEPLOY.md.
+  -->
+  <style>
+    html, body { margin: 0; }
+    body { width: 1200px; height: 630px; overflow: hidden; background: #121118; color: #ecebf2; font-family: Inter, system-ui, sans-serif; }
+    .card { position: relative; width: 1200px; height: 630px; }
+    svg { position: absolute; right: 30px; top: 15px; }
+    .text { position: absolute; left: 72px; top: 150px; width: 560px; }
+    h1 { font-size: 84px; line-height: 1.02; margin: 0 0 28px; letter-spacing: -1.5px; }
+    p { font-size: 32px; line-height: 1.35; margin: 0; color: #c9c6d6; }
+    .tag { display: inline-block; margin-top: 40px; font-size: 24px; font-weight: 600; color: #15122a; background: #a995ff; border-radius: 999px; padding: 10px 22px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="text">
+      <h1>Toʻrtinchi oʻlchov</h1>
+      <p>4D geometriya va sunʼiy intellekt — oʻzbek tilida bepul interaktiv darslar</p>
+      <span class="tag">Tesseraktni oʻzingiz aylantiring</span>
+    </div>
+    <svg id="art" width="600" height="600" viewBox="-300 -300 600 600" aria-hidden="true"></svg>
+  </div>
+  <script type="module">
+    import { makeVertices, makeEdges, listPlanes, composeRotations, applyMatrix, projectPerspective, maxNorm } from '../js/math4d.js';
+    import { depthColor } from '../js/sim-render.js';
+
+    // Simulyatordagi boshlangʻich koʻrinishga oʻxshash burchaklar (gradusda)
+    const angles = { '0-2': 30, '1-2': 20, '0-3': 28 };
+    const n = 4;
+    const vertices = makeVertices(n);
+    const edges = makeEdges(vertices);
+    const rotations = listPlanes(n).map(([i, j]) => [i, j, ((angles[`${i}-${j}`] ?? 0) * Math.PI) / 180]);
+    const rotated = applyMatrix(composeRotations(n, rotations), vertices);
+    const depth = rotated.map((p) => p[n - 1] / Math.sqrt(n));
+    const projected = projectPerspective(rotated, 2.5);
+    const scale = 270 / maxNorm(projected);
+    const svg = document.getElementById('art');
+    const ns = 'http://www.w3.org/2000/svg';
+    // Uzoq qirralar avval, yaqinlari ustida
+    const order = edges.map(([a, b]) => [a, b, (depth[a] + depth[b]) / 2]).sort((x, y) => x[2] - y[2]);
+    for (const [a, b, d] of order) {
+      const line = document.createElementNS(ns, 'line');
+      Object.entries({ x1: projected[a][0] * scale, y1: -projected[a][1] * scale, x2: projected[b][0] * scale, y2: -projected[b][1] * scale, stroke: depthColor(d), 'stroke-width': 5, 'stroke-linecap': 'round' })
+        .forEach(([k, v]) => line.setAttribute(k, v));
+      svg.append(line);
+    }
+    projected.forEach((p, k) => {
+      const dot = document.createElementNS(ns, 'circle');
+      Object.entries({ cx: p[0] * scale, cy: -p[1] * scale, r: 8, fill: depthColor(depth[k]) }).forEach(([key, v]) => dot.setAttribute(key, v));
+      svg.append(dot);
+    });
+    document.body.dataset.ready = '1';
+  </script>
+</body>
+</html>

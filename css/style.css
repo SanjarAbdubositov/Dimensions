@@ -125,7 +125,7 @@ small, .hint { font-size: 0.85rem; }
 .emblem-note { font-size: 0.85rem; color: var(--muted); }
 
 /* ---------- Simulyator ---------- */
-.sim { display: grid; gap: var(--gap); }
+.sim { display: grid; gap: var(--gap); align-content: start; }
 .sim-stage { position: relative; }
 .sim-canvas {
   display: block; width: 100%; height: min(80vw, 22rem);
@@ -135,7 +135,7 @@ small, .hint { font-size: 0.85rem; }
 }
 .sim-canvas:active { cursor: grabbing; }
 .sim-info { position: absolute; left: 0.75rem; top: 0.5rem; right: 0.75rem; margin: 0; font-size: 0.85rem; color: var(--muted); pointer-events: none; }
-.sim-skip { position: absolute; right: 0.5rem; bottom: 0.5rem; }
+.sim-skip { position: absolute; right: 0.5rem; bottom: 0.5rem; background: var(--surface); font-size: 0.9rem; }
 .sim-side { display: grid; gap: var(--gap); align-content: start; }
 .sim-panel { display: grid; gap: 0.9rem; }
 .sim-row { display: grid; gap: 0.35rem; }

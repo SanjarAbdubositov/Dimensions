@@ -159,7 +159,7 @@ export function createSimulator(container, options = {}) {
     const dt = lastTime ? Math.min(0.1, (now - lastTime) / 1000) : 0;
     lastTime = now;
     const intro = sim.intro?.tick(dt) ?? false;
-    const spinning = state.auto && !input.dragging() && state.speed > 0;
+    const spinning = state.auto && !intro && !input.dragging() && state.speed > 0; // animatsiyada aylanmaydi
     if (spinning) {
       for (const [i, j, factor] of autoPlanes(state.n)) turn(i, j, state.speed * factor * dt);
       ui.syncAngles(state.angles);

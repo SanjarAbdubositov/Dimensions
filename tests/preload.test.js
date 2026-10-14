@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { posix } from 'node:path';
+import { LESSONS } from '../js/lessons.js';
 
 const ROOT = new URL('..', import.meta.url);
 const read = (path) => readFileSync(new URL(path, ROOT), 'utf8');
@@ -53,4 +54,9 @@ test('lesson.html: dars matni va testi modullardan oldin soʻraladi', () => {
   assert.match(html, /link\.rel = 'preload'/);
   assert.match(html, /'content\/lessons\/' \+ id \+ '\.md'/);
   assert.match(html, /'content\/quizzes\/' \+ id \+ '\.json'/);
+});
+
+test('lesson.html: oldindan soʻrash faqat mavjud darslar uchun (notoʻgʻri id da 404 chiqmasin)', () => {
+  const max = /\^\[1-(\d)\]\$/.exec(read('lesson.html'))?.[1];
+  assert.equal(Number(max), LESSONS.length, 'lesson.html dagi /^[1-N]$/ darslar soniga teng boʻlsin');
 });

@@ -27,7 +27,7 @@
     // va brauzer ularni qayta yuklamaydi.
     (function () {
       var id = new URLSearchParams(location.search).get('id');
-      if (!/^[1-9][0-9]?$/.test(id || '')) return;
+      if (!/^[1-6]$/.test(id || '')) return; // 1–6: js/lessons.js dagi darslar soni (testda tekshiriladi)
       ['content/lessons/' + id + '.md', 'content/quizzes/' + id + '.json'].forEach(function (href) {
         var link = document.createElement('link');
         link.rel = 'preload';

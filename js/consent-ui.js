@@ -9,7 +9,7 @@ let current = null; // bir vaqtda faqat bitta banner
 // Banner chizadi. settingsMode — foydalanuvchi oʻzi ochgan sozlamalar (joriy holat ham koʻrsatiladi)
 export function showConsentBanner({ status, settingsMode, onChoose }) {
   current?.remove();
-  const close = () => { current?.remove(); current = null; };
+  const close = () => { current?.remove(); current = null; document.body.style.paddingBottom = ''; };
   const choose = (value) => { onChoose(value); close(); };
 
   const children = [el('p', { class: 'consent-text', text: TEXT })];
@@ -32,6 +32,8 @@ export function showConsentBanner({ status, settingsMode, onChoose }) {
     el('div', { class: 'consent-inner' }, children),
   ]);
   document.body.append(current);
+  // Banner sahifa oxirini (footer'ni) yopib qoʻymasligi uchun pastdan joy qoldiramiz
+  document.body.style.paddingBottom = `${current.offsetHeight}px`;
   // Foydalanuvchi oʻzi ochgan boʻlsa, fokusni bannerga oʻtkazamiz (klaviatura bilan ishlash uchun)
   if (settingsMode) buttons[0].focus();
 }

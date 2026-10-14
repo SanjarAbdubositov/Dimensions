@@ -1,0 +1,61 @@
+{
+  "lesson": 5,
+  "draft": true,
+  "questions": [
+    {
+      "q": "Somonchalardan yasalgan tesserakt modelida nechta somoncha ishlatiladi?",
+      "options": [
+        "16",
+        "32",
+        "24",
+        "48"
+      ],
+      "answer": 1,
+      "explain": "Katta kub (12) + kichik kub (12) + ularni tutashtiruvchi somonchalar (8) = 32 — tesseraktning qirralari soni."
+    },
+    {
+      "q": "Modeldagi plastilin sharchalar (tutashmalar) soni nimaga teng?",
+      "options": [
+        "Qirralar soniga — 32 ta",
+        "Kublar soniga — 8 ta",
+        "Uchlar soniga — 16 ta",
+        "Kvadratlar soniga — 24 ta"
+      ],
+      "answer": 2,
+      "explain": "Har bir sharcha — bitta uch: katta kubda 8 ta va kichik kubda 8 ta, jami 16 ta."
+    },
+    {
+      "q": "Tesserakt yoyilmasi nechta kubdan iborat?",
+      "options": [
+        "6",
+        "12",
+        "16",
+        "8"
+      ],
+      "answer": 3,
+      "explain": "Kub yoyilmasi 6 ta kvadratdan iborat boʻlgani kabi, tesserakt yoyilmasi uning 8 ta kubidan iborat."
+    },
+    {
+      "q": "5 oʻlchamli giperkubda nechta qirra bor?",
+      "options": [
+        "80",
+        "40",
+        "64",
+        "160"
+      ],
+      "answer": 0,
+      "explain": "Tesseraktning 32 ta qirrasi ikki baravar boʻladi (64) va har bir eski uchdan bittadan yangi qirra qoʻshiladi (16): 64 + 16 = 80."
+    },
+    {
+      "q": "Salvador Dalíning “Corpus Hypercubus” (1954) asarida xoch qanday shaklda tasvirlangan?",
+      "options": [
+        "Kub soyasi shaklida",
+        "Tesserakt yoyilmasi shaklida",
+        "Doiralar shaklida",
+        "Yassi dunyo xaritasi shaklida"
+      ],
+      "answer": 1,
+      "explain": "Asardagi xoch 8 ta kubdan tuzilgan — bu tesserakt yoyilmasi."
+    }
+  ]
+}

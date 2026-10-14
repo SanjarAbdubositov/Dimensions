@@ -1,0 +1,61 @@
+{
+  "lesson": 2,
+  "draft": true,
+  "questions": [
+    {
+      "q": "(2, 3) va (3, 2) haqida qaysi gap toʻgʻri?",
+      "options": [
+        "Bular bir xil nuqta",
+        "Ular faqat 3D da farq qiladi",
+        "Bular turli nuqtalar, chunki vektorda tartib muhim",
+        "Bular vektor emas"
+      ],
+      "answer": 2,
+      "explain": "Vektor — tartiblangan sonlar roʻyxati. Birinchi son x, ikkinchisi y, shuning uchun tartib almashsa, nuqta ham boshqa boʻladi."
+    },
+    {
+      "q": "Qaysi ikki uch tesseraktda qirra bilan tutashgan?",
+      "options": [
+        "(1, 1, 1, 1) va (−1, −1, 1, 1)",
+        "(1, 1, 1, 1) va (−1, −1, −1, −1)",
+        "(1, −1, 1, −1) va (−1, 1, −1, 1)",
+        "(1, 1, 1, 1) va (1, 1, 1, −1)"
+      ],
+      "answer": 3,
+      "explain": "Qirra faqat bitta koordinatada farq qiladigan uchlarni tutashtiradi. Bu yerda faqat oxirgi koordinata farq qiladi."
+    },
+    {
+      "q": "Tomoni 2 boʻlgan tesseraktning bosh diagonali, yaʼni (−1, −1, −1, −1) dan (1, 1, 1, 1) gacha masofa qancha?",
+      "options": [
+        "4",
+        "2",
+        "2√2",
+        "8"
+      ],
+      "answer": 0,
+      "explain": "Har bir koordinata farqi 2 ga teng: √(2² + 2² + 2² + 2²) = √16 = 4."
+    },
+    {
+      "q": "Tesseraktning har bir uchidan nechta qirra chiqadi?",
+      "options": [
+        "2",
+        "4",
+        "3",
+        "8"
+      ],
+      "answer": 1,
+      "explain": "Toʻrtta koordinatadan istalgan bittasining ishorasini almashtirsak, qoʻshni uch hosil boʻladi. Demak, har bir uchdan 4 ta qirra chiqadi."
+    },
+    {
+      "q": "Pythonʼdagi product([-1, 1], repeat=5) nechta uch beradi?",
+      "options": [
+        "10",
+        "25",
+        "32",
+        "64"
+      ],
+      "answer": 2,
+      "explain": "Har bir koordinata uchun 2 ta tanlov bor, koordinatalar 5 ta: 2 · 2 · 2 · 2 · 2 = 32."
+    }
+  ]
+}

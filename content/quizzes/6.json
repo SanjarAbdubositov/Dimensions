@@ -1,0 +1,61 @@
+{
+  "lesson": 6,
+  "draft": true,
+  "questions": [
+    {
+      "q": "Embedding nima?",
+      "options": [
+        "Soʻzni rasmga aylantirish",
+        "Soʻzlarni alifbo tartibida saralash",
+        "Soʻzni sonlar roʻyxati — koʻp oʻlchamli fazodagi nuqta bilan ifodalash",
+        "Soʻzni boshqa tilga tarjima qilish"
+      ],
+      "answer": 2,
+      "explain": "Embeddingda har bir soʻz vektorga, yaʼni masalan, 200 oʻlchamli fazodagi nuqtaga aylanadi."
+    },
+    {
+      "q": "Embedding fazosida maʼnosi yaqin soʻzlar qanday joylashadi?",
+      "options": [
+        "Bir-biridan eng uzoqda",
+        "Doim bitta toʻgʻri chiziqda",
+        "Tasodifiy joylarda",
+        "Bir-biriga yaqin"
+      ],
+      "answer": 3,
+      "explain": "Oʻxshash joylarda ishlatiladigan soʻzlar oʻxshash sonlar oladi, shuning uchun ular fazoda yaqin turadi."
+    },
+    {
+      "q": "PCA nimani qidiradi?",
+      "options": [
+        "Maʼlumot soyasi eng keng yoyiladigan yoʻnalishlarni",
+        "Eng qisqa soʻzni",
+        "Eng yaqin ikki nuqtani",
+        "Tasodifiy burchakni"
+      ],
+      "answer": 0,
+      "explain": "PCA nuqtalar eng koʻp yoyilgan yoʻnalishlarni topib, ularga proyeksiya qiladi: “soyasi eng keng yoyiladigan burchakni top”."
+    },
+    {
+      "q": "t-SNE haqida qaysi gap toʻgʻri?",
+      "options": [
+        "U barcha masofalarni aniq saqlaydi",
+        "U yaqin qoʻshnilarni saqlaydi, lekin uzoq masofalarni buzishi mumkin",
+        "U faqat 4D da ishlaydi",
+        "Undagi guruhlar kattaligi doim aniq maʼnoga ega"
+      ],
+      "answer": 1,
+      "explain": "t-SNE rasmidan “kim kimning qoʻshnisi” degan xulosa chiqarish mumkin, lekin guruhlar orasidagi masofa va guruh kattaligiga ishonib boʻlmaydi."
+    },
+    {
+      "q": "200 oʻlchamli fazoda ikki nuqta orasidagi masofa qanday hisoblanadi?",
+      "options": [
+        "Faqat birinchi ikkita koordinata bilan",
+        "Uni hisoblab boʻlmaydi",
+        "200 ta farq kvadratlari yigʻindisidan kvadrat ildiz",
+        "Koordinatalarni qoʻshib"
+      ],
+      "answer": 2,
+      "explain": "2-darsdagi formula: √(Δ₁² + Δ₂² + … + Δ₂₀₀²). Har bir oʻlcham uchun bitta qoʻshiluvchi."
+    }
+  ]
+}

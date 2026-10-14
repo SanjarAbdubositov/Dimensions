@@ -1,0 +1,72 @@
+{
+  "title": "Seminar testi",
+  "draft": true,
+  "questions": [
+    {
+      "q": "Tesseraktda (4 oʻlchamli kubda) nechta uch bor?",
+      "options": [
+        "8",
+        "16",
+        "12",
+        "32"
+      ],
+      "answer": 1,
+      "explain": "Har bir yangi oʻlchamda uchlar ikki baravar koʻpayadi: 1, 2, 4, 8, 16."
+    },
+    {
+      "q": "Agar 4 oʻlchamli jism bizning 3 oʻlchamli dunyomiz orqali oʻtsa, biz nimani koʻrardik?",
+      "options": [
+        "Butun 4D jismni birdaniga",
+        "Hech narsani",
+        "Shakli oʻzgarib turadigan 3D kesimlarni",
+        "Faqat bitta nuqtani"
+      ],
+      "answer": 2,
+      "explain": "Yassi dunyolik olmaning faqat kesimlarini koʻrgani kabi, biz ham 4D jismning faqat 3D kesimlarini koʻrardik."
+    },
+    {
+      "q": "4 oʻlchamli fazoda nechta aylanish tekisligi bor?",
+      "options": [
+        "3",
+        "4",
+        "12",
+        "6"
+      ],
+      "answer": 3,
+      "explain": "Toʻrtta oʻqdan ikkitasini tanlash kerak: C(4, 2) = 6."
+    },
+    {
+      "q": "(−1, −1, −1, −1) va (1, 1, 1, 1) nuqtalar orasidagi masofa qancha?",
+      "options": [
+        "4",
+        "2",
+        "8",
+        "16"
+      ],
+      "answer": 0,
+      "explain": "√(2² + 2² + 2² + 2²) = √16 = 4."
+    },
+    {
+      "q": "Tesseraktning mashhur rasmida ichki kub nega kichik koʻrinadi?",
+      "options": [
+        "U haqiqatan kichikroq",
+        "U toʻrtinchi oʻq boʻyicha kameradan uzoqroq",
+        "Rassom xato qilgan",
+        "Unda qirralar kamroq"
+      ],
+      "answer": 1,
+      "explain": "Bu perspektiv proyeksiya: uzoqdagi qism kichik koʻrinadi. Aslida tesseraktning 8 ta kubi teng."
+    },
+    {
+      "q": "Sunʼiy intellektda “embedding” nima?",
+      "options": [
+        "Kompyuter xotirasining bir turi",
+        "Soʻzni rasmga aylantirish",
+        "Soʻzni koʻp oʻlchamli fazodagi nuqta (sonlar roʻyxati) bilan ifodalash",
+        "Internetdagi qidiruv tizimi"
+      ],
+      "answer": 2,
+      "explain": "Embeddingda soʻz sonlar roʻyxatiga aylanadi va maʼnosi yaqin soʻzlar fazoda yaqin turadi."
+    }
+  ]
+}

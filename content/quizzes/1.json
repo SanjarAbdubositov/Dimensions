@@ -1,0 +1,61 @@
+{
+  "lesson": 1,
+  "draft": true,
+  "questions": [
+    {
+      "q": "Olma Yassi dunyo orqali oʻtganda, u yerdagi mavjudot nimani koʻradi?",
+      "options": [
+        "Butun olmani birdaniga",
+        "Olmaning kesimlarini: avval oʻsib, keyin kichrayadigan doirani",
+        "Hech narsani",
+        "Olmaning rangli suratini"
+      ],
+      "answer": 1,
+      "explain": "Yassi dunyolik faqat olma bilan oʻz dunyosi kesishgan joyni — kesimni koʻradi. Olma oʻtib borgani sari kesim oʻzgaradi."
+    },
+    {
+      "q": "Tesseraktda nechta uch bor?",
+      "options": [
+        "8",
+        "12",
+        "16",
+        "32"
+      ],
+      "answer": 2,
+      "explain": "Har bir yangi oʻlchamda uchlar ikki baravar koʻpayadi: kubda 8 ta, tesseraktda 8 · 2 = 16 ta."
+    },
+    {
+      "q": "Tesseraktda nechta qirra bor?",
+      "options": [
+        "16",
+        "24",
+        "64",
+        "32"
+      ],
+      "answer": 3,
+      "explain": "Kubning 12 ta qirrasi ikki baravar boʻladi (24) va har bir eski uchdan bittadan yangi qirra qoʻshiladi (8): 24 + 8 = 32."
+    },
+    {
+      "q": "Tesserakt nechta kubdan “yasalgan”?",
+      "options": [
+        "8",
+        "4",
+        "6",
+        "16"
+      ],
+      "answer": 0,
+      "explain": "Kubning 1 ta kubi ikki baravar boʻladi (2) va kubning har bir kvadrat yuzi choʻzilib yangi kub beradi (6): 2 + 6 = 8."
+    },
+    {
+      "q": "1908-yilda fazo va vaqtni bitta toʻrt oʻlchamli fazo-vaqt sifatida koʻrishni kim taklif qilgan?",
+      "options": [
+        "Albert Eynshteyn",
+        "German Minkovskiy",
+        "Carl Sagan",
+        "Edwin Abbott"
+      ],
+      "answer": 1,
+      "explain": "Eynshteyn 1905-yilda ikki qoidadan vaqt sekinlashuvini keltirib chiqargan. Fazo-vaqt gʻoyasini esa 1908-yilda Minkovskiy taklif qilgan."
+    }
+  ]
+}

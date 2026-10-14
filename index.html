@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Toʻrtinchi oʻlchov — 4D geometriya va AI darslari</title>
+  <meta name="description" content="Oʻzbek tilida bepul interaktiv darslar: nuqtadan tesseraktgacha, 4D aylanish, proyeksiya va sunʼiy intellektdagi koʻp oʻlchamli fazo.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Asosiy qismga oʻtish</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">Toʻrtinchi oʻlchov</a>
+      <nav class="site-nav" aria-label="Asosiy menyu">
+        <a href="#darslar">Darslar</a>
+        <a href="simulator.html">Simulyator</a>
+        <a href="glossary.html">Lugʻat</a>
+        <a href="about.html">Loyiha haqida</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="hero">
+      <h1>Toʻrtinchi oʻlchovni koʻrish mumkinmi?</h1>
+      <p class="lead">Biz uch oʻlchamli dunyoda yashaymiz. Lekin matematika 4, 7 va hatto 200 oʻlcham bilan bemalol ishlaydi — sunʼiy intellekt aynan shunday qiladi.</p>
+      <p>6 ta qisqa darsda nuqtadan tesseraktgacha boramiz, 4D shaklni oʻz qoʻlingiz bilan aylantirasiz va AI soʻzlarni qanday “koʻrishini” bilib olasiz. Hammasi telefonda ishlaydi.</p>
+      <div class="btn-row">
+        <a class="btn" href="lesson.html?id=1">Darslarni boshlash</a>
+        <a class="btn btn-secondary" href="simulator.html">Simulyatorni ochish</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="try-title">
+      <h2 id="try-title">Sinab koʻring</h2>
+      <p>Oʻlchamni tanlang va shaklni barmogʻingiz yoki sichqoncha bilan sudrab aylantiring.</p>
+      <div id="mini-sim"></div>
+    </section>
+
+    <section id="darslar" aria-labelledby="lessons-title">
+      <h2 id="lessons-title">Darslar</h2>
+      <ol class="lesson-list">
+        <li><a href="lesson.html?id=1" data-lesson="1"><span>Nuqtadan tesseraktgacha<small>Kesimlar, choʻzish va sanash</small></span></a></li>
+        <li><a href="lesson.html?id=2" data-lesson="2"><span>Vektorlar va koordinatalar<small>(x, y, z, w) va masofa</small></span></a></li>
+        <li><a href="lesson.html?id=3" data-lesson="3"><span>Aylanish: tekislikda burish<small>4D da 6 ta tekislik</small></span></a></li>
+        <li><a href="lesson.html?id=4" data-lesson="4"><span>Perspektiv proyeksiya: soya<small>4D shaklni 3D ga tushirish</small></span></a></li>
+        <li><a href="lesson.html?id=5" data-lesson="5"><span>Amaliy topshiriq<small>Somonchalar, fonar va qogʻoz</small></span></a></li>
+        <li><a href="lesson.html?id=6" data-lesson="6"><span>AI: 200 oʻlchamda fikrlash<small>Embeddinglar va PCA</small></span></a></li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Kod — MIT litsenziyasi, dars matnlari — CC BY 4.0.</p>
+      <p><a href="about.html">Loyiha haqida</a> · <a href="privacy.html">Maxfiylik</a></p>
+    </div>
+  </footer>
+
+  <script type="module" src="js/home.js"></script>
+</body>
+</html>

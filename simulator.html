@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>4D simulyator — Toʻrtinchi oʻlchov</title>
+  <meta name="description" content="Giperkubni 2D dan 7D gacha quring, aylantiring va proyeksiya qiling.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Asosiy qismga oʻtish</a>
+  <header class="site-header">
+    <div class="wrap wrap-wide">
+      <a class="brand" href="index.html">Toʻrtinchi oʻlchov</a>
+      <nav class="site-nav" aria-label="Asosiy menyu">
+        <a href="index.html#darslar">Darslar</a>
+        <a href="simulator.html" aria-current="page">Simulyator</a>
+        <a href="glossary.html">Lugʻat</a>
+        <a href="about.html">Loyiha haqida</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap wrap-wide">
+    <h1>Giperkub simulyatori</h1>
+    <p class="lead">Shaklni sudrab aylantiring. «4D burish» rejimida u biz koʻra olmaydigan oʻq boʻylab buriladi — ichkaridagi kub tashqariga chiqib keladi.</p>
+
+    <div id="sim" class="sim-full"></div>
+    <noscript><p>Simulyator ishlashi uchun brauzeringizda JavaScript yoqilgan boʻlishi kerak.</p></noscript>
+
+    <details class="card help">
+      <summary><strong>Qanday boshqariladi?</strong></summary>
+      <ul>
+        <li><strong>Sudrash</strong> (sichqoncha yoki barmoq): «3D burish» rejimida XZ va YZ tekisliklarida, «4D burish» rejimida X va Y ni oxirgi oʻq bilan buradi.</li>
+        <li><strong>Shift</strong> tugmasini bosib sudrasangiz ham 4D burish boʻladi.</li>
+        <li><strong>Klaviatura:</strong> shaklni Tab bilan tanlang, keyin strelkalar bilan aylantiring (Shift + strelka — 4D).</li>
+        <li><strong>Perspektiv</strong> proyeksiyada uzoqdagi qism kichik koʻrinadi, <strong>ortogonal</strong> proyeksiyada esa oxirgi koordinata shunchaki tashlab yuboriladi.</li>
+      </ul>
+    </details>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap wrap-wide">
+      <p><a href="about.html">Loyiha haqida</a> · <a href="privacy.html">Maxfiylik</a></p>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { createSimulator } from './js/simulator.js';
+    createSimulator(document.getElementById('sim'));
+  </script>
+</body>
+</html>

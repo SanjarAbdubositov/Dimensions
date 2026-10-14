@@ -1,0 +1,160 @@
+/* style.css — butun sayt uchun umumiy uslub. Avval telefon, keyin katta ekran. */
+
+/* ---------- Ranglar (yorugʻ rejim) ---------- */
+:root {
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --text: #1c1b22;
+  --muted: #55535e;
+  --border: #dcd9e0;
+  --accent: #5b3fd1;
+  --accent-text: #ffffff;
+  --accent-soft: #ece8fb;
+  --canvas-bg: #f3f1f8;
+  --warn-bg: #fff3c4;
+  --warn-text: #5c4400;
+  --ok: #1d7a3a;
+  --ok-soft: #dcf3e2;
+  --bad: #b3261e;
+  --radius: 12px;
+  --gap: 1rem;
+  color-scheme: light dark;
+}
+
+/* ---------- Ranglar (qorongʻi rejim) ---------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121118;
+    --surface: #1b1a23;
+    --text: #ecebf2;
+    --muted: #aeacb9;
+    --border: #34323f;
+    --accent: #a995ff;
+    --accent-text: #15122a;
+    --accent-soft: #2a2442;
+    --canvas-bg: #0c0b11;
+    --warn-bg: #4a3c0a;
+    --warn-text: #ffe8a3;
+    --ok: #6fdc8c;
+    --ok-soft: #173d24;
+    --bad: #ff8a80;
+  }
+}
+
+/* ---------- Asos ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 1rem/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+}
+h1, h2, h3 { line-height: 1.25; }
+h1 { font-size: clamp(1.6rem, 6vw, 2.4rem); margin: 0 0 0.5rem; }
+h2 { font-size: 1.35rem; margin: 2rem 0 0.75rem; }
+p { margin: 0 0 1rem; }
+a { color: var(--accent); text-underline-offset: 2px; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.wrap { max-width: 46rem; margin: 0 auto; padding: 0 1rem; }
+.wrap-wide { max-width: 72rem; }
+.skip-link { position: absolute; left: -999px; }
+.skip-link:focus { left: 1rem; top: 1rem; z-index: 10; background: var(--surface); padding: 0.5rem 1rem; }
+
+/* ---------- Sarlavha va pastki qism ---------- */
+.site-header { border-bottom: 1px solid var(--border); background: var(--surface); }
+.site-header .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.25rem 1rem; padding-block: 0.5rem; }
+.brand { font-weight: 700; color: var(--text); text-decoration: none; padding: 0.5rem 0; }
+.site-nav { display: flex; flex-wrap: wrap; gap: 0 0.25rem; }
+.site-nav a { display: inline-block; padding: 0.6rem 0.6rem; text-decoration: none; color: var(--muted); border-radius: 8px; }
+.site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--text); background: var(--accent-soft); }
+.site-footer { margin-top: 3rem; padding: 1.5rem 0 2rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.9rem; }
+.site-footer a { color: var(--muted); }
+
+/* ---------- Tugmalar ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+  min-height: 2.75rem; padding: 0.5rem 1.1rem;
+  border: 1px solid var(--accent); border-radius: 999px;
+  background: var(--accent); color: var(--accent-text);
+  font: inherit; font-weight: 600; text-decoration: none; cursor: pointer;
+}
+.btn-secondary { background: transparent; color: var(--accent); }
+.help { margin-top: 1.5rem; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.25rem 0; }
+
+/* ---------- Bosh sahifa ---------- */
+.hero { padding: 2rem 0 0.5rem; }
+.lead { font-size: 1.1rem; color: var(--muted); }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; }
+.lesson-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.75rem; counter-reset: lesson; }
+.lesson-list li { counter-increment: lesson; }
+.lesson-list a {
+  display: flex; gap: 0.9rem; align-items: center;
+  padding: 0.85rem 1rem; text-decoration: none; color: var(--text);
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+}
+.lesson-list a::before {
+  content: counter(lesson); flex: none;
+  width: 2rem; height: 2rem; display: grid; place-items: center;
+  border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-weight: 700;
+}
+.lesson-list a:hover { border-color: var(--accent); }
+.lesson-list small { display: block; color: var(--muted); }
+
+/* ---------- Simulyator ---------- */
+.sim { display: grid; gap: var(--gap); }
+.sim-stage { position: relative; }
+.sim-canvas {
+  display: block; width: 100%; height: min(80vw, 22rem);
+  background: var(--canvas-bg); border: 1px solid var(--border); border-radius: var(--radius);
+  touch-action: none; /* barmoq bilan sudraganda sahifa siljimasin */
+  cursor: grab;
+}
+.sim-canvas:active { cursor: grabbing; }
+.sim-info { position: absolute; left: 0.75rem; top: 0.5rem; right: 0.75rem; margin: 0; font-size: 0.85rem; color: var(--muted); pointer-events: none; }
+.sim-side { display: grid; gap: var(--gap); align-content: start; }
+.sim-panel { display: grid; gap: 0.9rem; }
+.sim-row { display: grid; gap: 0.35rem; }
+.sim-label { font-size: 0.85rem; font-weight: 600; color: var(--muted); }
+.sim-auto { display: grid; grid-template-columns: auto 1fr; gap: 0.75rem; align-items: end; }
+.hint { display: block; font-size: 0.85rem; color: var(--muted); margin: 0.35rem 0 0; }
+
+.seg { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.seg button {
+  min-width: 2.75rem; min-height: 2.75rem; padding: 0.4rem 0.8rem;
+  border: 1px solid var(--border); border-radius: 8px;
+  background: var(--surface); color: var(--text); font: inherit; cursor: pointer;
+}
+.seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-text); font-weight: 600; }
+
+.range { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0 0.5rem; }
+.range label { font-size: 0.9rem; font-weight: 600; }
+.range output { font-variant-numeric: tabular-nums; font-size: 0.9rem; color: var(--muted); }
+.range input { grid-column: 1 / -1; width: 100%; height: 2.25rem; margin: 0; accent-color: var(--accent); }
+
+.planes { border: 1px solid var(--border); border-radius: var(--radius); padding: 0.25rem 0.9rem; background: var(--surface); }
+.planes summary { cursor: pointer; font-weight: 600; padding: 0.6rem 0; min-height: 2.75rem; display: flex; align-items: center; }
+.planes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: 0.25rem 1rem; padding-bottom: 0.75rem; }
+
+.sim-legend p { margin: 0; }
+.legend-bar { height: 0.6rem; border-radius: 999px; background: linear-gradient(90deg, hsl(220, 80%, 55%), hsl(290, 80%, 55%), hsl(360, 80%, 55%)); }
+.legend-ends { display: flex; justify-content: space-between; font-size: 0.85rem; }
+
+/* Toʻliq ekranli simulyator sahifasi */
+.sim-full .sim-canvas { height: min(100vw, 62vh); }
+@media (min-width: 60rem) {
+  .sim-full { grid-template-columns: minmax(0, 1fr) 20rem; align-items: start; }
+  .sim-full .sim-canvas { height: min(78vh, 46rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; }
+}
+
+/* ---------- Bosh sahifadagi dars holati ---------- */
+.lesson-list a { flex-wrap: wrap; }
+.lesson-list a > span:first-of-type { flex: 1; min-width: 12rem; }
+.status { font-size: 0.8rem; font-weight: 600; padding: 0.15rem 0.6rem; border-radius: 999px; white-space: nowrap; }
+.status-started { background: var(--warn-bg); color: var(--warn-text); }
+.status-completed { background: var(--ok-soft); color: var(--ok); }

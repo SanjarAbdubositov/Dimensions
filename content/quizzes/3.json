@@ -1,0 +1,61 @@
+{
+  "lesson": 3,
+  "draft": true,
+  "questions": [
+    {
+      "q": "3D da “z oʻqi atrofida burish” aslida qaysi tekislikda burish?",
+      "options": [
+        "XZ",
+        "YZ",
+        "ZW",
+        "XY"
+      ],
+      "answer": 3,
+      "explain": "Bu burishda z oʻzgarmaydi, faqat x va y oʻzgaradi. Demak, burish XY tekisligida boʻladi."
+    },
+    {
+      "q": "4D da nechta aylanish tekisligi bor?",
+      "options": [
+        "6",
+        "3",
+        "4",
+        "8"
+      ],
+      "answer": 0,
+      "explain": "Toʻrtta oʻqdan ikkitasini tanlash kerak: C(4, 2) = 6. Ular: XY, XZ, XW, YZ, YW, ZW."
+    },
+    {
+      "q": "Qaysi ikki burishni qaysi tartibda bajarsak ham natija bir xil boʻladi?",
+      "options": [
+        "XY va XW",
+        "XY va ZW",
+        "XZ va YZ",
+        "XW va YW"
+      ],
+      "answer": 1,
+      "explain": "XY va ZW tekisliklarida umumiy oʻq yoʻq: biri faqat x va y ni, ikkinchisi faqat z va w ni oʻzgartiradi. Qolgan juftliklarda umumiy oʻq bor."
+    },
+    {
+      "q": "XW slayderini surganda ichki kub tashqariga chiqadi. Bu nimani bildiradi?",
+      "options": [
+        "Tesserakt choʻziladi",
+        "Qirralar uzunligi oʻzgaradi",
+        "Tesseraktning oʻzi oʻzgarmaydi, faqat uning soyasi oʻzgaradi",
+        "Bu simulyatordagi xato"
+      ],
+      "answer": 2,
+      "explain": "Burish uzunliklarni oʻzgartirmaydi. Ekranda koʻrinayotgani — tesseraktning proyeksiyasi, u burilganda oʻzgaradi."
+    },
+    {
+      "q": "(1, 0) nuqtani 90° ga (soat millariga teskari) burganda u qayerga oʻtadi?",
+      "options": [
+        "(−1, 0)",
+        "(0, −1)",
+        "(1, 1)",
+        "(0, 1)"
+      ],
+      "answer": 3,
+      "explain": "cos 90° = 0, sin 90° = 1. Formula boʻyicha x′ = 0, y′ = 1."
+    }
+  ]
+}

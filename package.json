@@ -1,0 +1,11 @@
+{
+  "name": "tortinchi-olchov",
+  "version": "0.1.0",
+  "private": true,
+  "description": "4D geometriya va AI boʻyicha oʻzbekcha interaktiv taʼlim sayti",
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  },
+  "license": "MIT"
+}

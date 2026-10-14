@@ -91,7 +91,7 @@ Lighthouse — Chromeʼga oʻrnatilgan, sahifa tezligi va qulayligini baholaydig
 | Simulyator | 100 | 100 | 100 | 100 |
 | Oldin/keyin testi | 100 | 100 | 100 | 100 |
 | Lugʻat, Loyiha haqida, Maxfiylik | 100 | 100 | 100 | 100 |
-| Admin panel | 100 | 100 | 100 | 45* |
+| Admin panel | 100 | 100 | 100 | 54* |
 
 \* Admin panelda SEO ataylab past: sahifa `noindex` — qidiruv tizimlari uni koʻrsatmasligi kerak.
 

@@ -15,7 +15,7 @@ Bu fayl git tarixi va oʻlchov natijalariga asoslangan. Unda faqat faktlar bor, 
 | M3 — anonim statistika | #2 | `claude/m3-analytics` | 8 | 14:17 | 14:20 | 70 |
 | M4 — admin panel | #3 | `claude/m4-admin` | 5 + 3¹ | 14:22–14:36 | 15:38 | 88 |
 | M1–M4 tekshiruvi | #4 | `claude/audit-m1-m4` | 8 | 17:20–17:23 | 17:25 | 91 |
-| M5 — sayqal va joylash | #5 | `claude/m5-polish` | ² | 17:35 dan | ² | 106 |
+| M5 — sayqal va joylash | #5 | `claude/m5-polish` | ² | 17:35 dan | ² | 107 |
 
 ¹ M3 ning 3 ta tuzatish commiti PR #2 merge qilingandan keyin push qilingan edi, shuning uchun ular `main`ga PR #3 bilan birga tushdi.
 ² M5 PRʼi merge qilingandan keyin toʻldiriladi.
@@ -63,7 +63,7 @@ Bu fayl git tarixi va oʻlchov natijalariga asoslangan. Unda faqat faktlar bor, 
 | JavaScript | 28 fayl, ~2250 qator |
 | CSS | 3 fayl, ~360 qator |
 | HTML sahifalar | 9 ta |
-| Avtomatik testlar | 106 ta (`node --test`) + `supabase/rls-test.sql` |
+| Avtomatik testlar | 107 ta (`node --test`) + `supabase/rls-test.sql` |
 | Darslar | 6 ta, hammasi qoralama |
 | Tashqi kutubxona | 1 ta: `@supabase/supabase-js@2.117.2` (faqat rozilikdan keyin yuklanadi) |
 

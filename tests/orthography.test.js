@@ -36,3 +36,26 @@ test('oʻ va gʻ har joyda U+02BB (ʻ) bilan yozilgan', () => {
   }
   assert.deepEqual(problems, [], `Notoʻgʻri belgi topildi:\n${problems.join('\n')}`);
 });
+
+test('ʻ (U+02BB) faqat o va g dan keyin keladi; tutuq belgisi uchun ʼ (U+02BC)', () => {
+  const problems = [];
+  for (const path of listFiles(ROOT)) {
+    textOf(path).split('\n').forEach((line, k) => {
+      // "(ʻ)" — belgining oʻzini koʻrsatish, xato emas
+      if (/[^oOgG(]ʻ/.test(line)) problems.push(`${path.replace(ROOT, '')}:${k + 1}: ${line.trim().slice(0, 80)}`);
+    });
+  }
+  assert.deepEqual(problems, [], `Notoʻgʻri ʻ topildi (maʼno, taʼlim kabi soʻzlarda ʼ boʻlishi kerak):\n${problems.join('\n')}`);
+});
+
+test('matnli fayllarda soʻz ichida ASCII tutuq belgisi (\') yoʻq', () => {
+  const problems = [];
+  for (const path of listFiles(ROOT).filter((p) => ['.md', '.json', '.html'].includes(extname(p)))) {
+    // Kod bloklari va HTML teglari ichidagi belgilar hisobga olinmaydi
+    const text = textOf(path).replace(/```[\s\S]*?```/g, '').replace(/<[^>]*>/g, ' ');
+    text.split('\n').forEach((line, k) => {
+      if (/\p{L}'\p{L}/u.test(line)) problems.push(`${path.replace(ROOT, '')}:${k + 1}: ${line.trim().slice(0, 80)}`);
+    });
+  }
+  assert.deepEqual(problems, [], `ASCII ' topildi (oʻrniga ʼ yoki ʻ ishlating):\n${problems.join('\n')}`);
+});

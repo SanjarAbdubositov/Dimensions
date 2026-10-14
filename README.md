@@ -26,9 +26,13 @@ npm test        # yoki: node --test
 ## Holat
 
 - [x] M1 — skelet va simulyator
-- [ ] M2 — darslar va testlar
+- [x] M2 — darslar va testlar (qoralama)
 - [ ] M3 — anonim statistika
 - [ ] M4 — admin panel
 - [ ] M5 — sayqal va joylash
 
-Batafsil: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+Batafsil: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). Dars matnlaridagi tekshirilishi kerak boʻlgan faktlar: [docs/TEKSHIRISH.md](docs/TEKSHIRISH.md).
+
+## Litsenziya
+
+Kod — MIT, dars matnlari (`content/`) — CC BY 4.0. Qarang: [LICENSE](LICENSE).

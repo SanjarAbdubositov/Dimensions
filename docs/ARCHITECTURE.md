@@ -5,7 +5,7 @@ Bu hujjat loyihaning tuzilishini va har bir muhim qaror nega shunday qilinganini
 ## Umumiy gʻoya
 
 - **Framework yoʻq, build qadam yoʻq.** Sayt oddiy HTML + CSS + JavaScript (ES modules). GitHub Pages fayllarni qanday boʻlsa shunday beradi, brauzer ularni toʻgʻridan-toʻgʻri ishlatadi. Har bir faylni ochib oʻqish va tushuntirish mumkin.
-- **Matematika va interfeys ajratilgan.** `js/math4d.js` faqat sonlar bilan ishlaydi va DOM'ni (sahifani) bilmaydi. Shuning uchun uni Node'da test qilish mumkin, brauzer kerak emas.
+- **Matematika va interfeys ajratilgan.** `js/math4d.js` faqat sonlar bilan ishlaydi va DOMʼni (sahifani) bilmaydi. Shuning uchun uni Nodeʼda test qilish mumkin, brauzer kerak emas.
 - **Fayllar kichik** (har biri ~200 qatordan kam), har bir funksiya ustida bir qatorlik izoh bor.
 
 ## Fayllar (M1)
@@ -18,7 +18,7 @@ Bu hujjat loyihaning tuzilishini va har bir muhim qaror nega shunday qilinganini
 | `js/math4d.js` | Sof matematika: uchlar, qirralar, aylanish matritsalari, proyeksiya |
 | `js/simulator.js` | `createSimulator()` komponenti: holat, animatsiya sikli, sudrash, klaviatura |
 | `js/sim-controls.js` | Tugmalar, slayderlar va matnlarni yaratadi (hisob-kitobsiz) |
-| `js/sim-render.js` | Proyeksiya qilingan nuqtalarni canvas'ga chizadi, chuqurlik rangini hisoblaydi |
+| `js/sim-render.js` | Proyeksiya qilingan nuqtalarni canvasʼga chizadi, chuqurlik rangini hisoblaydi |
 | `tests/math4d.test.js` | Matematika testlari (`node --test`) |
 | `tests/orthography.test.js` | Imlo testi: oʻ/gʻ har joyda U+02BB (ʻ) bilan yozilganmi |
 | `package.json` | Faqat ikki narsa uchun: `"type": "module"` (Node `import`ni tushunishi uchun) va `npm test` buyrugʻi. Hech qanday kutubxona oʻrnatilmaydi |
@@ -36,7 +36,7 @@ uchlar (±1, ±1, …)  →  aylanish matritsasi  →  proyeksiya n → 2  →  
 2. **Qirralar.** `makeEdges` har bir juftlikni tekshiradi: faqat bitta koordinatada farq qilsa — qirra. 7D uchun 128 ta uch → ~8000 juftlik, bu bir marta hisoblanadi va tez.
 3. **Aylanish.** Har bir tekislik (XY, XZ, XW, …) uchun burchak saqlanadi. `composeRotations` ularni `listPlanes` tartibida ketma-ket koʻpaytiradi. Tartib muhim (3-darsdagi “XY va XW” misoli) — shuning uchun tartib doim bir xil.
 4. **Proyeksiya.** Pastga qara.
-5. **Miqyos.** Shakl canvas'ning 85% qismini egallashi uchun maqsadli miqyos hisoblanadi, lekin joriy miqyos unga **asta-sekin** yaqinlashadi (har kadrda farqning bir qismi). Shuning uchun oʻlcham almashganda shakl sakramaydi.
+5. **Miqyos.** Shakl canvasʼning 85% qismini egallashi uchun maqsadli miqyos hisoblanadi, lekin joriy miqyos unga **asta-sekin** yaqinlashadi (har kadrda farqning bir qismi). Shuning uchun oʻlcham almashganda shakl sakramaydi.
 
 ### Bitta holat manbai: burchaklar
 
@@ -75,10 +75,64 @@ Rang oxirgi oʻq qiymatini bildiradi (proyeksiyadan **oldin**, aylanishdan keyin
 
 ### Accessibility
 
-- Canvas'da `tabindex="0"` va `aria-label` (shakl nomi, uchlar va qirralar soni). Strelkalar bilan aylantirish mumkin.
+- Canvasʼda `tabindex="0"` va `aria-label` (shakl nomi, uchlar va qirralar soni). Strelkalar bilan aylantirish mumkin.
 - Tanlov tugmalari `aria-pressed` bilan, slayderlar `<label>` bilan bogʻlangan.
 - Tugmalar balandligi kamida 44 px (barmoq bilan bosish oson).
 
 ## Imlo
 
 Oʻ va gʻ uchun faqat U+02BB (ʻ), tutuq belgisi uchun U+02BC (ʼ, masalan “maʼlumot”). `tests/orthography.test.js` HTML, JS, MD va JSON fayllarda `o'`, `o’`, `oʼ` kabi notoʻgʻri variantlarni qidiradi.
+
+## Darslar va testlar (M2)
+
+| Fayl | Vazifasi |
+|---|---|
+| `lesson.html` + `js/lesson.js` | Dars sahifasi: `lesson.html?id=N` |
+| `js/markdown.js` | Oʻzimizning kichik Markdown parser + frontmatter oʻquvchi (sof funksiyalar) |
+| `js/widgets.js` | `:::simulator:::` va `:::predict:::` direktivalarini jonlantiradi |
+| `js/quiz.js` | Test tuzilmasini tekshirish va baholash (sof funksiyalar) |
+| `js/quiz-ui.js` | Testni sahifada chizish, natija va tushuntirishni koʻrsatish |
+| `js/progress.js` | Progress: boshlangan/tugatilgan darslar, test natijalari (`localStorage`) |
+| `js/lessons.js` | Darslar roʻyxati (id, sarlavha) — yagona manba |
+| `js/home.js` | Bosh sahifa: kichik simulyator va dars holatlari |
+| `test.html` + `js/prepost.js` | Seminar uchun oldin/keyin testi (`?type=pre` / `?type=post`) |
+| `js/dom.js` | `el()` — element yaratish yordamchisi (simulyator va darslar uchun umumiy) |
+| `glossary.html`, `about.html`, `privacy.html` | Lugʻat, loyiha haqida, maxfiylik |
+| `css/content.css` | Dars, test va matnli sahifalar uslubi |
+| `content/lessons/N.md` | Dars matnlari (frontmatter + Markdown) |
+| `content/quizzes/N.json`, `content/tests/prepost.json` | Testlar |
+
+### Dars dvigateli qanday ishlaydi
+
+1. `lesson.js` URLʼdan `id` ni oladi va `js/lessons.js` roʻyxatida borligini tekshiradi.
+2. `content/lessons/N.md` ni `fetch` bilan yuklaydi. `parseFrontmatter` boshidagi `---` bloki ichidan `title`, `draft`, `minutes` ni oʻqiydi. `draft: true` boʻlsa, tepada sariq “Qoralama” belgisi chiqadi.
+3. `renderMarkdown` matnni HTMLʼga aylantiradi. `:::simulator dims=2,3,4 controls=dims:::` kabi qatorlar boʻsh `<div class="directive" data-…>` boʻlib chiqadi. Keyin `widgets.js` ularni topib, `createSimulator()` yoki bashorat elementiga aylantiradi.
+4. Pastda `content/quizzes/N.json` testi chiziladi. Dars ochilganda `markStarted`, test topshirilganda `markCompleted` chaqiriladi. Bosh sahifa shu maʼlumotdan “Boshlangan” / “Tugatilgan · 4/5” belgisini chiqaradi.
+
+### Nega `marked` emas, oʻzimizning parser?
+
+- Bizga Markdownʼning kichik qismi kerak: sarlavha, paragraf, roʻyxat, jadval, iqtibos, kod, qalin/kursiv, havola. Bu ~140 qatorda yoziladi va har bir qatorini tushuntirish mumkin.
+- `:::direktiva:::` sintaksisi `marked`da yoʻq — baribir qoʻshimcha kod yozish kerak boʻlardi.
+- Tashqi kutubxona yoʻq: tezroq yuklanadi, versiyani kuzatish shart emas.
+- Xavfsizlik: avval hamma matn `escapeHtml` qilinadi, keyin faqat oʻzimiz bilgan teglar qoʻshiladi. Havolalar faqat `http(s)`, nisbiy yoʻl yoki `#` boʻlishi mumkin (`javascript:` oʻtmaydi). Testlari: `tests/markdown.test.js`.
+
+### Test (quiz) qanday tuzilgan
+
+```json
+{ "lesson": 1, "draft": true,
+  "questions": [ { "q": "Savol", "options": ["A", "B", "C"], "answer": 1, "explain": "Nega B toʻgʻri" } ] }
+```
+
+`answer` — toʻgʻri variantning indeksi (0 dan boshlanadi). `validateQuiz` tuzilmani tekshiradi, `gradeQuiz(quiz, answers)` esa natijani qaytaradi va hech narsani oʻzgartirmaydi — shuning uchun oson test qilinadi.
+
+**Oldin/keyin testi:** savollar ikkalasida bir xil. `?type=pre` da toʻgʻri javoblar **koʻrsatilmaydi** — aks holda oʻquvchi javoblarni eslab qolib, seminar oxiridagi test oʻrganilgan bilimni emas, xotirani oʻlchab qoladi. `?type=post` da tushuntirishlar va shu qurilmadagi “oldin” natijasi bilan taqqoslash chiqadi.
+
+### Progress (`localStorage`)
+
+Kalit: `tortinchi-olchov.progress.v1`. Agar `localStorage` ishlamasa (maxfiy rejim), xotiradagi oʻrinbosar ishlatiladi — sayt xato bermaydi, faqat progress sahifa yopilganda unutiladi. Hech narsa serverga yuborilmaydi (M3 gacha).
+
+### Kontent testlari
+
+`tests/content.test.js` tekshiradi: har bir darsda frontmatter bor va sarlavha `lessons.js` hamda `index.html` bilan bir xil; direktivalar toʻgʻri; qoralama darslar 600–900 soʻz; har bir test JSON toʻgʻri tuzilgan va `answer` variantlar ichida.
+
+**Eslatma:** fayl nomi `test-` bilan boshlansa, `node --test` uni test deb ishga tushiradi. Shuning uchun oldin/keyin testi skripti `js/prepost.js` deb nomlangan.

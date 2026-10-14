@@ -1,2 +1,7 @@
 node_modules/
 .DS_Store
+
+# Maxfiy va eksport fayllar (repoga tushmasin)
+.env
+*.csv
+exports/

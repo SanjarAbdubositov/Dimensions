@@ -114,3 +114,31 @@ export function projectPerspective(points, distance) {
 export function projectOrthographic(points) {
   return points.map((p) => p.slice(0, 2));
 }
+
+// Petrie (Coxeter) tekisligiga proyeksiya: k-oʻq ekranda k·180°/n burchakka qaragan birlik vektorga aylanadi.
+// n oʻlchamli kubning soyasi shunda eng simmetrik chiqadi: tashqi chegara — muntazam 2n burchak.
+export function projectPetrie(points) {
+  return points.map((p) => {
+    const n = p.length;
+    let x = 0;
+    let y = 0;
+    p.forEach((c, k) => { x += c * Math.cos((k * Math.PI) / n); y += c * Math.sin((k * Math.PI) / n); });
+    return [x, y];
+  });
+}
+
+// Qavariq qobiq (Andrew usuli): nuqtalarni oʻrab turgan eng kichik qavariq koʻpburchak uchlari.
+// Bir chiziqda yotgan oraliq nuqtalar tashlab yuboriladi, shuning uchun uchlar soni = burchaklar soni.
+export function convexHull(points) {
+  const pts = [...points].sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+  const half = (list) => {
+    const out = [];
+    for (const p of list) {
+      while (out.length >= 2 && cross(out[out.length - 2], out[out.length - 1], p) <= 1e-9) out.pop();
+      out.push(p);
+    }
+    return out.slice(0, -1);
+  };
+  return [...half(pts), ...half(pts.reverse())];
+}

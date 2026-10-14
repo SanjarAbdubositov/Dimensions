@@ -1,6 +1,7 @@
 // sim-controls.js — simulyator uchun HTML elementlar: canvas, tugmalar, slayderlar.
 // Bu yerda hisob-kitob yoʻq: faqat interfeys yaratiladi va hodisalar simulator.js'ga uzatiladi.
 import { listPlanes } from './math4d.js';
+import { el } from './dom.js';
 
 // Oʻq nomlari: X, Y, Z, W, keyin 5D–7D uchun V, U, T
 export const AXES = ['X', 'Y', 'Z', 'W', 'V', 'U', 'T'];
@@ -16,18 +17,6 @@ const NAMES = {
 
 const SUP = '⁰¹²³⁴⁵⁶⁷⁸⁹';
 let uid = 0; // sahifada bir nechta simulyator boʻlsa, id'lar takrorlanmasligi uchun
-
-// Element yaratuvchi kichik yordamchi: el('button', { text: 'OK', onclick: f })
-function el(tag, attrs = {}, children = []) {
-  const node = document.createElement(tag);
-  for (const [key, value] of Object.entries(attrs)) {
-    if (key === 'text') node.textContent = value;
-    else if (key.startsWith('on')) node.addEventListener(key.slice(2), value);
-    else node.setAttribute(key, value);
-  }
-  node.append(...children);
-  return node;
-}
 
 // Tugmalar guruhi: bir vaqtda faqat bittasi tanlangan (aria-pressed="true")
 function segmented(label, options, onPick) {

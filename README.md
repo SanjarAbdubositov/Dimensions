@@ -6,14 +6,16 @@
 
 ## Ishga tushirish
 
-Build qadam yoʻq. Fayllarni istalgan oddiy server bilan oching:
+Build qadam yoʻq, lekin sayt **albatta server orqali** ochilishi kerak. Repo papkasida:
 
 ```bash
-python3 -m http.server 8000
-# keyin brauzerda: http://localhost:8000
+python -m http.server 8000     # Windows
+python3 -m http.server 8000    # macOS / Linux
 ```
 
-(`file://` orqali toʻgʻridan-toʻgʻri ochish ishlamaydi — brauzerlar ES modullarni faqat server orqali yuklaydi.)
+Keyin brauzerda oching: <http://localhost:8000>
+
+`index.html` ni ikki marta bosib (`file://` orqali) ochsangiz, sayt ishlamaydi: brauzer ES modullarni ham, darslarni `fetch()` bilan yuklashni ham faqat `http://` orqali ruxsat beradi.
 
 ## Testlar
 

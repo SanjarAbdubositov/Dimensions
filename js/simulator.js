@@ -63,11 +63,13 @@ export function createSimulator(container, options = {}) {
   const canvas = ui.canvas;
   const ctx = canvas.getContext('2d');
 
-  // Foydalanuvchi simulyatordan haqiqatan foydalandi (analytics uchun, M3)
+  // Foydalanuvchi simulyatordan haqiqatan foydalandi. Simulyator statistikani bilmaydi:
+  // u faqat "simulator:use" hodisasini chiqaradi, analytics.js esa uni tinglaydi.
   function markUsed() {
     if (used) return;
     used = true;
     options.onUse?.();
+    container.dispatchEvent(new CustomEvent('simulator:use', { bubbles: true, detail: { dim: state.n } }));
   }
 
   // Oʻlchamni almashtirish: yangi uchlar, qirralar va boshlangʻich burchaklar
@@ -109,7 +111,7 @@ export function createSimulator(container, options = {}) {
 
   canvas.addEventListener('pointerdown', (e) => {
     drag = { x: e.clientX, y: e.clientY };
-    canvas.setPointerCapture(e.pointerId);
+    try { canvas.setPointerCapture(e.pointerId); } catch { /* baʼzi brauzerlarda ushlab boʻlmaydi — sudrash baribir ishlaydi */ }
     markUsed();
   });
   canvas.addEventListener('pointermove', (e) => {

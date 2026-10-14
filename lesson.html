@@ -21,6 +21,44 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/content.css">
+  <script>
+    // Dars matni va testini modullar yuklanishini kutmasdan darhol soʻrab qoʻyamiz:
+    // sekin internetda dars ~0.5 s tezroq chiqadi. lesson.js keyin xuddi shu fayllarni fetch() qiladi
+    // va brauzer ularni qayta yuklamaydi.
+    (function () {
+      var id = new URLSearchParams(location.search).get('id');
+      if (!/^[1-9][0-9]?$/.test(id || '')) return;
+      ['content/lessons/' + id + '.md', 'content/quizzes/' + id + '.json'].forEach(function (href) {
+        var link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'fetch';
+        link.crossOrigin = 'anonymous';
+        link.href = href;
+        document.head.appendChild(link);
+      });
+    })();
+  </script>
+  <!-- Barcha modullarni birdaniga yuklash (sekin internetda importlar zanjirini kutmaslik uchun). tests/preload.test.js tekshiradi -->
+  <link rel="modulepreload" href="js/analytics-core.js">
+  <link rel="modulepreload" href="js/analytics.js">
+  <link rel="modulepreload" href="js/config.js">
+  <link rel="modulepreload" href="js/consent-ui.js">
+  <link rel="modulepreload" href="js/device.js">
+  <link rel="modulepreload" href="js/dom.js">
+  <link rel="modulepreload" href="js/feedback.js">
+  <link rel="modulepreload" href="js/lesson.js">
+  <link rel="modulepreload" href="js/lessons.js">
+  <link rel="modulepreload" href="js/markdown.js">
+  <link rel="modulepreload" href="js/math4d.js">
+  <link rel="modulepreload" href="js/progress.js">
+  <link rel="modulepreload" href="js/quiz-ui.js">
+  <link rel="modulepreload" href="js/quiz.js">
+  <link rel="modulepreload" href="js/sim-angles.js">
+  <link rel="modulepreload" href="js/sim-controls.js">
+  <link rel="modulepreload" href="js/sim-render.js">
+  <link rel="modulepreload" href="js/simulator.js">
+  <link rel="modulepreload" href="js/supabase-lib.js">
+  <link rel="modulepreload" href="js/widgets.js">
 </head>
 <body>
   <a class="skip-link" href="#main">Asosiy qismga oʻtish</a>

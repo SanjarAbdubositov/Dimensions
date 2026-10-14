@@ -2,7 +2,7 @@
 
 /* ---------- Hero: telefonda matn ustida, katta ekranda yonma-yon ---------- */
 .hero { padding: 2rem 0 1rem; display: grid; gap: 1.5rem; }
-.hero-text { max-width: 36rem; }
+.hero-text { max-width: 28em; }
 /* Simulyator JS bilan chiziladi: joy oldindan ajratiladi, pastdagi matn sakramasin (CLS) */
 #mini-sim { min-height: calc(min(80vw, 22rem) + 9rem); }
 .hero-sim .hint { margin-top: 0.5rem; }
@@ -15,12 +15,12 @@
 /* ---------- Soya va naqsh ---------- */
 .rosette-note { display: grid; gap: 1rem 2rem; align-items: start; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border); }
 .rosette-note h2 { margin-top: 0; }
-.rosette-note > div:last-child { max-width: 36rem; }
+.rosette-note > div:last-child { max-width: 28em; }
 .rosette-big { width: 9rem; height: 9rem; color: var(--accent); }
 @media (min-width: 40rem) { .rosette-note { grid-template-columns: auto 1fr; } }
 
 /* ---------- Darslar roʻyxati: kartochka emas, chiziq bilan ajratilgan qatorlar ---------- */
-#darslar { max-width: calc(66ch + 2rem); }
+#darslar { max-width: 32em; }
 .lesson-list { list-style: none; padding: 0; margin: 1rem 0; border-top: 1px solid var(--border); counter-reset: lesson; }
 .lesson-list li { counter-increment: lesson; border-bottom: 1px solid var(--border); }
 .lesson-list a { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; align-items: center; padding: 0.9rem 0.25rem; text-decoration: none; color: var(--text); }

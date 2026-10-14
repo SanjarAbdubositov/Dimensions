@@ -78,7 +78,7 @@ h3 { font-size: 1.125rem; }
 p { margin: 0 0 1rem; }
 a { color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 1px; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-.wrap { max-width: calc(66ch + 2rem); margin: 0 auto; padding: 0 1rem; }
+.wrap { max-width: calc(28em + 2rem); margin: 0 auto; padding: 0 1rem; }
 /* Kontent JS bilan keyinroq yuklanadi: footer boshidanoq ekran ostida tursin, aks holda u "sakraydi" (CLS) */
 main { min-height: 100vh; min-height: 100svh; }
 .wrap-wide { max-width: 72rem; }

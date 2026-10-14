@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Qidiruv tizimlari bu sahifani koʻrsatmasin. Ochiq sahifalardan unga havola yoʻq. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <!-- CSP: skript faqat shu saytdan va jsDelivr'dan, soʻrov faqat Supabase'ga. XSS boʻlsa ham maʼlumot begona serverga keta olmaydi. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net; connect-src https://*.supabase.co; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <title>Admin panel — Toʻrtinchi oʻlchov</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/content.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap wrap-wide">
+      <a class="brand" href="index.html">Toʻrtinchi oʻlchov</a>
+      <span class="admin-badge">Admin panel</span>
+    </div>
+  </header>
+
+  <main id="main" class="wrap wrap-wide admin">
+    <h1>Admin panel</h1>
+    <p id="admin-status" class="admin-status" role="status" aria-live="polite">Yuklanmoqda…</p>
+    <noscript><p>Admin panel ishlashi uchun JavaScript yoqilgan boʻlishi kerak.</p></noscript>
+
+    <!-- 1. Kirish -->
+    <section id="login" class="card admin-login" hidden aria-labelledby="login-title">
+      <h2 id="login-title">Kirish</h2>
+      <form id="login-form" method="post">
+        <label for="login-email">Email</label>
+        <input id="login-email" type="email" autocomplete="username" required>
+        <label for="login-password">Parol</label>
+        <input id="login-password" type="password" autocomplete="current-password" required>
+        <button id="login-button" class="btn" type="submit">Kirish</button>
+        <p id="login-error" class="login-error" role="alert"></p>
+      </form>
+    </section>
+
+    <!-- 2. Admin emas -->
+    <section id="denied" class="card" hidden>
+      <h2>Ruxsat yoʻq</h2>
+      <p>Bu akkaunt admin emas, shuning uchun statistikani koʻra olmaydi.</p>
+      <button id="logout-denied" class="btn btn-secondary" type="button">Chiqish</button>
+    </section>
+
+    <!-- 3. Hisobot (faqat adminlar uchun) -->
+    <section id="dashboard" hidden aria-label="Hisobot">
+      <div class="admin-bar">
+        <p>Kirgan: <strong id="who"></strong></p>
+        <button id="logout" class="btn btn-secondary" type="button">Chiqish</button>
+      </div>
+
+      <div class="card admin-device">
+        <p id="device-state"></p>
+        <button id="device-toggle" class="btn btn-secondary" type="button" aria-pressed="false"></button>
+      </div>
+
+      <form id="filters" class="card admin-filters" aria-label="Filtrlar">
+        <div class="filter-field">
+          <label for="filter-from">Sanadan</label>
+          <input id="filter-from" type="date">
+        </div>
+        <div class="filter-field">
+          <label for="filter-to">Sanagacha</label>
+          <input id="filter-to" type="date">
+        </div>
+        <div class="filter-field">
+          <label for="filter-group">Seminar kodi</label>
+          <select id="filter-group"><option value="">Hamma guruhlar</option></select>
+        </div>
+        <div class="filter-buttons">
+          <button id="refresh" class="btn" type="submit">Yangilash</button>
+          <button id="filters-clear" class="btn btn-secondary" type="button">Filtrni tozalash</button>
+        </div>
+      </form>
+
+      <p id="data-status" class="admin-status" role="status" aria-live="polite"></p>
+      <div id="report" class="admin-report"></div>
+
+      <div class="card admin-export">
+        <h2>CSV eksport</h2>
+        <p class="def">Hozir yuklangan (filtrlangan) maʼlumot kompyuteringizga fayl boʻlib tushadi. Fayllarni repoga qoʻshmang — <code>.gitignore</code> ularni baribir eʼtiborsiz qoldiradi.</p>
+        <div class="btn-row">
+          <button id="export-events" class="btn btn-secondary" type="button">Hodisalar (CSV)</button>
+          <button id="export-feedback" class="btn btn-secondary" type="button">Fikrlar (CSV)</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>

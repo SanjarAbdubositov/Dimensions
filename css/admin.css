@@ -1,0 +1,76 @@
+/* admin.css — faqat admin panel uchun (style.css va content.css'dan keyin ulanadi). */
+
+:root { --chart-bar: #5b3fd1; }
+@media (prefers-color-scheme: dark) {
+  :root { --chart-bar: #8f74f5; } /* qorongʻi fonda alohida tanlangan va tekshirilgan rang */
+}
+
+.admin-badge { font-size: 0.85rem; font-weight: 600; color: var(--muted); }
+.admin h1 { margin-top: 1.5rem; }
+.admin h2 { margin-top: 0; }
+.admin-status { min-height: 1.6em; color: var(--muted); }
+.def { color: var(--muted); font-size: 0.9rem; }
+.muted { color: var(--muted); }
+
+/* Kirish formasi */
+.admin-login { max-width: 26rem; }
+.admin-login form, .admin-filters { display: grid; gap: 0.5rem; }
+.admin input, .admin select {
+  font: inherit; min-height: 2.75rem; padding: 0.4rem 0.6rem; width: 100%;
+  border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text);
+}
+.admin label { font-weight: 600; font-size: 0.9rem; }
+.login-error { color: var(--bad); margin: 0; min-height: 1.4em; }
+.admin-login button { justify-self: start; margin-top: 0.5rem; }
+
+/* Yuqori qator va qurilma tugmasi */
+.admin-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; margin-bottom: 1rem; }
+.admin-bar p { margin: 0; }
+.admin-device { display: grid; gap: 0.5rem; margin-bottom: 1rem; }
+.admin-device p { margin: 0; }
+.admin-device button { justify-self: start; }
+
+/* Filtrlar: telefonda ustma-ust, kengroq ekranda bir qatorda */
+.admin-filters { margin-bottom: 0.5rem; }
+.filter-field { display: grid; gap: 0.25rem; }
+.filter-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: end; }
+@media (min-width: 48rem) {
+  .admin-filters { grid-template-columns: repeat(3, minmax(0, 1fr)) auto; align-items: end; }
+}
+
+/* Hisobot boʻlimlari */
+.admin-report { display: grid; gap: 1rem; margin-bottom: 1rem; }
+.admin-section { overflow: hidden; }
+.hero-number { font-size: 3.25rem; font-weight: 700; line-height: 1; margin: 0.25rem 0 0; font-variant-numeric: tabular-nums; }
+.hero-label { font-weight: 600; margin: 0.25rem 0 0.5rem; }
+.low-n { display: inline-block; white-space: nowrap; font-size: 0.8rem; font-weight: 600; color: var(--warn-text); background: var(--warn-bg); border-radius: 6px; padding: 0.15rem 0.5rem; }
+.admin-section td:last-child { text-align: left; }
+.admin-section td:first-child, .admin-section th { white-space: nowrap; }
+.low-n-note { font-size: 0.85rem; font-weight: 600; color: var(--warn-text); background: var(--warn-bg); border-radius: 6px; padding: 0.4rem 0.6rem; margin: 0.5rem 0 0; }
+
+/* Grafik */
+.chart-holder { width: 100%; }
+.chart-wrap { position: relative; }
+.chart { display: block; overflow: visible; }
+.chart:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+.chart-bar { fill: var(--chart-bar); }
+.chart-bar.is-active { fill-opacity: 0.75; }
+.chart-hit { fill: transparent; }
+.chart-grid { stroke: var(--border); stroke-width: 1; }
+.chart-axis { stroke: var(--muted); stroke-width: 1; }
+.chart-label { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.chart-tip {
+  position: absolute; transform: translate(-50%, -100%); pointer-events: none; white-space: nowrap;
+  background: var(--text); color: var(--bg); font-size: 0.85rem; padding: 0.25rem 0.5rem; border-radius: 6px;
+}
+.admin-section details { margin-top: 0.75rem; }
+.admin-section summary { cursor: pointer; min-height: 2.75rem; display: flex; align-items: center; }
+
+/* Fikrlar roʻyxati */
+.feedback-list { list-style: none; padding: 0; margin: 0.5rem 0 0; display: grid; gap: 0.5rem; }
+.feedback-item { border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem 0.8rem; }
+.feedback-meta { margin: 0 0 0.25rem; font-size: 0.85rem; color: var(--muted); }
+.stars-static { color: #e8a317; letter-spacing: 1px; }
+.feedback-comment { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+.admin-export { margin-top: 1rem; }

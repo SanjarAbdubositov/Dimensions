@@ -16,6 +16,7 @@
   --ok: #1d7a3a;
   --ok-soft: #dcf3e2;
   --bad: #b3261e;
+  --star: #a86f00;  /* yulduzcha: oq fonda ≥ 3:1 */
   --radius: 12px;
   --gap: 1rem;
   color-scheme: light dark;
@@ -38,6 +39,7 @@
     --ok: #6fdc8c;
     --ok-soft: #173d24;
     --bad: #ff8a80;
+    --star: #e8a317;
   }
 }
 

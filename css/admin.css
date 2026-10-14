@@ -70,7 +70,7 @@
 .feedback-list { list-style: none; padding: 0; margin: 0.5rem 0 0; display: grid; gap: 0.5rem; }
 .feedback-item { border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem 0.8rem; }
 .feedback-meta { margin: 0 0 0.25rem; font-size: 0.85rem; color: var(--muted); }
-.stars-static { color: #e8a317; letter-spacing: 1px; }
+.stars-static { color: var(--star); letter-spacing: 1px; }
 .feedback-comment { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 
 .admin-export { margin-top: 1rem; }

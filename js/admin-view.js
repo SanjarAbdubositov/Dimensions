@@ -44,11 +44,13 @@ function section(title, definition, children) {
   ]);
 }
 
-// Jadval: sarlavhalar va qatorlar (har katak — matn yoki element)
-function table(headers, rows) {
+// Jadval: telefonda yon tomonga suriladi, shuning uchun klaviatura bilan ham fokuslanadi (tabindex)
+function table(label, headers, rows) {
   const head = el('tr', {}, headers.map((h) => el('th', { scope: 'col', text: h })));
   const body = rows.map((cells) => el('tr', {}, cells.map((c) => el('td', {}, [c]))));
-  return el('div', { class: 'table-wrap' }, [el('table', {}, [el('thead', {}, [head]), el('tbody', {}, body)])]);
+  return el('div', { class: 'table-wrap', tabindex: '0', role: 'region', 'aria-label': label }, [
+    el('table', {}, [el('thead', {}, [head]), el('tbody', {}, body)]),
+  ]);
 }
 
 // Kunlik grafik + jadval koʻrinishi (grafikni koʻra olmaydiganlar uchun)
@@ -63,7 +65,7 @@ function dailySection(events) {
   chartObserver.observe(holder);
   const details = el('details', {}, [
     el('summary', { text: 'Jadval koʻrinishi' }),
-    table(['Kun', 'Noyob qurilmalar'], days.map((d) => [d.day, String(d.devices)])),
+    table('Kunlik noyob qurilmalar jadvali', ['Kun', 'Noyob qurilmalar'], days.map((d) => [d.day, String(d.devices)])),
   ]);
   return section('Kunlik noyob qurilmalar', 'Har bir kunda saytni ochgan turli qurilmalar soni (brauzeringiz vaqti boʻyicha). Bir qurilma bir kunda necha marta kirsa ham — 1.', [holder, details]);
 }
@@ -82,21 +84,21 @@ export function renderReport(root, { events, feedback }) {
   const funnel = lessonFunnel(events);
   const funnelSection = section('Dars voronkasi',
     'Boshlaganlar — darsni ochgan (yoki tugatgan) noyob qurilmalar. Tugatganlar — dars matnini oxirigacha koʻrib, testni topshirgan qurilmalar. Tugatish foizi = tugatganlar ÷ boshlaganlar.',
-    [table(['Dars', 'Boshlagan', 'Tugatgan', 'Foiz', ''],
+    [table('Dars voronkasi', ['Dars', 'Boshlagan', 'Tugatgan', 'Foiz', 'Izoh'],
       funnel.map((r) => [`${r.lessonId}-dars`, String(r.started), String(r.completed), pct(r.rate), lowBadge(r.started)])),
     lowFootnote(funnel.map((r) => r.started))]);
 
   const quizzes = quizAverages(events);
   const quizSection = section('Testlar boʻyicha oʻrtacha ball',
     'Har bir qurilmaning faqat birinchi urinishi olinadi (qayta urinishlar hisoblanmaydi). Ball foizda: 5 tadan 4 ta = 80%. n — nechta qurilma.',
-    [table(['Dars testi', 'Oʻrtacha', 'n', ''],
+    [table('Testlar boʻyicha oʻrtacha ball', ['Dars testi', 'Oʻrtacha', 'n', 'Izoh'],
       quizzes.map((r) => [`${r.lessonId}-dars`, pct(r.meanPercent), String(r.n), lowBadge(r.n)])),
     lowFootnote(quizzes.map((r) => r.n))]);
 
   const prepost = prePostComparison(events);
   const prepostSection = section('Oldin / keyin taqqoslash',
     'Faqat ikkala testni ham (seminar boshida va oxirida) topshirgan qurilmalar hisoblanadi — n shular soni. Har testdan birinchi urinish olinadi. Guruh — “oldin” testidagi seminar kodi. Oʻzgarish — foiz punktlarida (f.p.).',
-    [table(['Guruh', 'n', 'Oldin', 'Keyin', 'Oʻzgarish', 'Faqat oldin', 'Faqat keyin', ''],
+    [table('Oldin / keyin taqqoslash', ['Guruh', 'n', 'Oldin', 'Keyin', 'Oʻzgarish', 'Faqat oldin', 'Faqat keyin', 'Izoh'],
       prepost.map((r) => [r.group, String(r.n), pct(r.before), pct(r.after), delta(r.change), String(r.preOnly), String(r.postOnly), lowBadge(r.n)])),
     lowFootnote(prepost.map((r) => r.n))]);
 

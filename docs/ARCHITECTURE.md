@@ -19,6 +19,7 @@ Bu hujjat loyihaning tuzilishini va har bir muhim qaror nega shunday qilinganini
 | `js/simulator.js` | `createSimulator()` komponenti: holat, animatsiya sikli, sudrash, klaviatura |
 | `js/sim-controls.js` | Tugmalar, slayderlar va matnlarni yaratadi (hisob-kitobsiz) |
 | `js/sim-render.js` | Proyeksiya qilingan nuqtalarni canvasʼga chizadi, chuqurlik rangini hisoblaydi |
+| `js/sim-angles.js` | Burchaklar uchun sof funksiyalar: −180..180 ga qaytarish, boshlangʻich koʻrinish, avto-aylanish tekisliklari |
 | `tests/math4d.test.js` | Matematika testlari (`node --test`) |
 | `tests/orthography.test.js` | Imlo testi: oʻ/gʻ har joyda U+02BB (ʻ) bilan yozilganmi |
 | `package.json` | Faqat ikki narsa uchun: `"type": "module"` (Node `import`ni tushunishi uchun) va `npm test` buyrugʻi. Hech qanday kutubxona oʻrnatilmaydi |
@@ -59,11 +60,11 @@ Rang oxirgi oʻq qiymatini bildiradi (proyeksiyadan **oldin**, aylanishdan keyin
 
 ### Darslarga qoʻshish
 
-`createSimulator(container, { dims, controls, onUse })`:
+`createSimulator(container, { dims, controls })`:
 
 - `dims` — qaysi oʻlchamlar tugmasi chiqadi, masalan `[2, 3, 4]`.
 - `controls` — qaysi boshqaruvlar chiqadi: `dims`, `projection`, `drag`, `auto`, `size`, `sliders`, `reset`. Berilmasa — hammasi.
-- `onUse` — foydalanuvchi birinchi marta oʻlcham almashtirsa yoki sudrasa chaqiriladi (M3 da analytics uchun).
+- Foydalanuvchi birinchi marta oʻlcham almashtirsa yoki shaklni sudrasa, simulyator `simulator:use` DOM hodisasini chiqaradi. Statistika (`analytics.js`) shu hodisani tinglaydi — simulyatorning oʻzi statistika haqida hech narsa bilmaydi.
 
 ### Telefon va tezlik
 
@@ -221,3 +222,20 @@ Supabase bir soʻrovda koʻpi bilan 1000 qator beradi. `fetchAll` `range(0, 999)
 - Voronkada “boshlaganlar” = `lesson_start` **yoki** `lesson_complete` yuborganlar. Rozilik dars oʻrtasida berilgan boʻlsa, `lesson_start` yuborilmay qolishi mumkin. Shuning uchun foiz hech qachon 100 dan oshmaydi.
 - n < 5 boʻlsa, “Maʼlumot kam — xulosa chiqarish uchun yetarli emas” ogohlantirishi chiqadi.
 - `docs/SETUP.md` (8.2) dagi SQL soʻrovlari xuddi shu qoidalarni takrorlaydi. Ular lokal PostgreSQLʼda `stats.js` bilan bir xil natija berishi tekshirilgan.
+
+## Testlar
+
+Hammasi `node --test` (yoki `npm test`) bilan ishga tushadi, internet kerak emas.
+
+| Fayl | Nimani tekshiradi |
+|---|---|
+| `tests/math4d.test.js` | Uchlar va qirralar soni, aylanish matritsalari, proyeksiya, simulyator burchaklari |
+| `tests/markdown.test.js` | Markdown parser, frontmatter, direktivalar, xavfsiz havolalar |
+| `tests/quiz.test.js` | Test baholash va progress (`localStorage`) |
+| `tests/content.test.js` | Darslar va testlar tuzilmasi, qoralama soʻz soni |
+| `tests/analytics.test.js` | Seminar kodi, rozilik mantigʻi, hodisa qatorini tuzish, taqiqlangan kalitlar, `schema.sql` qoidalari |
+| `tests/stats.test.js` | Admin hisob-kitoblari (voronka, oʻrtachalar, oldin/keyin, n < 5) va CSV |
+| `tests/admin.test.js` | Admin panel xavfsizligi (noindex, CSP, `innerHTML` yoʻqligi, faqat oʻqish), sana filtri, grafik |
+| `tests/orthography.test.js` | Imlo: oʻ/gʻ uchun U+02BB, tutuq belgisi uchun U+02BC |
+
+`supabase/rls-test.sql` — alohida, Supabase SQL Editorʼda ishga tushiriladigan xavfsizlik testi (`docs/SETUP.md`, 6.1).

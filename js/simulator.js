@@ -6,30 +6,13 @@ import {
 } from './math4d.js';
 import { buildControls } from './sim-controls.js';
 import { drawFrame } from './sim-render.js';
+import { wrap, defaultAngles, autoPlanes } from './sim-angles.js';
 
 export const ALL_CONTROLS = ['dims', 'projection', 'drag', 'auto', 'size', 'sliders', 'reset'];
 const CAMERA_DISTANCE = 2.5; // shakl radiusiga nisbatan (math4d.js'dagi projectPerspective'ga qara)
 const FILL = 0.85;           // shakl canvas'ning qancha qismini egallaydi
 const DRAG_DEG_PER_PX = 0.5; // sudrashda 1 piksel = 0.5°
 const KEY_STEP = 5;          // strelka bosilganda 5°
-
-// Burchakni −180..180 oraligʻiga qaytaradi
-const wrap = (deg) => ((((deg + 180) % 360) + 360) % 360) - 180;
-
-// Boshlangʻich koʻrinish: kub kvadratga oʻxshab qolmasligi uchun biroz burilgan
-function defaultAngles(n) {
-  const angles = Object.fromEntries(listPlanes(n).map(([i, j]) => [`${i}-${j}`, 0]));
-  if (n >= 3) Object.assign(angles, { '0-2': 30, '1-2': 20 });
-  if (n >= 4) angles[`0-${n - 1}`] = 20;
-  return angles;
-}
-
-// Avto-aylanishda qaysi tekisliklar buriladi: 3D burish + oxirgi oʻq bilan burish
-function autoPlanes(n) {
-  if (n === 2) return [[0, 1, 1]];
-  if (n === 3) return [[0, 2, 1], [1, 2, 0.6]];
-  return [[0, n - 1, 1], [1, 2, 0.6]]; // masalan 4D: XW va YZ
-}
 
 // Simulyatorni container ichida yaratadi va boshqarish funksiyalarini qaytaradi
 export function createSimulator(container, options = {}) {
@@ -68,7 +51,6 @@ export function createSimulator(container, options = {}) {
   function markUsed() {
     if (used) return;
     used = true;
-    options.onUse?.();
     container.dispatchEvent(new CustomEvent('simulator:use', { bubbles: true, detail: { dim: state.n } }));
   }
 

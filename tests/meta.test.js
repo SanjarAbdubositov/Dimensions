@@ -45,7 +45,7 @@ test('og-image.png 1200×630, ikonka fayllari mavjud', () => {
 test('404.html: noindex, ildizni aniqlovchi <base> skripti stillardan oldin, bosh sahifaga havola', () => {
   const html = read('404.html');
   assert.match(html, /<meta name="robots" content="noindex">/);
-  assert.ok(html.indexOf("createElement('base')") < html.indexOf('css/style.css'), '<base> stillardan oldin qoʻyilishi kerak');
+  assert.ok(html.indexOf("createElement('base')") < html.indexOf('href="css/style.css"'), '<base> stillardan oldin qoʻyilishi kerak');
   assert.match(html, /href="index\.html"[^>]*>Bosh sahifaga qaytish/);
 });
 

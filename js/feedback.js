@@ -22,13 +22,16 @@ export function renderFeedback(container, lessonId) {
     const input = el('input', { type: 'radio', name: 'rating', id, value: String(v), class: 'sr-only' });
     input.addEventListener('change', () => { rating = v; paint(); });
     const label = el('label', { for: id, class: 'star' }, [
-      el('span', { 'aria-hidden': 'true', text: '★' }),
+      el('span', { 'aria-hidden': 'true', text: '☆' }),
       el('span', { class: 'sr-only', text: `${v} yulduz` }),
     ]);
     return { input, label };
   });
-  // Tanlangan yulduzgacha boʻlganlarini boʻyash
-  const paint = () => stars.forEach((s, k) => s.label.classList.toggle('on', k < rating));
+  // Tanlangan yulduzlar toʻla (★), qolganlari boʻsh (☆) — holat rangdan tashqari shakl bilan ham koʻrinadi
+  const paint = () => stars.forEach((s, k) => {
+    s.label.classList.toggle('on', k < rating);
+    s.label.firstChild.textContent = k < rating ? '★' : '☆';
+  });
 
   const comment = el('textarea', { id: 'feedback-comment', rows: '3', maxlength: String(COMMENT_MAX), 'aria-describedby': 'feedback-warning feedback-count' });
   const count = el('small', { id: 'feedback-count', class: 'hint', text: `0 / ${COMMENT_MAX}` });

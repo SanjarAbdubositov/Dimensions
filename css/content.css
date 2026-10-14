@@ -86,9 +86,9 @@ td:first-child, th:first-child { text-align: left; }
 .star-row { display: flex; gap: 0.25rem; }
 .star {
   display: grid; place-items: center; width: 2.75rem; height: 2.75rem;
-  font-size: 1.9rem; line-height: 1; cursor: pointer; color: var(--border); border-radius: 8px;
+  font-size: 1.9rem; line-height: 1; cursor: pointer; color: var(--muted); border-radius: 8px;
 }
-.star.on { color: #e8a317; }
+.star.on { color: var(--star); }
 .stars input:focus-visible + .star { outline: 3px solid var(--accent); outline-offset: 1px; }
 .feedback-label { font-weight: 600; }
 .feedback textarea {

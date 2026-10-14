@@ -73,3 +73,25 @@ Dars matnlari va testlarni Claude (AI) qoralama sifatida yozgan. Quyidagi faktla
 - [ ] ⚠️ Admin panel haqiqiy Supabase va jsDelivr bilan hali sinalmagan (bu muhitdan ularga ulanib boʻlmadi). `SETUP.md` dagi 8-boʻlim boʻyicha tekshiring: admin boʻlmagan foydalanuvchi → “Ruxsat yoʻq”, admin → raqamlar SQL bilan bir xil.
 - [ ] ⚠️ CSP (`admin.html`) haqiqiy supabase-js bilan ishlashini tekshiring. Brauzer konsolida “Content Security Policy” xatosi chiqsa, qaysi manzil bloklanganini yozib oling.
 - [ ] Paneldagi taʼriflar (“Noyob qurilmalar”, voronka, oldin/keyin) tushunarli va toʻgʻrimi — oʻqituvchi bilan koʻrib chiqing.
+
+## Joylash va M5
+
+- [ ] ❓ **Bosh sahifa matni** (`index.html`) ham AI tomonidan yozilgan, lekin unda “Qoralama” belgisi yoʻq. Talab faqat darslar va testlar uchun edi. Matnni oʻzingiz qayta yozasizmi yoki belgi qoʻyilsinmi?
+- [ ] ⚠️ Sayt manzili `https://sanjarabdubositov.github.io/Dimensions/` deb olingan: GitHub foydalanuvchi nomini kichik harflarga oʻtkazadi. Joylagandan keyin manzil aynan shunday ekanini tekshiring. Boshqacha boʻlsa — `DEPLOY.md`, 5-boʻlim.
+- [ ] Telegramʼda havola koʻrinishini (rasm, sarlavha) tekshiring — `DEPLOY.md`, 3-boʻlim.
+- [ ] Lighthouseʼni joylangan saytda oʻzingiz ishga tushiring va natijani `DEPLOY.md` dagi jadval bilan solishtiring. Mening raqamlarim lokal serverda olingan.
+- [ ] Supabase kutubxonasining (jsDelivr) hajmi va yuklanish tezligi oʻlchanmagan: bu muhitdan jsDelivr yopiq edi. U faqat “Roziman” bosilgandan keyin yuklanadi.
+- [ ] Supabaseʼda **Site URL** va **Redirect URLs** ni koʻrsating — `DEPLOY.md`, 2-boʻlim.
+
+## Hali qoralama boʻlgan fayllar
+
+| Fayl | Belgisi |
+|---|---|
+| `content/lessons/1.md` … `6.md` | `draft: true` |
+| `content/quizzes/1.json` … `6.json` | `"draft": true` |
+| `content/tests/prepost.json` | `"draft": true` |
+| `glossary.html`, `about.html`, `privacy.html` | “Qoralama” belgisi |
+| `about.html` | “Muallif” va “AI yordami” — boʻsh joylar |
+| `privacy.html` | mintaqa, saqlash muddati, bogʻlanish — boʻsh joylar |
+| `README.md` | “AI yordami”, “Muallif”, “Skrinshotlar” — boʻsh joylar |
+| `docs/LOYIHA-TARIXI.md` | “Muallifning oʻz hissasi” — boʻsh joy |

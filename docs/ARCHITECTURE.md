@@ -239,3 +239,55 @@ Hammasi `node --test` (yoki `npm test`) bilan ishga tushadi, internet kerak emas
 | `tests/orthography.test.js` | Imlo: oʻ/gʻ uchun U+02BB, tutuq belgisi uchun U+02BC |
 
 `supabase/rls-test.sql` — alohida, Supabase SQL Editorʼda ishga tushiriladigan xavfsizlik testi (`docs/SETUP.md`, 6.1).
+
+## Sayqal va joylash (M5)
+
+| Fayl | Vazifasi |
+|---|---|
+| `404.html` | Oʻzbekcha “sahifa topilmadi”. Saytning ildizini oʻzi aniqlaydi (pastga qarang) |
+| `og-image.png` | Telegram va boshqa ilovalarda ulashish rasmi, 1200×630 |
+| `tools/og-image.html` | Shu rasmni saytning oʻz `math4d.js` matematikasi bilan chizadigan sahifa |
+| `apple-touch-icon.png` | Telefon bosh ekranidagi ikonka (180×180) |
+| `.nojekyll` | GitHub Pages Jekyllʼni ishlatmasin (aks holda `.md` darslar HTMLʼga aylanib qoladi) |
+| `tests/meta.test.js` | Har bir sahifada `lang`, `title`, `description`, ulashish teglari; 404 sahifa |
+| `tests/preload.test.js` | `modulepreload` roʻyxatlari import grafigiga mosmi |
+
+### Sahifa “sakramasligi” (CLS)
+
+Lighthouse dars, test va simulyator sahifalarida CLS 0.16–0.18 koʻrsatdi. Kontent JavaScript bilan keyinroq chizilgani uchun footer avval tepada koʻrinib, keyin pastga “sakrardi”. Yechim:
+- `main` va toʻliq simulyator kamida bir ekran balandligida;
+- bosh sahifadagi kichik simulyator uchun joy oldindan ajratilgan (`#mini-sim`, oʻlchov asosida).
+
+Endi hamma sahifada CLS = 0.
+
+### Tezlik: `modulepreload` va darsni oldindan soʻrash
+
+ES modullar zanjir boʻlib yuklanadi. Brauzer `lesson.js` ni olib, uning importlarini koʻradi, keyin ularning importlarini va hokazo. Sekin internetda har bir pogʻona taxminan 0.4 s kutish degani. Ikki yechim:
+
+- **`<link rel="modulepreload">`** — sahifa oʻz modullarining hammasini oldindan aytadi va brauzer ularni bir vaqtda yuklaydi. Lekin bu faqat **asosiy kontenti JS bilan chiziladigan** sahifalarda foydali: dars, test, simulyator, admin. Oddiy matnli sahifalarda u CSS bilan raqobatlashib, matnni kechiktirdi (1.4 s → 1.6 s). Shuning uchun u yerda ishlatilmaydi. `tests/preload.test.js` roʻyxatlar importlarga mosligini tekshiradi: yangi modul qoʻshilsa, test eslatadi.
+- **Dars matnini oldindan soʻrash.** `lesson.html` dagi kichik skript `?id=` boʻyicha `.md` va `.json` fayllarni `rel="preload"` bilan darhol soʻraydi. `lesson.js` keyin aynan shu fayllarni `fetch()` qiladi va brauzer ularni qayta yuklamaydi (bu tekshirilgan).
+
+Natija: sekin 3G da (400 ms, 400 kbit/s, CPU ×4, gzip bilan) dars LCP 2.7 s, qolgan sahifalar 1.1–2.4 s.
+
+### Simulyator faqat ekranda ishlaydi
+
+`IntersectionObserver` simulyator koʻrinayotganini kuzatadi. Ekrandan tashqarida u chizmaydi va animatsiya sikli toʻxtaydi. Boshlangʻich holat `visible = false`: sahifa ochilganda ekrandan pastda turgan simulyator birinchi kadrni ham chizmaydi.
+
+### 404 sahifa va `<base>`
+
+GitHub Pages `404.html` ni istalgan notoʻgʻri manzilda koʻrsatadi, masalan `/Dimensions/a/b/c` da. U yerda nisbiy `css/style.css` notoʻgʻri papkadan qidirilardi. Shuning uchun `<head>` dagi kichik skript `<base>` tegini qoʻyadi:
+- `github.io` da — birinchi papka (`/Dimensions/`);
+- boshqa joyda — `/`.
+
+Bu loyihadagi yagona “ildizni bilish kerak” boʻlgan joy. Qolgan hamma yoʻllar nisbiy.
+
+### Ulashish teglari
+
+`og:image` va `og:url` — **toʻliq manzil** (`https://…`), chunki Telegram nisbiy yoʻlni tushunmaydi. Bu loyihadagi yagona qatʼiy yozilgan manzil. U oʻzgarsa — `docs/DEPLOY.md`, 5-boʻlim.
+
+### Accessibility
+
+- Rang juftliklari yorugʻ va qorongʻi rejimda WCAG AA ga tekshirilgan: matn ≥ 4.5:1, interfeys elementlari ≥ 3:1.
+- Fikr formasidagi yulduzlar holatni rang bilan emas, shakl bilan ham koʻrsatadi (★ / ☆).
+- Admin jadvallari telefonda yon tomonga suriladi, shuning uchun ular klaviatura bilan ham fokuslanadi (`tabindex="0"`).
+- axe-core barcha sahifalarda, ikkala rejimda va interaktiv holatlarda (banner, quiz natijasi, admin hisoboti) xatosiz oʻtdi.

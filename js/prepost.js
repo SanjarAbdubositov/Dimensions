@@ -45,6 +45,7 @@ function afterSubmit(result, message) {
   message.hidden = false;
 }
 
+// Sahifa ochilganda: test turini aniqlash, savollarni yuklash va chizish
 async function init() {
   if (!TEXT[type]) return showChooser();
   document.title = `${TEXT[type].title} — Toʻrtinchi oʻlchov`;

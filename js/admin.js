@@ -123,6 +123,7 @@ async function logout() {
   status.textContent = 'Siz tizimdan chiqdingiz.';
 }
 
+// Sahifa ochilganda: sozlamani tekshirish, klientni yuklash, tugmalarni ulash, sessiyani tiklash
 async function init() {
   if (!adminConfigured()) {
     status.textContent = 'Supabase sozlanmagan: js/config.js boʻsh. docs/SETUP.md ga qarang.';

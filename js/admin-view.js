@@ -15,8 +15,9 @@ let chartObserver = null;  // grafikni ekran kengligiga moslash (har yangilanish
 const pct = (x) => (x === null ? '—' : `${Math.round(x)}%`);
 // Oʻzgarish: +12 / −5 foiz punkti
 const delta = (x) => (x === null ? '—' : `${x > 0 ? '+' : x < 0 ? '−' : ''}${Math.abs(Math.round(x))} f.p.`);
-// Sana va vaqt: 14.10.2026 09:30 (brauzer vaqti boʻyicha)
+// Ikki xonali son: 4 → "04"
 const pad = (n) => String(n).padStart(2, '0');
+// Sana va vaqt: 14.10.2026 09:30 (brauzer vaqti boʻyicha)
 export function formatDateTime(iso) {
   const d = new Date(iso);
   return `${pad(d.getDate())}.${pad(d.getMonth() + 1)}.${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;

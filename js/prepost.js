@@ -4,6 +4,7 @@
 import { renderQuiz } from './quiz-ui.js';
 import { loadProgress, saveTestResult } from './progress.js';
 import { el } from './dom.js';
+import { track } from './analytics.js';
 
 const TEXT = {
   pre: {
@@ -36,6 +37,7 @@ function showChooser() {
 // Natijadan keyingi xabar; "post" da shu qurilmadagi "pre" natijasi bilan solishtiradi
 function afterSubmit(result, message) {
   saveTestResult(type, result.score, result.max);
+  track(type === 'pre' ? 'pretest_submit' : 'posttest_submit', { score: result.score, maxScore: result.max });
   const pre = loadProgress().tests.pre;
   let text = TEXT[type].done;
   if (type === 'post' && pre) text += ` Seminar boshida: ${pre.score}/${pre.max}, hozir: ${result.score}/${result.max}.`;

@@ -57,3 +57,13 @@ Dars matnlari va testlarni Claude (AI) qoralama sifatida yozgan. Quyidagi faktla
 
 - [ ] 5D–7D giperkub nomlari: penterakt, hekserakt, hepterakt (inglizchada penteract, hexeract, hepteract). Oʻzbekcha shakli toʻgʻrimi?
 - [ ] Lugʻatdagi taʼriflar (`glossary.html`) — oddiy va toʻgʻrimi?
+
+## Statistika va maxfiylik (M3)
+
+- [ ] ⚠️ **Qonunchilik.** Oʻzbekistonning “Shaxsga doir maʼlumotlar toʻgʻrisida”gi qonunida Oʻzbekiston fuqarolarining shaxsiy maʼlumotlarini mamlakat ichidagi serverlarda saqlash talabi bor (lokalizatsiya). Bizning maʼlumot anonim (tasodifiy ID, ism yoʻq), lekin bu talab bizga taalluqli emasligini kattalar yoki huquqshunos bilan tekshiring. Supabase serveri Oʻzbekistondan tashqarida.
+- [ ] ⚠️ **Voyaga yetmaganlar roziligi.** Foydalanuvchilar 13–16 yoshli. Oʻquvchining oʻz “Roziman” tugmasi yetarlimi yoki seminar uchun ota-ona/maktab roziligi ham kerakmi — oʻqituvchi va maktab bilan kelishing.
+- [ ] ⚠️ Supabase bepul loyihasi qancha vaqt ishlatilmasa pauza qilinadi (`SETUP.md` da “taxminan bir hafta” deb yozilgan) — Supabaseʼning hozirgi tariflar sahifasidan tekshiring.
+- [ ] ⚠️ `SETUP.md` dagi menyu nomlari (Project Settings → API Keys, Data API, Authentication → Sign In / Providers) — Supabase sahifasi bilan solishtiring.
+- [ ] ⚠️ Faqat `apikey` sarlavhasi bilan curl soʻrovlari ishlashini tekshiring (eski JWT kalit uchun `Authorization` ham kerak boʻlishi mumkin — `SETUP.md` da yozilgan).
+- [ ] ⚠️ jsDelivr manzili `https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/+esm` brauzerda ochilishini tekshiring. Versiya va uning sanasi (2026-09-25) npm reyestridan olingan, lekin bu muhitdan jsDelivrʼga ulanib boʻlmadi.
+- [ ] `privacy.html` dagi bosh joylar: server mintaqasi, saqlash muddati, bogʻlanish.

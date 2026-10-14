@@ -27,7 +27,7 @@ npm test        # yoki: node --test
 
 - [x] M1 — skelet va simulyator
 - [x] M2 — darslar va testlar (qoralama)
-- [ ] M3 — anonim statistika
+- [x] M3 — anonim statistika (Supabaseʼni sozlash: [docs/SETUP.md](docs/SETUP.md))
 - [ ] M4 — admin panel
 - [ ] M5 — sayqal va joylash
 

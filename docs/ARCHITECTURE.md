@@ -136,3 +136,50 @@ Kalit: `tortinchi-olchov.progress.v1`. Agar `localStorage` ishlamasa (maxfiy rej
 `tests/content.test.js` tekshiradi: har bir darsda frontmatter bor va sarlavha `lessons.js` hamda `index.html` bilan bir xil; direktivalar toʻgʻri; qoralama darslar 600–900 soʻz; har bir test JSON toʻgʻri tuzilgan va `answer` variantlar ichida.
 
 **Eslatma:** fayl nomi `test-` bilan boshlansa, `node --test` uni test deb ishga tushiradi. Shuning uchun oldin/keyin testi skripti `js/prepost.js` deb nomlangan.
+
+## Anonim statistika (M3)
+
+| Fayl | Vazifasi |
+|---|---|
+| `supabase/schema.sql` | Jadvallar, CHECK cheklovlari, GRANT, `is_admin()`, RLS siyosatlari |
+| `supabase/rls-test.sql` | Xavfsizlik testi: SQL Editorʼda `anon`, oddiy foydalanuvchi va admin sifatida har bir qoidani tekshiradi |
+| `js/analytics-core.js` | Sof funksiyalar: seminar kodi, rozilik mantigʻi, qator tuzish, taqiqlangan kalitni aniqlash |
+| `js/analytics.js` | Brauzer qismi: IDʼlar, `track()`, `sendFeedback()`, Supabase klientini yuklash |
+| `js/consent-ui.js` | Rozilik banneri va “Statistika sozlamalari” oynasi |
+| `js/feedback.js` | Dars oxiridagi fikr formasi (1–5 yulduz, izoh) |
+| `js/config.js` | Supabase URL va publishable/anon kalit (boʻsh = statistika oʻchiq) |
+| `docs/SETUP.md` | Supabaseʼni qadamma-qadam sozlash va xavfsizlik tekshiruvi |
+
+### Maʼlumot qanday oqadi
+
+```
+sahifa → track('quiz_submit', {...}) → canSend? → buildEvent (tekshiruv) → Supabase insert
+                                         │ yoʻq                │ notoʻgʻri
+                                         └→ hech narsa          └→ hech narsa
+```
+
+1. **Rozilik birinchi.** `canSend` faqat uchta shart bajarilganda `true` beradi: `config.js` toʻldirilgan, foydalanuvchi “Roziman” degan va qurilma admin tomonidan chiqarilmagan. Aks holda Supabase kutubxonasi **umuman yuklanmaydi** — tarmoqqa birorta ham soʻrov ketmaydi.
+2. **IDʼlar rozilikdan keyin yaratiladi.** `anon_id` — `crypto.randomUUID()`, `localStorage`da. `session_id` — `sessionStorage`da (oyna yopilganda yoʻqoladi). “Yoʻq, rahmat” bosilsa, `anon_id` oʻchiriladi.
+3. **Ikki qavatli tekshiruv.** `buildEvent` serverdagi CHECK qoidalarini brauzerda takrorlaydi va notoʻgʻri qatorni umuman yubormaydi. Server esa baribir oʻzi ham tekshiradi — brauzerga ishonib boʻlmaydi (kimdir kodni oʻzgartirishi mumkin).
+4. **Hech qachon xato tashlamaydi.** `track()` hamma narsani `try/catch` ichida bajaradi va natijani kutmaydi. Internet uzilsa ham, Supabase pauzada boʻlsa ham sayt ishlayveradi.
+
+### Simulyator va statistika ajratilgan
+
+`simulator.js` statistika haqida hech narsa bilmaydi. Foydalanuvchi oʻlchamni oʻzgartirsa yoki shaklni sudrasa, u faqat `simulator:use` DOM hodisasini chiqaradi. `analytics.js` esa `document` da shu hodisani tinglaydi va sessiyada bir marta `simulator_use` yuboradi. Natijada simulyatorni statistikasiz boshqa loyihada ham ishlatish mumkin.
+
+### `lesson_complete` qachon yuboriladi
+
+Taʼrif: “dars oxirigacha oʻqildi **va** test topshirildi”. Dars matni oxiriga koʻrinmas belgi (`.lesson-end`) qoʻyiladi va `IntersectionObserver` u ekranda paydo boʻlganini kuzatadi. Test topshirilganda belgi koʻringan boʻlsa — `lesson_complete` (sessiyada bir marta).
+
+### RLS va huquqlar — qisqacha
+
+- **GRANT** — rol qaysi jadval va **ustunlarga** umuman tegina olishi. Mijoz faqat kerakli ustunlarga INSERT qila oladi. `id` va `created_at` ga yoza olmaydi, shuning uchun soxta vaqt yuborib boʻlmaydi.
+- **RLS** — har bir **qator** uchun qoida. INSERT hammaga ochiq, SELECT faqat `is_admin()` true boʻlganda. UPDATE va DELETE uchun na GRANT, na siyosat bor.
+- **`is_admin()`** — `security definer` (egasi huquqi bilan ishlaydi), shuning uchun `admins` jadvalini oʻzi oʻqiy oladi. Foydalanuvchiga esa bu jadvalga hech qanday huquq berilmagan. `search_path = ''` — funksiyani soxta jadval bilan aldashning oldini oladi.
+- **CHECK** — maʼlumot shakli: hodisa turi roʻyxatdan, dars 1–6, ball 0..maks, seminar kodi faqat `[A-Za-z0-9-]` (bu maydonga ism yoki telefon yozib boʻlmaydi), meta kichik.
+
+### Supabase kutubxonasi
+
+`@supabase/supabase-js@2.117.2`, jsDelivrʼdan ESM sifatida, **aniq versiya** bilan. `latest` ishlatilmaydi: yangi versiya kutilmaganda saytni buzib qoʻyishi mumkin. Versiya chiqqanidan kamida 2 hafta oʻtgan (2026-09-25). U faqat rozilik berilgandan keyin `import()` bilan yuklanadi.
+
+Qatorlar `return=minimal` rejimida yuboriladi (supabase-jsʼda `.insert()` dan keyin `.select()` yoʻq). Shuning uchun anon rolga SELECT huquqi kerak emas.

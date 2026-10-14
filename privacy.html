@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Maxfiylik — Toʻrtinchi oʻlchov</title>
-  <meta name="description" content="Sayt qanday maʼlumot saqlaydi va nima yigʻmaydi — oddiy tilda.">
+  <meta name="description" content="Sayt qanday maʼlumot yigʻadi, nima uchun, qayerda saqlanadi va rozilikni qanday bekor qilish mumkin — oddiy tilda.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/content.css">
@@ -25,28 +25,60 @@
 
   <main id="main" class="wrap prose">
     <h1>Maxfiylik</h1>
-    <p class="draft-banner" role="note">Qoralama — anonim statistika qoʻshilgach (M3), bu sahifa toʻldiriladi</p>
+    <p class="draft-banner" role="note">Qoralama — muallif hali qayta yozmagan</p>
 
-    <h2>Hozir nima saqlanadi?</h2>
-    <p>Faqat sizning qurilmangizda (brauzerning <code>localStorage</code> xotirasida):</p>
+    <p class="lead">Qisqasi: ism, telefon va email soʻralmaydi. Statistika faqat siz “Roziman” desangiz yigʻiladi. Rad etsangiz ham sayt toʻliq ishlaydi.</p>
+
+    <h2 id="nima-yigiladi">Nima yigʻiladi (faqat rozilik bersangiz)</h2>
     <ul>
-      <li>qaysi darslarni boshlagansiz va qaysilarini tugatgansiz;</li>
-      <li>dars testlari va oldin/keyin testining natijasi.</li>
+      <li><strong>Tasodifiy qurilma raqami</strong>, masalan <code>3f2b8c1e-…</code>. Uni brauzeringiz oʻzi tasodifan yaratadi, u sizning ismingiz yoki telefoningizga bogʻliq emas. Bir odam ikki xil qurilmadan kirsa, ikki xil raqam boʻladi.</li>
+      <li><strong>Tashrif raqami</strong> — brauzer oynasi yopilganda yangilanadi.</li>
+      <li><strong>Nima qilindi:</strong> qaysi sahifa yoki dars ochildi, dars tugatildimi, test natijasi (masalan, 4/5), simulyator ishlatildimi.</li>
+      <li><strong>Fikr:</strong> 1–5 yulduz va siz yozgan izoh (agar fikr qoldirsangiz).</li>
+      <li><strong>Seminar kodi</strong>, masalan <code>MAKTAB12-A</code> — agar oʻqituvchi bergan havolada boʻlsa.</li>
+      <li><strong>Vaqt</strong> — maʼlumot qachon kelganini server oʻzi yozadi.</li>
     </ul>
-    <p>Bu maʼlumot <strong>hech qayerga yuborilmaydi</strong>. Uni faqat siz koʻrasiz: bosh sahifadagi dars yonidagi “Boshlangan” yoki “Tugatilgan” belgilari shundan olinadi. Brauzer tarixini (sayt maʼlumotlarini) tozalasangiz, u oʻchib ketadi.</p>
 
-    <h2>Nima yigʻilmaydi?</h2>
-    <p>Ism, telefon raqami, email, aniq joylashuv soʻralmaydi va saqlanmaydi.</p>
+    <h2 id="nima-yigilmaydi">Nima yigʻilmaydi</h2>
+    <p>Ism, familiya, telefon raqami, email, manzil, aniq joylashuv, rasm — hech biri soʻralmaydi va saqlanmaydi. Biz IP manzilingizni bazaga yozmaymiz.</p>
+    <p>Lekin halol aytishimiz kerak: internetdagi har qanday sayt kabi, sahifa ochilganda va maʼlumot yuborilganda saytni joylashtirgan xizmatlar (GitHub Pages, Supabase, jsDelivr) oʻz texnik jurnallarida IP manzilingizni vaqtincha koʻrishi mumkin. Bu ularning oʻz qoidalari bilan boshqariladi va bizga kelmaydi.</p>
 
-    <h2>Keyinchalik</h2>
-    <p>Darslarni yaxshilash uchun <strong>ixtiyoriy</strong> anonim statistika qoʻshilishi rejalashtirilgan. U faqat siz rozilik bersangiz yoqiladi, rad etsangiz sayt toʻliq ishlayveradi. Aniq nima yigʻilishi shu sahifada yoziladi.</p>
+    <h2 id="nima-uchun">Nima uchun yigʻiladi</h2>
+    <ul>
+      <li>Qaysi dars tushunarsiz ekanini bilish: uni koʻp odam boshlab, kam odam tugatsa, demak darsni yaxshilash kerak.</li>
+      <li>Qaysi dars testi qiyin ekanini koʻrish.</li>
+      <li>Seminar boshida va oxiridagi test natijalarini solishtirib, dars haqiqatan foyda berdimi — shuni bilish.</li>
+      <li>Umumiy raqamlar (masalan, “120 ta qurilma”) muallifning portfoliosida koʻrsatilishi mumkin. Alohida odam haqida maʼlumot hech qachon koʻrsatilmaydi.</li>
+    </ul>
+
+    <h2 id="qayerda">Maʼlumot qayerda saqlanadi</h2>
+    <p>Maʼlumot <strong>Supabase</strong> xizmatida (bulutdagi maʼlumotlar bazasi) saqlanadi. Server <strong>Oʻzbekistondan tashqarida</strong> joylashgan:</p>
+    <p class="placeholder" role="note">[Muallif yozadi: serverning aniq mintaqasi, masalan “Yevropa (Frankfurt, Germaniya)”.]</p>
+    <p>Maʼlumotni faqat muallif parol bilan kirib koʻra oladi. Saytdagi kod orqali uni hech kim oʻqiy olmaydi: brauzerdan faqat yangi yozuv qoʻshish mumkin, oʻqish, oʻzgartirish va oʻchirish mumkin emas.</p>
+    <p class="placeholder" role="note">[Muallif yozadi: maʼlumot qancha vaqt saqlanadi.]</p>
+
+    <h2 id="statistika">Rozilikni qanday oʻzgartirish yoki bekor qilish mumkin</h2>
+    <ol>
+      <li>Istalgan sahifaning eng pastidagi <strong>“Statistika sozlamalari”</strong> havolasini bosing.</li>
+      <li><strong>“Yoʻq, rahmat”</strong> tugmasini tanlang.</li>
+    </ol>
+    <p>Shundan keyin hech narsa yuborilmaydi, qurilma raqami esa brauzeringizdan oʻchiriladi. Oldin yuborilgan maʼlumot anonim, shuning uchun uning kimga tegishli ekanini hech kim aniqlay olmaydi.</p>
+    <p>Rozilik bermasangiz ham barcha darslar, testlar va simulyator toʻliq ishlaydi. Faqat fikr yuborish uchun rozilik kerak.</p>
+
+    <h2 id="qurilmada">Qurilmangizning oʻzida nima saqlanadi</h2>
+    <p>Brauzerning <code>localStorage</code> xotirasida: qaysi darslarni boshlagan va tugatganingiz, test natijalari, rozilik boʻyicha tanlovingiz, seminar kodi va (rozilik bersangiz) qurilma raqami. Bu roʻyxatning oʻzi serverga yuborilmaydi. Serverga faqat yuqorida sanalgan hodisalar boradi (test natijasi ham ular orasida, rozilik bergan boʻlsangiz).</p>
+    <p>Brauzer sozlamalarida shu sayt maʼlumotlarini tozalasangiz, bularning hammasi oʻchib ketadi.</p>
+
+    <h2 id="boglanish">Savollar boʻlsa</h2>
+    <p class="placeholder" role="note">[Muallif yozadi: bogʻlanish yoʻli.]</p>
   </main>
 
   <footer class="site-footer">
     <div class="wrap">
       <p>Kod — MIT litsenziyasi, dars matnlari — CC BY 4.0.</p>
-      <p><a href="about.html">Loyiha haqida</a> · <a href="privacy.html" aria-current="page">Maxfiylik</a></p>
+      <p><a href="about.html">Loyiha haqida</a> · <a href="privacy.html" aria-current="page">Maxfiylik</a> · <a href="privacy.html#statistika" data-analytics-settings>Statistika sozlamalari</a></p>
     </div>
   </footer>
+  <script type="module" src="js/analytics.js"></script>
 </body>
 </html>

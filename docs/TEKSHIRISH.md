@@ -67,3 +67,9 @@ Dars matnlari va testlarni Claude (AI) qoralama sifatida yozgan. Quyidagi faktla
 - [ ] ⚠️ Faqat `apikey` sarlavhasi bilan curl soʻrovlari ishlashini tekshiring (eski JWT kalit uchun `Authorization` ham kerak boʻlishi mumkin — `SETUP.md` da yozilgan).
 - [ ] ⚠️ jsDelivr manzili `https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/+esm` brauzerda ochilishini tekshiring. Versiya va uning sanasi (2026-09-25) npm reyestridan olingan, lekin bu muhitdan jsDelivrʼga ulanib boʻlmadi.
 - [ ] `privacy.html` dagi bosh joylar: server mintaqasi, saqlash muddati, bogʻlanish.
+
+## Admin panel (M4)
+
+- [ ] ⚠️ Admin panel haqiqiy Supabase va jsDelivr bilan hali sinalmagan (bu muhitdan ularga ulanib boʻlmadi). `SETUP.md` dagi 8-boʻlim boʻyicha tekshiring: admin boʻlmagan foydalanuvchi → “Ruxsat yoʻq”, admin → raqamlar SQL bilan bir xil.
+- [ ] ⚠️ CSP (`admin.html`) haqiqiy supabase-js bilan ishlashini tekshiring. Brauzer konsolida “Content Security Policy” xatosi chiqsa, qaysi manzil bloklanganini yozib oling.
+- [ ] Paneldagi taʼriflar (“Noyob qurilmalar”, voronka, oldin/keyin) tushunarli va toʻgʻrimi — oʻqituvchi bilan koʻrib chiqing.

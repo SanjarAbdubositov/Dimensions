@@ -123,7 +123,8 @@ as $$
   );
 $$;
 
--- Funksiyani faqat tizimga kirganlar chaqira oladi (admin panel "Ruxsat yoʻq"ni shu bilan aniqlaydi).
+-- Funksiyani faqat tizimga kirganlar chaqira oladi: admin panel uni RPC sifatida
+-- (POST /rest/v1/rpc/is_admin) chaqirib, "Ruxsat yoʻq"ni aniqlaydi. anon uchun yopiq.
 -- U faqat true/false qaytaradi — admins roʻyxatini ochib bermaydi.
 revoke all on function public.is_admin() from public, anon;
 grant execute on function public.is_admin() to authenticated;

@@ -125,7 +125,7 @@ Oʻ va gʻ uchun faqat U+02BB (ʻ), tutuq belgisi uchun U+02BC (ʼ, masalan “m
 
 `answer` — toʻgʻri variantning indeksi (0 dan boshlanadi). `validateQuiz` tuzilmani tekshiradi, `gradeQuiz(quiz, answers)` esa natijani qaytaradi va hech narsani oʻzgartirmaydi — shuning uchun oson test qilinadi.
 
-**Oldin/keyin testi:** savollar ikkalasida bir xil. `?type=pre` da toʻgʻri javoblar **koʻrsatilmaydi** — aks holda oʻquvchi javoblarni eslab qolib, seminar oxiridagi test oʻrganilgan bilimni emas, xotirani oʻlchab qoladi. `?type=post` da tushuntirishlar va shu qurilmadagi “oldin” natijasi bilan taqqoslash chiqadi.
+**Oldin/keyin testi:** savollar ikkalasida bir xil. `?type=pre` da toʻgʻri javoblar **koʻrsatilmaydi** — aks holda oʻquvchi javoblarni eslab qolib, seminar oxiridagi test oʻrganilgan bilimni emas, xotirani oʻlchab qoladi. `?type=post` da tushuntirishlar va shu qurilmadagi “oldin” natijasi bilan taqqoslash chiqadi. Ikkala testda ham “Qayta urinish” tugmasi yoʻq: aks holda oʻquvchi toʻgʻri javoblarni koʻrib, qayta topshirardi va seminar natijasi soxta oshib ketardi. Sahifani yangilab qayta topshirish baribir mumkin, shuning uchun admin panel (M4) har bir qurilmaning **birinchi** natijasini hisoblashi kerak.
 
 ### Progress (`localStorage`)
 
@@ -183,3 +183,41 @@ Taʼrif: “dars oxirigacha oʻqildi **va** test topshirildi”. Dars matni oxir
 `@supabase/supabase-js@2.117.2`, jsDelivrʼdan ESM sifatida, **aniq versiya** bilan. `latest` ishlatilmaydi: yangi versiya kutilmaganda saytni buzib qoʻyishi mumkin. Versiya chiqqanidan kamida 2 hafta oʻtgan (2026-09-25). U faqat rozilik berilgandan keyin `import()` bilan yuklanadi.
 
 Qatorlar `return=minimal` rejimida yuboriladi (supabase-jsʼda `.insert()` dan keyin `.select()` yoʻq). Shuning uchun anon rolga SELECT huquqi kerak emas.
+
+## Admin panel (M4)
+
+| Fayl | Vazifasi |
+|---|---|
+| `admin.html` | Panel sahifasi: `noindex`, qatʼiy CSP, ochiq sahifalardan havola yoʻq |
+| `js/admin.js` | Kirish → `is_admin()` → maʼlumot → hisobot; filtrlar, CSV, “qurilmani chiqar” |
+| `js/admin-data.js` | Supabase: kirish, admin tekshiruvi, sahifalab FAQAT oʻqish |
+| `js/admin-view.js` | Hisobotni chizish (faqat `textContent`, `innerHTML` yoʻq) |
+| `js/stats.js` | Hisob-kitoblar — sof funksiyalar (voronka, oʻrtachalar, oldin/keyin, n < 5) |
+| `js/chart.js` | Kunlik grafik: SVG, kutubxonasiz; geometriya — sof funksiya |
+| `js/csv.js` | CSV: ekranlashtirish va CSV injection himoyasi |
+| `js/supabase-lib.js` | Supabase kutubxonasi manzili (aniq versiya) — statistika va panel uchun umumiy |
+| `js/device.js` | “Bu qurilmani statistikadan chiqar” bayrogʻi |
+| `css/admin.css` | Panel uslubi (grafik rangi yorugʻ/qorongʻi rejim uchun alohida tekshirilgan) |
+
+### Himoya qatlamlari
+
+1. **Server (asosiy).** RLS: `events` va `feedback` ni faqat `is_admin()` true boʻlgan foydalanuvchi oʻqiy oladi. Panelning kodi oʻzgartirilsa ham, admin boʻlmagan odam boʻsh roʻyxat oladi. Yozish, oʻzgartirish va oʻchirish hech kimga ruxsat etilmagan.
+2. **Panel.** Kirgandan keyin avval `rpc('is_admin')` chaqiriladi. `false` boʻlsa, “Ruxsat yoʻq” chiqadi va jadvallarga **birorta ham soʻrov yuborilmaydi**.
+3. **Brauzer.** Content-Security-Policy faqat shu saytdan va jsDelivrʼdan skript yuklashga, faqat `*.supabase.co` ga ulanishga ruxsat beradi. XSS boʻlib qolsa ham, begona skript ishlamaydi va maʼlumot begona serverga keta olmaydi.
+4. **Sessiya `sessionStorage`da.** Brauzer oynasi yopilsa, avtomatik chiqiladi — maktabdagi umumiy kompyuter uchun xavfsizroq.
+
+### XSS va `textContent`
+
+Izohlar va seminar kodlarini **foydalanuvchilar** yozadi. Agar ular `innerHTML` bilan sahifaga qoʻyilsa, `<img src=x onerror="…">` kabi matn **kod sifatida** ishga tushib, admin sessiyasini oʻgʻirlashi mumkin edi. `textContent` esa har qanday matnni faqat harf sifatida koʻrsatadi. `tests/admin.test.js` admin fayllarida `innerHTML` yoʻqligini tekshiradi.
+
+### Sahifalab yuklash
+
+Supabase bir soʻrovda koʻpi bilan 1000 qator beradi. `fetchAll` `range(0, 999)`, `range(1000, 1999)` … soʻraydi va **boʻsh sahifa** kelganda toʻxtaydi. Agar loyiha sozlamasida chegara 1000 dan kichik boʻlsa ham, maʼlumot yoʻqolmaydi. Tartib `id` boʻyicha: yuklash paytida yangi qator qoʻshilsa ham, sahifalar siljib ketmaydi.
+
+### Hisob-kitob qoidalari (stats.js)
+
+- Hammasi **qurilmalar** (`anon_id`) boʻyicha sanaladi, odamlar boʻyicha emas.
+- Test natijalarida har qurilmaning **birinchi** urinishi olinadi: qayta urinish yoki sahifani yangilab qayta topshirish natijani oshirib yubormaydi.
+- Voronkada “boshlaganlar” = `lesson_start` **yoki** `lesson_complete` yuborganlar. Rozilik dars oʻrtasida berilgan boʻlsa, `lesson_start` yuborilmay qolishi mumkin. Shuning uchun foiz hech qachon 100 dan oshmaydi.
+- n < 5 boʻlsa, “Maʼlumot kam — xulosa chiqarish uchun yetarli emas” ogohlantirishi chiqadi.
+- `docs/SETUP.md` (8.2) dagi SQL soʻrovlari xuddi shu qoidalarni takrorlaydi. Ular lokal PostgreSQLʼda `stats.js` bilan bir xil natija berishi tekshirilgan.

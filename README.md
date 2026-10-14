@@ -28,7 +28,7 @@ npm test        # yoki: node --test
 - [x] M1 — skelet va simulyator
 - [x] M2 — darslar va testlar (qoralama)
 - [x] M3 — anonim statistika (Supabaseʼni sozlash: [docs/SETUP.md](docs/SETUP.md))
-- [ ] M4 — admin panel
+- [x] M4 — admin panel (`admin.html`, tekshirish: [docs/SETUP.md](docs/SETUP.md) 8-boʻlim)
 - [ ] M5 — sayqal va joylash
 
 Batafsil: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). Dars matnlaridagi tekshirilishi kerak boʻlgan faktlar: [docs/TEKSHIRISH.md](docs/TEKSHIRISH.md).

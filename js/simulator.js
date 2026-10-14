@@ -44,7 +44,7 @@ export function createSimulator(container, options = {}) {
   };
   let shape = null;
   let used = false;     // simulator_use hodisasi sessiyada bir marta
-  let drag = null;      // sudrash boshlangan nuqta
+  let drag = null;      // sudrash: { id, x, y } — qaysi barmoq va oxirgi nuqta
   let visible = true;
   let rafId = 0;
   let lastTime = 0;
@@ -109,21 +109,28 @@ export function createSimulator(container, options = {}) {
     requestFrame();
   }
 
+  // Faqat birinchi barmoq kuzatiladi: ikkinchi barmoq tegsa, shakl sakrab ketmasligi kerak
   canvas.addEventListener('pointerdown', (e) => {
-    drag = { x: e.clientX, y: e.clientY };
-    try { canvas.setPointerCapture(e.pointerId); } catch { /* baʼzi brauzerlarda ushlab boʻlmaydi — sudrash baribir ishlaydi */ }
+    if (drag) return;
+    drag = { id: e.pointerId, x: e.clientX, y: e.clientY };
+    try { canvas.setPointerCapture(e.pointerId); } catch { /* baʼzi brauzerlarda ushlab boʻlmaydi */ }
     markUsed();
   });
   canvas.addEventListener('pointermove', (e) => {
-    if (!drag) return;
+    if (!drag || e.pointerId !== drag.id) return;
     const dx = (e.clientX - drag.x) * DRAG_DEG_PER_PX;
     const dy = (e.clientY - drag.y) * DRAG_DEG_PER_PX;
-    drag = { x: e.clientX, y: e.clientY };
+    drag = { id: drag.id, x: e.clientX, y: e.clientY };
     rotateBy(dx, dy, e.shiftKey);
   });
-  const endDrag = () => { drag = null; requestFrame(); };
-  canvas.addEventListener('pointerup', endDrag);
-  canvas.addEventListener('pointercancel', endDrag);
+  // window'da tinglaymiz: barmoq canvas'dan tashqarida qoʻyib yuborilsa ham sudrash tugaydi
+  const endDrag = (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    drag = null;
+    requestFrame();
+  };
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
 
   // Klaviatura: strelkalar bilan burish (Shift — 4D)
   canvas.addEventListener('keydown', (e) => {

@@ -109,7 +109,8 @@ test('config.js da secret kalit yoʻq', () => {
 });
 
 test('Supabase kutubxonasi aniq versiya bilan yuklanadi', () => {
-  assert.match(read('js/analytics.js'), /@supabase\/supabase-js@\d+\.\d+\.\d+\/\+esm/);
+  assert.match(read('js/supabase-lib.js'), /@supabase\/supabase-js@\d+\.\d+\.\d+\/\+esm/);
+  assert.doesNotMatch(read('js/supabase-lib.js'), /@latest|@\^|@~/);
 });
 
 test('schema.sql: hodisa turlari JS roʻyxati bilan bir xil', () => {

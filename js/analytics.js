@@ -7,15 +7,13 @@ import {
   parseGroupCode, isConfigured, isForbiddenKey, isUuid,
 } from './analytics-core.js';
 import { showConsentBanner } from './consent-ui.js';
-
-// Aniq versiya (latest emas): kutilmagan yangilanish saytni buzmasligi uchun
-const SUPABASE_ESM = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/+esm';
+import { loadSupabase } from './supabase-lib.js';
+import { isExcluded } from './device.js';
 
 const KEYS = {
   consent: 'tortinchi-olchov.consent',   // localStorage: 'granted' | 'denied'
   anonId: 'tortinchi-olchov.anon-id',    // localStorage: qurilma ID'si (faqat rozilikdan keyin)
   group: 'tortinchi-olchov.group',       // localStorage: seminar kodi
-  exclude: 'tortinchi-olchov.exclude',   // localStorage: '1' — admin qurilmasi, hech narsa yuborilmaydi
   sessionId: 'tortinchi-olchov.session-id', // sessionStorage: shu tashrif ID'si
   once: 'tortinchi-olchov.once.',        // sessionStorage: sessiyada bir marta yuboriladigan hodisalar
 };
@@ -43,7 +41,7 @@ export function getStatus() {
   return {
     configured,
     consent: normalizeConsent(read('localStorage', KEYS.consent)),
-    excluded: read('localStorage', KEYS.exclude) === '1',
+    excluded: isExcluded(), // admin qurilmasi — hech narsa yuborilmaydi (device.js)
     groupCode: read('localStorage', KEYS.group),
   };
 }
@@ -52,11 +50,6 @@ export function getStatus() {
 export function setConsent(value) {
   write('localStorage', KEYS.consent, normalizeConsent(value));
   if (value === 'denied') write('localStorage', KEYS.anonId, null);
-}
-
-// "Bu qurilmani statistikadan chiqar" (admin panel uchun)
-export function setExcluded(flag) {
-  write('localStorage', KEYS.exclude, flag ? '1' : null);
 }
 
 // ID'ni oʻqish yoki yangisini yaratish (crypto.randomUUID — tasodifiy, hech kimga bogʻliq emas)
@@ -82,7 +75,7 @@ let clientPromise = null;
 
 // Supabase klientini faqat birinchi kerak boʻlganda yuklaymiz (rozilik bermaganlar uni umuman yuklamaydi)
 function getClient() {
-  clientPromise ??= import(SUPABASE_ESM).then(({ createClient }) =>
+  clientPromise ??= loadSupabase().then(({ createClient }) =>
     createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
     }));

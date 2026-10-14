@@ -6,8 +6,9 @@ let uid = 0; // sahifada bir nechta test boʻlsa, radio nomlari takrorlanmasin
 
 // Testni container ichida chizadi.
 // options.reveal — topshirgandan keyin toʻgʻri javob va tushuntirish koʻrsatilsinmi
+// options.allowRetry — "Qayta urinish" tugmasi boʻlsinmi (oldin/keyin testida yoʻq: natija buzilmasin)
 // options.onSubmit(result) — natija tayyor boʻlganda chaqiriladi
-export function renderQuiz(container, quiz, { reveal = true, onSubmit } = {}) {
+export function renderQuiz(container, quiz, { reveal = true, allowRetry = true, onSubmit } = {}) {
   const prefix = `quiz-${++uid}`;
   const answers = quiz.questions.map(() => null);
   const form = el('form', { class: 'quiz', novalidate: '' });
@@ -62,7 +63,8 @@ export function renderQuiz(container, quiz, { reveal = true, onSubmit } = {}) {
       feedback.hidden = false;
     });
     status.textContent = `Natija: ${result.score} / ${result.max} (${percent(result.score, result.max)}%)`;
-    button.textContent = 'Qayta urinish';
+    if (allowRetry) button.textContent = 'Qayta urinish';
+    else button.remove();
   }
 
   // Testni boshidan boshlash

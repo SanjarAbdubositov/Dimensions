@@ -20,7 +20,8 @@ export function mountDirectives(root, { onSimulatorUse } = {}) {
 
 // Kichik simulyator: dims va controls parametrlari bilan
 function mountSimulator(node, params, onUse) {
-  const dims = params.dims ? numberList(params.dims) : [2, 3, 4];
+  const parsed = params.dims ? numberList(params.dims) : [];
+  const dims = parsed.length ? parsed : [2, 3, 4]; // notoʻgʻri qiymat butun darsni buzmasin
   const controls = params.controls ? params.controls.split(',').filter((c) => ALL_CONTROLS.includes(c)) : ['dims'];
   node.classList.add('lesson-sim');
   createSimulator(node, { dims, controls, onUse });

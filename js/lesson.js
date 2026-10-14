@@ -84,6 +84,7 @@ function showError(message) {
   body.innerHTML = `<p>${escapeHtml(message)}</p><p><a href="index.html#darslar">Darslar roʻyxatiga qaytish</a></p>`;
 }
 
+// Sahifa ochilganda: id ni tekshirish, darsni yuklash va chizish, testni koʻrsatish
 async function init() {
   const id = Number(new URLSearchParams(location.search).get('id'));
   if (!LESSONS.some((l) => l.id === id)) return showError('Bunday dars yoʻq. Darslar raqami 1 dan 6 gacha.');

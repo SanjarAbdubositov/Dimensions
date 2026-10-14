@@ -134,3 +134,13 @@ test('notoʻgʻri kamera masofasida xato', () => {
 test('ortogonal proyeksiya oxirgi koordinatalarni tashlaydi', () => {
   assert.deepEqual(projectOrthographic([[1, 2, 3, 4, 5], [-1, -2, 7]]), [[1, 2], [-1, -2]]);
 });
+
+test('simulyator burchaklari: −180..180 oraligʻi va boshlangʻich koʻrinish', async () => {
+  const { wrap, defaultAngles, autoPlanes } = await import('../js/sim-angles.js');
+  assert.equal(wrap(190), -170);
+  assert.equal(wrap(-190), 170);
+  assert.equal(wrap(540), -180);
+  assert.equal(Object.keys(defaultAngles(4)).length, 6, '4D: 6 ta tekislik');
+  assert.equal(defaultAngles(4)['0-3'], 20, 'XW biroz burilgan');
+  assert.deepEqual(autoPlanes(4).map(([i, j]) => `${i}-${j}`), ['0-3', '1-2']);
+});

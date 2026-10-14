@@ -15,8 +15,9 @@ let chartObserver = null;  // grafikni ekran kengligiga moslash (har yangilanish
 const pct = (x) => (x === null ? '—' : `${Math.round(x)}%`);
 // Oʻzgarish: +12 / −5 foiz punkti
 const delta = (x) => (x === null ? '—' : `${x > 0 ? '+' : x < 0 ? '−' : ''}${Math.abs(Math.round(x))} f.p.`);
-// Sana va vaqt: 14.10.2026 09:30 (brauzer vaqti boʻyicha)
+// Ikki xonali son: 4 → "04"
 const pad = (n) => String(n).padStart(2, '0');
+// Sana va vaqt: 14.10.2026 09:30 (brauzer vaqti boʻyicha)
 export function formatDateTime(iso) {
   const d = new Date(iso);
   return `${pad(d.getDate())}.${pad(d.getMonth() + 1)}.${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
@@ -115,7 +116,7 @@ function feedbackSection(feedback) {
     el('p', { class: f.comment ? 'feedback-comment' : 'feedback-comment muted', text: f.comment ?? '(izohsiz)' }),
   ]));
   const more = items.length > FEEDBACK_LIMIT ? el('p', { class: 'def', text: `Oxirgi ${FEEDBACK_LIMIT} tasi koʻrsatildi. Hammasi CSV faylda.` }) : '';
-  return section('Fikrlar', `Oʻrtacha reyting: ${avg} (n = ${n}). Yangilari birinchi. Izohlar foydalanuvchilar yozgan matn — ularda shaxsiy maʼlumot boʻlsa, CSV'ni hech kimga bermang.`,
+  return section('Fikrlar', `Oʻrtacha reyting: ${avg} (n = ${n}). Yangilari birinchi. Izohlar foydalanuvchilar yozgan matn — ularda shaxsiy maʼlumot boʻlsa, CSVʼni hech kimga bermang.`,
     [lowFootnote([n]), n ? el('ul', { class: 'feedback-list' }, list) : el('p', { class: 'muted', text: 'Hali fikr yoʻq.' }), more]);
 }
 

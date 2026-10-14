@@ -27,6 +27,10 @@ test('ochiq sahifalarda admin.html ga havola yoʻq', () => {
   for (const page of pages) assert.doesNotMatch(read(page), /admin\.html/, page);
 });
 
+test('el() yordamchisida HTML qoʻyish imkoniyati yoʻq', () => {
+  assert.doesNotMatch(code('js/dom.js'), /innerHTML/);
+});
+
 test('admin kodida innerHTML yoʻq (izohlar faqat textContent bilan chiqadi)', () => {
   for (const file of ['js/admin.js', 'js/admin-view.js', 'js/admin-data.js', 'js/chart.js', 'js/stats.js', 'js/csv.js']) {
     const src = code(file);

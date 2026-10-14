@@ -115,7 +115,7 @@ function feedbackSection(feedback) {
     el('p', { class: f.comment ? 'feedback-comment' : 'feedback-comment muted', text: f.comment ?? '(izohsiz)' }),
   ]));
   const more = items.length > FEEDBACK_LIMIT ? el('p', { class: 'def', text: `Oxirgi ${FEEDBACK_LIMIT} tasi koʻrsatildi. Hammasi CSV faylda.` }) : '';
-  return section('Fikrlar', `Oʻrtacha reyting: ${avg} (n = ${n}). Yangilari birinchi. Izohlar foydalanuvchilar yozgan matn — ularda shaxsiy maʼlumot boʻlsa, CSV'ni hech kimga bermang.`,
+  return section('Fikrlar', `Oʻrtacha reyting: ${avg} (n = ${n}). Yangilari birinchi. Izohlar foydalanuvchilar yozgan matn — ularda shaxsiy maʼlumot boʻlsa, CSVʼni hech kimga bermang.`,
     [lowFootnote([n]), n ? el('ul', { class: 'feedback-list' }, list) : el('p', { class: 'muted', text: 'Hali fikr yoʻq.' }), more]);
 }
 

@@ -59,3 +59,16 @@ test('matnli fayllarda soʻz ichida ASCII tutuq belgisi (\') yoʻq', () => {
   }
   assert.deepEqual(problems, [], `ASCII ' topildi (oʻrniga ʼ yoki ʻ ishlating):\n${problems.join('\n')}`);
 });
+
+test('JS dagi foydalanuvchiga koʻrinadigan matnda ASCII tutuq belgisi (\') yoʻq', () => {
+  const problems = [];
+  // "..." yoki `...` ichidagi matn; '...' ichida ' boʻlolmaydi. Izoh qatorlari tekshirilmaydi.
+  const STRING_WITH_APOSTROPHE = /(["`])(?:(?!\1).)*\p{L}'\p{L}(?:(?!\1).)*\1/u;
+  for (const path of listFiles(ROOT).filter((p) => extname(p) === '.js')) {
+    readFileSync(path, 'utf8').split('\n').forEach((line, k) => {
+      if (/^\s*(\/\/|\*)/.test(line)) return;
+      if (STRING_WITH_APOSTROPHE.test(line)) problems.push(`${path.replace(ROOT, '')}:${k + 1}: ${line.trim().slice(0, 80)}`);
+    });
+  }
+  assert.deepEqual(problems, [], `JS matnida ASCII ' topildi (oʻrniga ʼ ishlating):\n${problems.join('\n')}`);
+});

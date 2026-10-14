@@ -46,9 +46,10 @@ export function buildControls(root, { dims, controls }, on) {
   const canvas = el('canvas', { class: 'sim-canvas', tabindex: '0', role: 'img' });
   const legend = el('div', { class: 'sim-legend' });
   const panel = el('div', { class: 'sim-panel' });
-  root.append(el('div', { class: 'sim-stage' }, [canvas, info]), el('div', { class: 'sim-side' }, [legend, panel]));
+  const stage = el('div', { class: 'sim-stage' }, [canvas, info]);
+  root.append(stage, el('div', { class: 'sim-side' }, [legend, panel]));
 
-  const ui = { canvas, n: null };
+  const ui = { canvas, info, stage, n: null, infoText: '' };
   const add = (title, node) => panel.append(el('div', { class: 'sim-row' }, title ? [el('span', { class: 'sim-label', text: title }), node] : [node]));
 
   if (has('dims')) {
@@ -78,13 +79,16 @@ export function buildControls(root, { dims, controls }, on) {
     ui.planes = el('details', { class: 'planes' }, [ui.planesSummary, ui.planesGrid]);
     add(null, ui.planes);
   }
+  if (has('lamp')) Object.assign(ui, lampControl(add, on.lamp));
   if (has('reset')) add(null, el('button', { type: 'button', class: 'btn btn-secondary', text: 'Qayta tiklash', onclick: on.reset }));
 
   // Oʻlcham oʻzgarganda: matnlar va tekislik slayderlarini qayta quradi
-  ui.setDim = (n, vertexCount, edgeCount) => {
+  ui.setDim = (n, vertexCount, edgeCount, lampD) => {
     ui.n = n;
     const counts = `${vertexCount} uch (2${SUP[n]}) · ${edgeCount} qirra (${n}·2${SUP[n - 1]})`;
-    info.textContent = `${NAMES[n]} · ${counts}`;
+    ui.infoText = `${NAMES[n]} · ${counts}`;
+    ui.refreshInfo();
+    ui.setLampRange?.(n, lampD);
     canvas.setAttribute('aria-label', `${NAMES[n]}: ${counts}. Strelkalar bilan aylantiring, Shift bilan — 4D burish.`);
     legend.replaceChildren(...legendContent(n));
     ui.dims?.select(n);
@@ -99,6 +103,9 @@ export function buildControls(root, { dims, controls }, on) {
     });
     ui.planesGrid.replaceChildren(...ui.sliders);
   };
+
+  // Yuqoridagi yozuvni qayta koʻrsatadi (kirish animatsiyasidan keyin)
+  ui.refreshInfo = () => { info.textContent = ui.infoText; };
 
   // Burchak slayderlarini holatga moslaydi (avto-aylanish yoki sudrashdan keyin)
   ui.syncAngles = (angles) => ui.sliders?.forEach((r) => r.set(Math.round(angles[r.key] ?? 0)));
@@ -119,13 +126,55 @@ export function buildControls(root, { dims, controls }, on) {
   return ui;
 }
 
-// Rang izohi: koʻk — uzoq, qizil — yaqin (oxirgi oʻq boʻyicha)
+// Izoh: rang VA qalinlik — uzoq qirra ingichka, xira, koʻk; yaqini qalin, toʻq, zafar rang
 function legendContent(n) {
-  if (n < 3) return [el('p', { text: '2D shaklda yashirin oʻq yoʻq, shuning uchun rang bir xil.' })];
+  if (n < 3) return [el('p', { text: '2D shaklda yashirin oʻq yoʻq, shuning uchun hamma qirra bir xil.' })];
   const last = AXES[n - 1];
   return [
-    el('div', { class: 'legend-bar', 'aria-hidden': 'true' }),
-    el('p', { class: 'legend-ends' }, [el('span', { text: 'koʻk — uzoq' }), el('span', { text: 'qizil — yaqin' })]),
-    el('p', { class: 'hint', text: `Rang har bir nuqtaning ${last} oʻqidagi qiymatini bildiradi: biz koʻra olmaydigan oʻq boʻyicha kameraga qanchalik yaqinligi.` }),
+    el('div', { class: 'legend-wedge', 'aria-hidden': 'true' }),
+    el('p', { class: 'legend-ends' }, [el('span', { text: 'uzoq: ingichka, xira' }), el('span', { text: 'yaqin: qalin, toʻq' })]),
+    el('p', { class: 'hint', text: `Har bir qirraning ${last} oʻqidagi oʻrni ikki belgi bilan koʻrsatiladi: rang (koʻkdan firuza orqali zafarga) va qalinlik. Ranglarni ajratish qiyin boʻlsa, qalinlikka qarang: yaqin qirralar qalinroq.` }),
   ];
+}
+
+// Raqam: 1.5 → "1,50" (oʻzbekcha kasr vergul bilan)
+const num = (x, digits = 2) => x.toFixed(digits).replace('.', ',').replace('-', '−');
+
+// Chiroq: surilsa kamera masofasi d oʻzgaradi, ostida jonli formula d / (d − w)
+function lampControl(add, onLamp) {
+  const id = `sim-lamp-${++uid}`;
+  const input = el('input', { type: 'range', id, step: '0.1' });
+  const output = el('output', { for: id });
+  const formula = el('div', { class: 'lamp-formula' });
+  input.addEventListener('input', () => { output.textContent = `d = ${num(+input.value, 1)}`; onLamp(+input.value); });
+  add(null, el('div', { class: 'lamp' }, [
+    el('div', { class: 'lamp-head' }, [el('label', { for: id, text: 'Chiroq masofasi' }), output]), input,
+    el('p', { class: 'legend-ends' }, [el('span', { text: 'yaqin' }), el('span', { text: 'uzoq' })]),
+    formula,
+  ]));
+  let last = '';
+  return {
+    // Oʻlcham almashganda: chiroq shakl ichiga kirib qolmasin (d > radius)
+    setLampRange(n, d) {
+      const r = Math.sqrt(n);
+      Object.assign(input, { min: Math.ceil(r * 11) / 10, max: Math.round(r * 5) });
+      input.value = d;
+      output.textContent = `d = ${num(+input.value, 1)}`;
+    },
+    // Har kadrda: eng yaqin va eng uzoq uch uchun koeffitsient (faqat oʻzgarsa yoziladi)
+    showLamp({ d, ws, n, perspective }) {
+      const w = AXES[n - 1].toLowerCase();
+      const round = (x) => (Math.abs(x) < 0.005 ? 0 : x); // "−0,00" chiqmasin
+      const near = round(Math.max(...ws));
+      const far = round(Math.min(...ws));
+      const line = (name, x) => `${name} (${w} = ${num(x)}): ${num(d, 1)} / (${num(d, 1)} ${x < 0 ? '+' : '−'} ${num(Math.abs(x))}) = ${num(d / (d - x))}`;
+      const lines = perspective
+        ? [`Kattalashtirish: d / (d − ${w})`, line('eng yaqin uch', near), line('eng uzoq uch', far)]
+        : ['Ortogonal proyeksiya: chiroq cheksiz uzoqda, hamma uch uchun koeffitsient 1.'];
+      const text = lines.join('\n');
+      if (text === last) return;
+      last = text;
+      formula.replaceChildren(...lines.map((t) => el('p', { text: t })));
+    },
+  };
 }

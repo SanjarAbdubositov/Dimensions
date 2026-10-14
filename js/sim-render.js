@@ -1,14 +1,29 @@
 // sim-render.js — proyeksiya qilingan shaklni canvas'ga chizish.
+// Yashirin oʻq (w) ikki xil belgi bilan koʻrsatiladi: rang VA qalinlik/xiralik.
+// Rangni ajrata olmaydigan odam ham qaysi qirra yaqinligini qalinlikdan biladi.
 
-// Rang shkalasi: t = −1 → koʻk (uzoq), t = +1 → qizil (yaqin), oʻrtasi binafsha
-export function depthColor(t) {
+// "#1d4e9e" → [29, 78, 158]
+export function hexToRgb(hex) {
+  const m = /^#?([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i.exec(hex.trim());
+  return m ? m.slice(1).map((h) => parseInt(h, 16)) : [128, 128, 128];
+}
+
+// Ranglarni CSS oʻzgaruvchilaridan oʻqiydi (yorugʻ/qorongʻi rejimga qarab har xil)
+export function readPalette(element) {
+  const css = getComputedStyle(element);
+  return ['--w-far', '--w-mid', '--w-near'].map((name) => hexToRgb(css.getPropertyValue(name) || '#808080'));
+}
+
+// t = −1 (uzoq) … +1 (yaqin) → rang, chiziq qalinligi (asosiyga nisbatan) va shaffoflik
+export function depthStyle(t, palette) {
   const u = (Math.max(-1, Math.min(1, t)) + 1) / 2;
-  const hue = (220 + u * 140) % 360; // 220 koʻk → 290 binafsha → 360 qizil
-  return `hsl(${hue.toFixed(0)}, 80%, 55%)`;
+  const [a, b, k] = u < 0.5 ? [palette[0], palette[1], u * 2] : [palette[1], palette[2], u * 2 - 1];
+  const rgb = a.map((x, i) => Math.round(x + (b[i] - x) * k));
+  return { rgb, width: 0.45 + 1.1 * u, alpha: 0.4 + 0.6 * u };
 }
 
 // Bir kadrni chizadi. projected — 2D nuqtalar, depth — har uch uchun −1..1 chuqurlik
-export function drawFrame(ctx, { projected, depth, edges, scale, width, height }) {
+export function drawFrame(ctx, { projected, depth, edges, scale, width, height, palette }) {
   ctx.clearRect(0, 0, width, height);
   const cx = width / 2;
   const cy = height / 2;
@@ -22,21 +37,24 @@ export function drawFrame(ctx, { projected, depth, edges, scale, width, height }
     .sort((e1, e2) => e1[2] - e2[2]);
 
   ctx.lineCap = 'round';
-  ctx.lineWidth = edges.length > 100 ? 1.5 : 2.5;
+  const base = edges.length > 100 ? 1.6 : 2.6;
   for (const [a, b, d] of order) {
-    ctx.strokeStyle = depthColor(d);
+    const s = depthStyle(d, palette);
+    ctx.strokeStyle = `rgb(${s.rgb.join(' ')} / ${s.alpha.toFixed(2)})`;
+    ctx.lineWidth = base * s.width;
     ctx.beginPath();
     ctx.moveTo(sx(projected[a]), sy(projected[a]));
     ctx.lineTo(sx(projected[b]), sy(projected[b]));
     ctx.stroke();
   }
 
-  // Uchlar kichik doiracha boʻlib chiziladi (koʻp boʻlsa — kichikroq)
-  const r = projected.length > 32 ? 2 : 3.5;
+  // Uchlar kichik doiracha: yaqinlari kattaroq (koʻp boʻlsa — hammasi kichikroq)
+  const r = projected.length > 32 ? 1.6 : 2.8;
   projected.forEach((p, k) => {
-    ctx.fillStyle = depthColor(depth[k]);
+    const s = depthStyle(depth[k], palette);
+    ctx.fillStyle = `rgb(${s.rgb.join(' ')} / ${s.alpha.toFixed(2)})`;
     ctx.beginPath();
-    ctx.arc(sx(p), sy(p), r, 0, Math.PI * 2);
+    ctx.arc(sx(p), sy(p), r * (0.6 + 0.6 * s.width), 0, Math.PI * 2);
     ctx.fill();
   });
 }

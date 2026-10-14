@@ -1,23 +1,41 @@
-/* style.css — butun sayt uchun umumiy uslub. Avval telefon, keyin katta ekran. */
+/* style.css — butun sayt uchun umumiy uslub ("Koshin"). Avval telefon, keyin katta ekran. */
 
-/* ---------- Ranglar (yorugʻ rejim) ---------- */
+/* ---------- Shrift: Literata (oʻzimizda saqlanadi, faqat kerakli harflar — tools/font-subset.py) ---------- */
+@font-face {
+  font-family: Literata; src: url("../fonts/literata.woff2") format("woff2");
+  font-weight: 400 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: Literata; src: url("../fonts/literata-italic.woff2") format("woff2");
+  font-weight: 400 700; font-style: italic; font-display: swap;
+}
+/* Shrift yuklanguncha tizim shrifti Literata oʻlchamiga moslanadi: almashganda matn sakramasin */
+@font-face {
+  font-family: "Literata Fallback"; src: local("Noto Serif"), local("Georgia"), local("DejaVu Serif");
+  size-adjust: 98%; ascent-override: 118%; descent-override: 31%; line-gap-override: 0%;
+}
+
+/* ---------- Ranglar (yorugʻ rejim): sir oq fon, lojuvard siyoh, kobalt, firuza, anor, zafar ---------- */
 :root {
-  --bg: #fbfaf7;
+  --bg: #f5f7fa;
   --surface: #ffffff;
-  --text: #1c1b22;
-  --muted: #55535e;
-  --border: #dcd9e0;
-  --accent: #5b3fd1;
+  --text: #142033;
+  --muted: #4a5568;
+  --border: #d5dce6;
+  --field: #7b8798;       /* kiritish maydoni chegarasi: fonga nisbatan ≥ 3:1 */
+  --accent: #1d4e9e;      /* kobalt */
   --accent-text: #ffffff;
-  --accent-soft: #ece8fb;
-  --canvas-bg: #f3f1f8;
-  --warn-bg: #fff3c4;
-  --warn-text: #5c4400;
-  --ok: #1d7a3a;
-  --ok-soft: #dcf3e2;
-  --bad: #b3261e;
-  --star: #a86f00;  /* yulduzcha: oq fonda ≥ 3:1 */
-  --radius: 12px;
+  --accent-soft: #e4ebf6;
+  --canvas-bg: #edf1f6;
+  --ok: #0e7471;          /* firuza — toʻgʻri */
+  --ok-soft: #dcefee;
+  --bad: #b4233c;         /* anor — notoʻgʻri */
+  --bad-soft: #f9e3e7;
+  --gold: #b07810;        /* zafar — faqat progress va "yaqin" */
+  --w-far: #2f5fc4;
+  --w-mid: #0e7471;
+  --w-near: #b07810;
+  --radius: 6px;
   --gap: 1rem;
   color-scheme: light dark;
 }
@@ -25,40 +43,42 @@
 /* ---------- Ranglar (qorongʻi rejim) ---------- */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #121118;
-    --surface: #1b1a23;
-    --text: #ecebf2;
-    --muted: #aeacb9;
-    --border: #34323f;
-    --accent: #a995ff;
-    --accent-text: #15122a;
-    --accent-soft: #2a2442;
-    --canvas-bg: #0c0b11;
-    --warn-bg: #4a3c0a;
-    --warn-text: #ffe8a3;
-    --ok: #6fdc8c;
-    --ok-soft: #173d24;
-    --bad: #ff8a80;
-    --star: #e8a317;
+    --bg: #0b1220;
+    --surface: #131d33;
+    --text: #e6ecf5;
+    --muted: #a3b1c6;
+    --border: #263452;
+    --field: #6b7a94;
+    --accent: #8db0f5;
+    --accent-text: #0b1220;
+    --accent-soft: #1b2a4a;
+    --canvas-bg: #08101d;
+    --ok: #43c6be;
+    --ok-soft: #0f3034;
+    --bad: #ff8a9a;
+    --bad-soft: #3d1621;
+    --gold: #f0b442;
+    --w-far: #5b86e5;
+    --w-mid: #43c6be;
+    --w-near: #f0b442;
   }
 }
 
-/* ---------- Asos ---------- */
+/* ---------- Asos: 18px, qator oraligʻi 1.6, sarlavhalar 1.25 shkalada ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font: 1rem/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 400 1.125rem/1.6 Literata, "Literata Fallback", Georgia, serif;
 }
-h1, h2, h3 { line-height: 1.25; }
-h1 { font-size: clamp(1.6rem, 6vw, 2.4rem); margin: 0 0 0.5rem; }
-h2 { font-size: 1.35rem; margin: 2rem 0 0.75rem; }
+h1, h2, h3 { line-height: 1.2; font-weight: 700; }
+h1 { font-size: clamp(1.75rem, 1.2rem + 2.6vw, 2.2rem); margin: 0 0 0.75rem; }
+h2 { font-size: 1.4rem; margin: 2.5rem 0 0.75rem; }
+h3 { font-size: 1.125rem; }
 p { margin: 0 0 1rem; }
-a { color: var(--accent); text-underline-offset: 2px; }
+a { color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 1px; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-.wrap { max-width: 46rem; margin: 0 auto; padding: 0 1rem; }
+.wrap { max-width: calc(66ch + 2rem); margin: 0 auto; padding: 0 1rem; }
 /* Kontent JS bilan keyinroq yuklanadi: footer boshidanoq ekran ostida tursin, aks holda u "sakraydi" (CLS) */
 main { min-height: 100vh; min-height: 100svh; }
 .wrap-wide { max-width: 72rem; }
@@ -66,50 +86,46 @@ main { min-height: 100vh; min-height: 100svh; }
 .skip-link:focus { left: 1rem; top: 1rem; z-index: 10; background: var(--surface); padding: 0.5rem 1rem; }
 
 /* ---------- Sarlavha va pastki qism ---------- */
-.site-header { border-bottom: 1px solid var(--border); background: var(--surface); }
-.site-header .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.25rem 1rem; padding-block: 0.5rem; }
-.brand { font-weight: 700; color: var(--text); text-decoration: none; padding: 0.5rem 0; }
-.site-nav { display: flex; flex-wrap: wrap; gap: 0 0.25rem; }
-.site-nav a { display: inline-block; padding: 0.6rem 0.6rem; text-decoration: none; color: var(--muted); border-radius: 8px; }
-.site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--text); background: var(--accent-soft); }
+.site-header { border-bottom: 1px solid var(--border); }
+.site-header .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 1rem; padding-block: 0.25rem; }
+.brand { font-weight: 700; color: var(--text); text-decoration: none; padding: 0.6rem 0; }
+.site-nav { display: flex; flex-wrap: wrap; gap: 0 0.9rem; font-size: 1rem; }
+.site-nav a { display: inline-block; padding: 0.6rem 0 0.5rem; text-decoration: none; color: var(--muted); border-bottom: 2px solid transparent; }
+.site-nav a:hover { color: var(--text); }
+.site-nav a[aria-current="page"] { color: var(--text); border-bottom-color: var(--accent); }
 .site-footer { margin-top: 3rem; padding: 1.5rem 0 2rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.9rem; }
 .site-footer a { color: var(--muted); }
 
-/* ---------- Tugmalar ---------- */
+/* ---------- Tugmalar: bosilganda biroz choʻkadi (faqat transform) ---------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
   min-height: 2.75rem; padding: 0.5rem 1.1rem;
-  border: 1px solid var(--accent); border-radius: 999px;
+  border: 1px solid var(--accent); border-radius: var(--radius);
   background: var(--accent); color: var(--accent-text);
-  font: inherit; font-weight: 600; text-decoration: none; cursor: pointer;
+  font: inherit; font-size: 1rem; font-weight: 600; text-decoration: none; cursor: pointer;
+  transition: transform 0.1s;
 }
+.btn:active { transform: translateY(1px) scale(0.98); }
 .btn-secondary { background: transparent; color: var(--accent); }
 .help { margin-top: 1.5rem; }
 .btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.25rem 0; }
-
-/* ---------- Bosh sahifa ---------- */
-.hero { padding: 2rem 0 0.5rem; }
-.lead { font-size: 1.1rem; color: var(--muted); }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; }
-.lesson-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.75rem; counter-reset: lesson; }
-.lesson-list li { counter-increment: lesson; }
-.lesson-list a {
-  display: flex; gap: 0.9rem; align-items: center;
-  padding: 0.85rem 1rem; text-decoration: none; color: var(--text);
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-}
-.lesson-list a::before {
-  content: counter(lesson); flex: none;
-  width: 2rem; height: 2rem; display: grid; place-items: center;
-  border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-weight: 700;
-}
-.lesson-list a:hover { border-color: var(--accent); }
-.lesson-list small { display: block; color: var(--muted); }
+.lead { font-size: 1.2rem; color: var(--muted); }
+small, .hint { font-size: 0.85rem; }
+.hint { display: block; color: var(--muted); margin: 0.35rem 0 0; }
+
+/* ---------- Progress: zafar rangli chiziq (oltin faqat shu yerda va "yaqin" uchun) ---------- */
+.progress { display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.progress-track { flex: 1; max-width: 10rem; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+.progress-fill { display: block; height: 100%; background: var(--gold); transform-origin: left; transform: scaleX(var(--done, 0)); transition: transform 0.8s ease-out; }
+
+/* ---------- Rozetka-emblema (math4d.js bilan hisoblanadi, rozetka.js chizadi) ---------- */
+.emblem { display: block; flex: none; color: var(--accent); }
+.emblem path { fill: none; stroke: currentColor; stroke-linejoin: round; }
+.emblem-note { font-size: 0.85rem; color: var(--muted); }
 
 /* ---------- Simulyator ---------- */
 .sim { display: grid; gap: var(--gap); }
-/* Bosh sahifadagi kichik simulyator uchun joy oldindan ajratiladi: u JS bilan chizilganda pastdagi darslar roʻyxati sakramasin */
-#mini-sim { min-height: calc(min(80vw, 22rem) + 12.5rem); }
 .sim-stage { position: relative; }
 .sim-canvas {
   display: block; width: 100%; height: min(80vw, 22rem);
@@ -119,36 +135,50 @@ main { min-height: 100vh; min-height: 100svh; }
 }
 .sim-canvas:active { cursor: grabbing; }
 .sim-info { position: absolute; left: 0.75rem; top: 0.5rem; right: 0.75rem; margin: 0; font-size: 0.85rem; color: var(--muted); pointer-events: none; }
+.sim-skip { position: absolute; right: 0.5rem; bottom: 0.5rem; }
 .sim-side { display: grid; gap: var(--gap); align-content: start; }
 .sim-panel { display: grid; gap: 0.9rem; }
 .sim-row { display: grid; gap: 0.35rem; }
 .sim-label { font-size: 0.85rem; font-weight: 600; color: var(--muted); }
 .sim-auto { display: grid; grid-template-columns: auto 1fr; gap: 0.75rem; align-items: end; }
-.hint { display: block; font-size: 0.85rem; color: var(--muted); margin: 0.35rem 0 0; }
 
 .seg { display: flex; flex-wrap: wrap; gap: 0.35rem; }
 .seg button {
   min-width: 2.75rem; min-height: 2.75rem; padding: 0.4rem 0.8rem;
-  border: 1px solid var(--border); border-radius: 8px;
-  background: var(--surface); color: var(--text); font: inherit; cursor: pointer;
+  border: 1px solid var(--field); border-radius: var(--radius);
+  background: var(--surface); color: var(--text); font: inherit; font-size: 1rem; cursor: pointer;
 }
 .seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-text); font-weight: 600; }
 
-.range { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0 0.5rem; }
-.range label { font-size: 0.9rem; font-weight: 600; }
-.range output { font-variant-numeric: tabular-nums; font-size: 0.9rem; color: var(--muted); }
+.range { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0 0.5rem; font-size: 0.9rem; }
+.range label { font-weight: 600; }
+.range output { font-variant-numeric: tabular-nums; color: var(--muted); }
 .range input { grid-column: 1 / -1; width: 100%; height: 2.25rem; margin: 0; accent-color: var(--accent); }
 
 .planes { border: 1px solid var(--border); border-radius: var(--radius); padding: 0.25rem 0.9rem; background: var(--surface); }
 .planes summary { cursor: pointer; font-weight: 600; padding: 0.6rem 0; min-height: 2.75rem; display: flex; align-items: center; }
 .planes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: 0.25rem 1rem; padding-bottom: 0.75rem; }
 
+/* Izoh: ponasimon chiziq — uzoq tomoni ingichka va koʻk, yaqin tomoni qalin va zafar */
 .sim-legend p { margin: 0; }
-.legend-bar { height: 0.6rem; border-radius: 999px; background: linear-gradient(90deg, hsl(220, 80%, 55%), hsl(290, 80%, 55%), hsl(360, 80%, 55%)); }
+.legend-wedge { height: 0.75rem; background: linear-gradient(90deg, var(--w-far), var(--w-mid), var(--w-near)); clip-path: polygon(0 42%, 100% 0, 100% 100%, 0 58%); }
 .legend-ends { display: flex; justify-content: space-between; font-size: 0.85rem; }
 
-/* Toʻliq ekranli simulyator sahifasi */
-/* Toʻliq simulyator kamida bir ekran balandligida: ostidagi yordam boʻlimi JS ishlaganda sakramasin */
+/* Chiroq (faqat 4-darsda): surilsa d oʻzgaradi, ostida jonli formula */
+.lamp-head { display: flex; justify-content: space-between; gap: 0.5rem; font-size: 0.9rem; }
+.lamp-head label { font-weight: 600; }
+.lamp-head output { font-variant-numeric: tabular-nums; color: var(--muted); }
+.lamp input { width: 100%; margin: 0; -webkit-appearance: none; appearance: none; background: transparent; height: 2.75rem; }
+.lamp input::-webkit-slider-runnable-track { height: 4px; background: var(--field); border-radius: 2px; }
+.lamp input::-moz-range-track { height: 4px; background: var(--field); border-radius: 2px; }
+.lamp input::-webkit-slider-thumb { -webkit-appearance: none; width: 1.75rem; height: 2.3rem; margin-top: -1.1rem; border: 0; background: var(--lamp) center / contain no-repeat; cursor: grab; }
+.lamp input::-moz-range-thumb { width: 1.75rem; height: 2.3rem; border: 0; background: var(--lamp) center / contain no-repeat; cursor: grab; }
+.lamp p { margin: 0; }
+:root { --lamp: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 32'%3E%3Cpath d='M12 2a9 9 0 0 0-5 16.5V22h10v-3.5A9 9 0 0 0 12 2z' fill='%23b07810'/%3E%3Cpath d='M8 25h8M9 29h6' stroke='%23142033' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E"); }
+@media (prefers-color-scheme: dark) { :root { --lamp: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 32'%3E%3Cpath d='M12 2a9 9 0 0 0-5 16.5V22h10v-3.5A9 9 0 0 0 12 2z' fill='%23f0b442'/%3E%3Cpath d='M8 25h8M9 29h6' stroke='%23e6ecf5' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E"); } }
+.lamp-formula { font-variant-numeric: tabular-nums; font-size: 0.95rem; overflow-x: auto; white-space: nowrap; margin: 0.5rem 0 0; }
+
+/* Toʻliq ekranli simulyator sahifasi: kamida bir ekran balandligida, ostidagi yordam sakramasin */
 .sim-full { min-height: 100vh; min-height: 100svh; }
 .sim-full .sim-canvas { height: min(100vw, 62vh); }
 @media (min-width: 60rem) {
@@ -157,27 +187,16 @@ main { min-height: 100vh; min-height: 100svh; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * { scroll-behavior: auto !important; }
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
 }
-
-/* ---------- Bosh sahifadagi dars holati ---------- */
-.lesson-list a { flex-wrap: wrap; }
-.lesson-list a > span:first-of-type { flex: 1; min-width: 12rem; }
-.status { font-size: 0.8rem; font-weight: 600; padding: 0.15rem 0.6rem; border-radius: 999px; white-space: nowrap; }
-.status-started { background: var(--warn-bg); color: var(--warn-text); }
-.status-completed { background: var(--ok-soft); color: var(--ok); }
 
 /* ---------- Yordamchilar ---------- */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .link-button { background: none; border: 0; padding: 0; font: inherit; color: var(--accent); text-decoration: underline; cursor: pointer; min-height: 2.75rem; }
 
 /* ---------- Rozilik banneri (sahifani bloklamaydi, pastda turadi) ---------- */
-.consent {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
-  background: var(--surface); border-top: 1px solid var(--border);
-  box-shadow: 0 -6px 24px rgb(0 0 0 / 0.12);
-}
-.consent-inner { max-width: 46rem; margin: 0 auto; padding: 1rem; }
+.consent { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: var(--surface); border-top: 2px solid var(--accent); }
+.consent-inner { max-width: 46rem; margin: 0 auto; padding: 1rem; font-size: 1rem; }
 .consent-text { margin: 0 0 0.5rem; }
 .consent-state { margin: 0 0 0.5rem; color: var(--muted); font-size: 0.9rem; }
 .consent-buttons { margin: 0.75rem 0 0.25rem; }

@@ -1,10 +1,5 @@
 /* admin.css — faqat admin panel uchun (style.css va content.css'dan keyin ulanadi). */
 
-:root { --chart-bar: #5b3fd1; }
-@media (prefers-color-scheme: dark) {
-  :root { --chart-bar: #8f74f5; } /* qorongʻi fonda alohida tanlangan va tekshirilgan rang */
-}
-
 .admin-badge { font-size: 0.85rem; font-weight: 600; color: var(--muted); }
 .admin h1 { margin-top: 1.5rem; }
 .admin h2 { margin-top: 0; }
@@ -43,17 +38,17 @@
 .admin-section { overflow: hidden; }
 .hero-number { font-size: 3.25rem; font-weight: 700; line-height: 1; margin: 0.25rem 0 0; font-variant-numeric: tabular-nums; }
 .hero-label { font-weight: 600; margin: 0.25rem 0 0.5rem; }
-.low-n { display: inline-block; white-space: nowrap; font-size: 0.8rem; font-weight: 600; color: var(--warn-text); background: var(--warn-bg); border-radius: 6px; padding: 0.15rem 0.5rem; }
+.low-n { display: inline-block; white-space: nowrap; font-size: 0.8rem; font-weight: 600; color: var(--text); border: 1px dashed var(--field); border-radius: 6px; padding: 0.1rem 0.45rem; }
 .admin-section td:last-child { text-align: left; }
 .admin-section td:first-child, .admin-section th { white-space: nowrap; }
-.low-n-note { font-size: 0.85rem; font-weight: 600; color: var(--warn-text); background: var(--warn-bg); border-radius: 6px; padding: 0.4rem 0.6rem; margin: 0.5rem 0 0; }
+.low-n-note { font-size: 0.85rem; font-weight: 600; color: var(--text); border: 1px dashed var(--field); border-radius: 6px; padding: 0.4rem 0.6rem; margin: 0.5rem 0 0; }
 
 /* Grafik */
 .chart-holder { width: 100%; }
 .chart-wrap { position: relative; }
 .chart { display: block; overflow: visible; }
 .chart:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
-.chart-bar { fill: var(--chart-bar); }
+.chart-bar { fill: var(--accent); }
 .chart-bar.is-active { fill-opacity: 0.75; }
 .chart-hit { fill: transparent; }
 .chart-grid { stroke: var(--border); stroke-width: 1; }
@@ -70,7 +65,7 @@
 .feedback-list { list-style: none; padding: 0; margin: 0.5rem 0 0; display: grid; gap: 0.5rem; }
 .feedback-item { border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem 0.8rem; }
 .feedback-meta { margin: 0 0 0.25rem; font-size: 0.85rem; color: var(--muted); }
-.stars-static { color: var(--star); letter-spacing: 1px; }
+.stars-static { color: var(--accent); letter-spacing: 1px; }
 .feedback-comment { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 
 .admin-export { margin-top: 1rem; }

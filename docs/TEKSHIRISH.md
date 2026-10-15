@@ -81,7 +81,7 @@ Dars matnlari va testlarni Claude (AI) qoralama sifatida yozgan. Quyidagi faktla
 - [ ] Telegramʼda havola koʻrinishini (rasm, sarlavha) tekshiring — `DEPLOY.md`, 3-boʻlim.
 - [ ] Lighthouseʼni joylangan saytda oʻzingiz ishga tushiring va natijani `DEPLOY.md` dagi jadval bilan solishtiring. Mening raqamlarim lokal serverda olingan.
 - [ ] Supabase kutubxonasining (jsDelivr) hajmi va yuklanish tezligi oʻlchanmagan: bu muhitdan jsDelivr yopiq edi. U faqat “Roziman” bosilgandan keyin yuklanadi.
-- [ ] Supabaseʼda **Site URL** va **Redirect URLs** ni koʻrsating — `DEPLOY.md`, 2-boʻlim.
+- [x] Supabaseʼda **Site URL** va **Redirect URLs** koʻrsatildi (muallif, 2026-10-15). Loyiha yaratildi, `schema.sql` va `rls-test.sql` muvaffaqiyatli ishladi, admin qoʻshildi, roʻyxatdan oʻtish oʻchirildi; URL va publishable kalit `js/config.js` da.
 
 ## Dizayn (Koshin)
 

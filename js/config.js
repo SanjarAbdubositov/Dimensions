@@ -7,5 +7,5 @@
 //    u barcha himoyani chetlab oʻtadi va saytni ochgan har kim butun bazani oʻqiy oladi.
 //    analytics.js bunday kalitni taniydi va ishlatishdan bosh tortadi.
 
-export const SUPABASE_URL = '';      // masalan: 'https://abcdefgh.supabase.co'
-export const SUPABASE_ANON_KEY = ''; // masalan: 'sb_publishable_...'
+export const SUPABASE_URL = 'https://pjwodxgivejscdgphxyo.supabase.co';
+export const SUPABASE_ANON_KEY = 'sb_publishable_ixyR_AZGVbBQEGvt41F_0g_omAZ1BaO'; // ochiq kalit — RLS himoyalaydi

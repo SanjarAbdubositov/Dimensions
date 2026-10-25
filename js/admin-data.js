@@ -5,7 +5,7 @@ import { isConfigured } from './analytics-core.js';
 import { loadSupabase } from './supabase-lib.js';
 
 export const EVENT_SELECT = 'id,created_at,anon_id,session_id,event_type,lesson_id,score,max_score,group_code,meta';
-export const FEEDBACK_SELECT = 'id,created_at,anon_id,lesson_id,rating,comment,group_code';
+export const FEEDBACK_SELECT = 'id,created_at,anon_id,lesson_id,rating,group_code';
 export const NO_GROUP_FILTER = '__none__'; // "Guruhsiz" filtri: group_code boʻsh boʻlgan qatorlar
 const PAGE = 1000;      // Supabase bir soʻrovda koʻpi bilan shuncha qator beradi
 const MAX_PAGES = 500;  // xavfsizlik chegarasi: 500 000 qator

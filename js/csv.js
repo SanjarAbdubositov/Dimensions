@@ -30,4 +30,4 @@ export function csvFilename(kind, date = new Date()) {
 }
 
 export const EVENT_COLUMNS = ['id', 'created_at', 'anon_id', 'session_id', 'event_type', 'lesson_id', 'score', 'max_score', 'group_code', 'meta'];
-export const FEEDBACK_COLUMNS = ['id', 'created_at', 'anon_id', 'lesson_id', 'rating', 'comment', 'group_code'];
+export const FEEDBACK_COLUMNS = ['id', 'created_at', 'anon_id', 'lesson_id', 'rating', 'group_code'];

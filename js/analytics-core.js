@@ -12,7 +12,6 @@ export const EVENT_TYPES = [
 const GROUP_RE = /^[A-Za-z0-9-]{1,32}$/;
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const META_MAX_CHARS = 1000; // serverdagi chegara (2000 bayt) dan ancha kichik
-export const COMMENT_MAX = 500;
 
 // Seminar kodi toʻgʻrimi: faqat harf, raqam, chiziqcha, 1–32 belgi
 export function isValidGroupCode(code) {
@@ -122,26 +121,14 @@ export function buildEvent(eventType, data = {}, ctx = {}) {
 }
 
 // feedback jadvali uchun qator tuzadi. Reyting 1–5 boʻlmasa — null.
-export function buildFeedback({ lessonId, rating, comment } = {}, ctx = {}) {
+// Matnli izoh yoʻq: oʻquvchi ismini yozib qoʻymasligi uchun faqat yulduzlar yuboriladi.
+export function buildFeedback({ lessonId, rating } = {}, ctx = {}) {
   if (!isUuid(ctx.anonId)) return null;
   if (!Number.isInteger(rating) || rating < 1 || rating > 5) return null;
-  const text = typeof comment === 'string' ? comment.trim() : '';
-  if (text.length > COMMENT_MAX) return null;
   return {
     anon_id: ctx.anonId,
     lesson_id: lessonOrNull(lessonId),
     rating,
-    comment: text || null,
     group_code: isValidGroupCode(ctx.groupCode) ? ctx.groupCode : null,
   };
-}
-
-// Izohda shaxsiy maʼlumotga oʻxshash narsa bormi: telefon raqami (9+ raqam) yoki email.
-// Foydalanuvchilar voyaga yetmaganlar — bunday izoh umuman yuborilmaydi.
-export function looksPersonal(text) {
-  if (typeof text !== 'string') return false;
-  const digits = text.match(/\+?\d[\d\s().-]{7,}\d/g) ?? [];
-  const hasPhone = digits.some((d) => d.replace(/\D/g, '').length >= 9);
-  const hasEmail = /[^\s@]+@[^\s@]+\.[a-z]{2,}/i.test(text);
-  return hasPhone || hasEmail;
 }

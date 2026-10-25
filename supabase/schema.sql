@@ -55,17 +55,18 @@ create table if not exists public.events (
   )
 );
 
--- Fikrlar: 1–5 yulduz va qisqa izoh
+-- Fikrlar: faqat 1–5 yulduz (matnli izoh yoʻq — oʻquvchi ismini yozib qoʻymasin)
 create table if not exists public.feedback (
   id          bigint generated always as identity primary key,
   created_at  timestamptz not null default now(),
   anon_id     uuid not null,
   lesson_id   smallint check (lesson_id between 1 and 6),
   rating      smallint not null check (rating between 1 and 5),
-  -- Izoh ≤ 500 belgi: uzun matn (yoki spam) bilan bazani toʻldirishdan himoya
-  comment     text check (char_length(comment) <= 500),
   group_code  text check (group_code ~ '^[A-Za-z0-9-]{1,32}$')
 );
+
+-- Eski versiyada izoh ustuni bor edi — u yozilgan izohlar bilan birga oʻchiriladi
+alter table public.feedback drop column if exists comment;
 
 -- Adminlar: Supabase Auth foydalanuvchilaridan qaysilari statistikani koʻra oladi.
 -- Bu roʻyxat faqat SQL Editor orqali qoʻlda toʻldiriladi (docs/SETUP.md).
@@ -92,7 +93,7 @@ revoke all on table public.events, public.feedback, public.admins from anon, aut
 grant insert (anon_id, session_id, event_type, lesson_id, score, max_score, group_code, meta)
   on table public.events to anon, authenticated;
 
-grant insert (anon_id, lesson_id, rating, comment, group_code)
+grant insert (anon_id, lesson_id, rating, group_code)
   on table public.feedback to anon, authenticated;
 
 -- Oʻqish huquqi faqat tizimga kirganlarga. Lekin kim nimani koʻrishini

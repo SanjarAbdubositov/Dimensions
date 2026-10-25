@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import {
   EVENT_TYPES, isValidGroupCode, parseGroupCode, shouldShowBanner, canSend, normalizeConsent, resolveConsent,
-  buildEvent, buildFeedback, isForbiddenKey, isConfigured, looksPersonal,
+  buildEvent, buildFeedback, isForbiddenKey, isConfigured,
 } from '../js/analytics-core.js';
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
@@ -74,20 +74,18 @@ test('buildEvent: barcha 8 hodisa turi toʻgʻri maʼlumot bilan quriladi', () =
   for (const type of EVENT_TYPES) assert.ok(buildEvent(type, data, CTX), type);
 });
 
-test('buildFeedback: reyting 1–5, izoh ≤ 500, boʻsh izoh = null', () => {
-  assert.deepEqual(buildFeedback({ lessonId: 2, rating: 5, comment: '  Zoʻr!  ' }, CTX), {
-    anon_id: CTX.anonId, lesson_id: 2, rating: 5, comment: 'Zoʻr!', group_code: 'MAKTAB12-A',
+test('buildFeedback: reyting 1–5, matnli izoh yuborilmaydi', () => {
+  assert.deepEqual(buildFeedback({ lessonId: 2, rating: 5, comment: 'Ali, 9-A' }, CTX), {
+    anon_id: CTX.anonId, lesson_id: 2, rating: 5, group_code: 'MAKTAB12-A',
   });
-  assert.equal(buildFeedback({ rating: 4, comment: '   ' }, CTX).comment, null);
   assert.equal(buildFeedback({ rating: 0 }, CTX), null);
   assert.equal(buildFeedback({ rating: 6 }, CTX), null);
-  assert.equal(buildFeedback({ rating: 3, comment: 'a'.repeat(501) }, CTX), null);
-  assert.ok(buildFeedback({ rating: 3, comment: 'a'.repeat(500) }, CTX));
 });
 
-test('izohdagi telefon raqami va email aniqlanadi', () => {
-  for (const bad of ['tel: +998 90 123 45 67', '901234567 ga yozing', 'ali@mail.uz']) assert.ok(looksPersonal(bad), bad);
-  for (const ok of ['5 ta dars yoqdi', 'tesseraktda 16 uch, 32 qirra', '2026-yil zoʻr', '']) assert.equal(looksPersonal(ok), false, ok);
+test('schema.sql: feedback jadvalida izoh ustuni yoʻq', () => {
+  const sql = read('supabase/schema.sql').replace(/--.*$/gm, '');
+  assert.match(sql, /alter table public\.feedback drop column if exists comment;/);
+  assert.doesNotMatch(sql.replace(/alter table public\.feedback drop column if exists comment;/, ''), /\bcomment\b/);
 });
 
 test('secret / service_role kalit taniladi va ishlatilmaydi', () => {

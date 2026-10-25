@@ -1,5 +1,5 @@
 // admin-view.js — hisobotni sahifaga chizish.
-// XAVFSIZLIK: izohlar va seminar kodlari — foydalanuvchi kiritgan matn. Hammasi el(..., { text })
+// XAVFSIZLIK: seminar kodlari — foydalanuvchi kiritgan matn. Hammasi el(..., { text })
 // orqali, yaʼni textContent bilan chiqadi. Bu faylda innerHTML ishlatilmaydi (testda tekshiriladi).
 import { el } from './dom.js';
 import {
@@ -105,7 +105,7 @@ export function renderReport(root, { events, feedback }) {
   root.replaceChildren(summary, dailySection(events), funnelSection, quizSection, prepostSection, feedbackSection(feedback));
 }
 
-// Fikrlar roʻyxati: reyting, dars, sana va izoh (izoh — faqat textContent!)
+// Fikrlar roʻyxati: reyting, dars va sana
 function feedbackSection(feedback) {
   const { n, meanRating, items } = feedbackSummary(feedback);
   const avg = meanRating === null ? '—' : meanRating.toFixed(1);
@@ -115,10 +115,9 @@ function feedbackSection(feedback) {
       el('span', { text: ` ${f.rating}/5 · ${f.lesson_id ? `${f.lesson_id}-dars` : 'dars koʻrsatilmagan'} · ${formatDateTime(f.created_at)}` }),
       f.group_code ? el('span', { class: 'muted', text: ` · ${f.group_code}` }) : '',
     ]),
-    el('p', { class: f.comment ? 'feedback-comment' : 'feedback-comment muted', text: f.comment ?? '(izohsiz)' }),
   ]));
   const more = items.length > FEEDBACK_LIMIT ? el('p', { class: 'def', text: `Oxirgi ${FEEDBACK_LIMIT} tasi koʻrsatildi. Hammasi CSV faylda.` }) : '';
-  return section('Fikrlar', `Oʻrtacha reyting: ${avg} (n = ${n}). Yangilari birinchi. Izohlar foydalanuvchilar yozgan matn — ularda shaxsiy maʼlumot boʻlsa, CSVʼni hech kimga bermang.`,
+  return section('Fikrlar', `Oʻrtacha reyting: ${avg} (n = ${n}). Yangilari birinchi.`,
     [lowFootnote([n]), n ? el('ul', { class: 'feedback-list' }, list) : el('p', { class: 'muted', text: 'Hali fikr yoʻq.' }), more]);
 }
 

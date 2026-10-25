@@ -102,5 +102,4 @@ Darslar, testlar, lugʻat va “Loyiha haqida” sahifasidan “Qoralama” belg
 
 | Fayl | Nima yetishmaydi |
 |---|---|
-| `README.md` | “AI yordami”, “Muallif”, “Skrinshotlar” — boʻsh joylar |
 | `docs/LOYIHA-TARIXI.md` | “Muallifning oʻz hissasi” — boʻsh joy |

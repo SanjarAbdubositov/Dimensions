@@ -2,11 +2,13 @@
 
 ![Toʻrtinchi oʻlchov — 4D geometriya va sunʼiy intellekt darslari](og-image.png)
 
+**Sayt:** <https://sanjarabdubositov.github.io/Dimensions/>
+
 **Oʻzbekcha** · [English](#english)
 
 ## Loyiha nima
 
-Oʻzbek tilidagi bepul interaktiv sayt: toʻrt oʻlchamli geometriya va sunʼiy intellekt haqida. Asosiy foydalanuvchi — 13–16 yoshli maktab oʻquvchisi, telefonda.
+Oʻzbek tilidagi bepul interaktiv sayt: toʻrt oʻlchamli geometriya va sunʼiy intellekt haqida. Sodda tilda yozilgan — mavzuga qiziqqan har kim tushuna oladi. Telefonda ham ishlaydi.
 
 - **6 ta qisqa dars:** nuqtadan tesseraktgacha → vektorlar → aylanish → perspektiv proyeksiya → amaliy topshiriq → AI embeddinglar va PCA.
 - **Giperkub simulyatori:** 2D dan 7D gacha; sudrab, slayder yoki klaviatura bilan aylantirish, perspektiv va ortogonal proyeksiya.
@@ -15,23 +17,26 @@ Oʻzbek tilidagi bepul interaktiv sayt: toʻrt oʻlchamli geometriya va sunʼiy 
 
 Oddiy HTML, CSS va JavaScript: framework ham, build qadam ham yoʻq. Sayt GitHub Pagesʼda, statistika esa Supabaseʼda (bepul tarif) ishlaydi.
 
-> Dars matnlari va testlar hozircha **qoralama** (`draft: true`). Muallif ularni oʻz soʻzlari bilan qayta yozadi.
+Darslar va testlarni muallif oʻzi yozgan.
 
 ## Holat
 
 - [x] M1 — skelet va simulyator
-- [x] M2 — darslar va testlar (qoralama)
+- [x] M2 — darslar va testlar (muallif qayta yozdi)
 - [x] M3 — anonim statistika ([docs/SETUP.md](docs/SETUP.md))
 - [x] M4 — admin panel (`admin.html`)
 - [x] M5 — sayqal va joylash ([docs/DEPLOY.md](docs/DEPLOY.md))
+- [x] Dizayn — “Koshin”: Samarqand koshinlari ranglari, Literata shrifti, matematik hisoblangan rozetkalar
 
 ## Skrinshotlar
 
-<!-- Muallif: telefon va kompyuterdan olingan skrinshotlarni docs/screenshots/ papkasiga qoʻying va shu yerga qoʻshing, masalan:
-![Simulyator telefonda](docs/screenshots/simulyator.png)
--->
+![Bosh sahifa](docs/screenshots/bosh-sahifa.png)
 
-*[Bu yerga skrinshotlar qoʻyiladi: bosh sahifa, simulyator, dars, admin panel.]*
+![Simulyator (qorongʻi rejim)](docs/screenshots/simulyator.png)
+
+<img src="docs/screenshots/dars-telefon.png" alt="1-dars telefonda" width="300"> <img src="docs/screenshots/chiroq-telefon.png" alt="4-dars: chiroq va jonli formula" width="300">
+
+Dizayn oldin va keyin: [docs/dizayn/](docs/dizayn/).
 
 ## Lokal ishga tushirish
 
@@ -85,7 +90,13 @@ Har bir fayl nima qilishi va nega shunday qilingani: [docs/ARCHITECTURE.md](docs
 
 ## AI yordami
 
-*[Bu boʻlimni muallif oʻzi yozadi: qaysi qismlar Claude (AI) yordamida yozilgani, qaysilarini muallif oʻzi yozgani va tekshirgani.]*
+Bu saytni Claude (Anthropic kompaniyasining sunʼiy intellekti) yordamida tuzdim.
+
+**Oʻzim nima qildim:** gʻoyani oʻylab topdim, qaysi mavzular kirishini tanladim va 6 ta dars hamda ular uchun testlarni oʻzim yozdim. Har bir bosqichda Claudeʼga nimani bajarishni aytdim, natijasini koʻrib chiqib, kerak boʻlsa toʻgʻriladim. Dizayn uchun ham uchta variantdan birini oʻzim tanladim.
+
+**Claude nima qildi:** saytning kodini yozdi — 2D dan 7D gacha aylanadigan simulyator, uning matematikasi, statistikasi va admin panelini ham tayyorladi. Dizaynni ham chizdi, lugʻat va maxfiylik sahifasini yozib chiqdi.
+
+Xullas, men oʻqituvchi sifatida dars mazmuniga javob berdim, Claude esa barcha texnik ishlarni bajardi.
 
 ## Litsenziya
 
@@ -93,9 +104,11 @@ Kod — MIT, dars matnlari va testlar (`content/`) — CC BY 4.0. Qarang: [LICEN
 
 ## Muallif
 
-Sanjar Abdubositov.
+Men Sanjar Abdubositov, 15 yoshman. “Synergy School”da 9-sinf oʻquvchisiman. Dasturlash, matematika va fizikaga qiziqaman.
 
-*[Muallif oʻzi haqida bir-ikki gap qoʻshadi.]*
+Bir kuni toʻrtinchi oʻlchov haqida osonroq, tushunarli manba izlab koʻrdim, lekin oʻzbek tilida topa olmadim. Shuning uchun hammasini boshidan oson, koʻrgazmali va oʻzbek tilida tushuntirib berishga bel bogʻladim.
+
+Bogʻlanish: Telegram [@AbdubositovSanjar](https://t.me/AbdubositovSanjar).
 
 ---
 
@@ -103,7 +116,9 @@ Sanjar Abdubositov.
 
 # The Fourth Dimension (English)
 
-A free, interactive website in Uzbek about four-dimensional geometry and artificial intelligence, built for 13–16-year-old students who mostly use phones.
+A free, interactive website in Uzbek about four-dimensional geometry and artificial intelligence. It is written in simple language for anyone curious about the topic, and works well on phones.
+
+**Live site:** <https://sanjarabdubositov.github.io/Dimensions/>
 
 - **Six short lessons:** from a point to a tesseract → vectors → rotation → perspective projection → hands-on activities → AI embeddings and PCA.
 - **Hypercube simulator:** 2D to 7D; rotate by dragging, with sliders or with the keyboard; perspective and orthographic projection.
@@ -112,11 +127,11 @@ A free, interactive website in Uzbek about four-dimensional geometry and artific
 
 Plain HTML, CSS and JavaScript — no framework, no build step. Hosted on GitHub Pages; analytics are stored in Supabase (free tier).
 
-> Lesson texts and quizzes are still **drafts** (`draft: true`); the author will rewrite them in their own words.
+The lessons and quizzes were written by the author.
 
 ## Screenshots
 
-*[Screenshots will be added here.]*
+See the screenshots in the Uzbek section above.
 
 ## Run locally
 
@@ -145,7 +160,15 @@ See the tree above and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) (in Uzbek) f
 
 ## AI assistance
 
-*[The author will write this section: which parts were written with help from Claude (AI), and which parts the author wrote and checked.]*
+*(Translated from the author’s Uzbek text.)*
+
+I built this site with the help of Claude, an AI made by Anthropic.
+
+**What I did:** I came up with the idea, chose the topics, and wrote all six lessons and their quizzes myself. At every stage I told Claude what to build, reviewed the result and asked for changes where needed. I also chose the design direction from three options.
+
+**What Claude did:** it wrote the site’s code — the 2D-to-7D simulator, its math, the analytics and the admin dashboard. It also designed the site and wrote the glossary and the privacy page.
+
+In short: I was responsible for the teaching content, and Claude did the technical work.
 
 ## License
 
@@ -153,4 +176,4 @@ Code: MIT. Lesson texts and quizzes (`content/`): CC BY 4.0. See [LICENSE](LICEN
 
 ## Author
 
-Sanjar Abdubositov.
+Sanjar Abdubositov, 15, a 9th-grade student at Synergy School. I’m interested in programming, math and physics. I couldn’t find a clear explanation of the fourth dimension in Uzbek, so I decided to make one — simple, visual and interactive.

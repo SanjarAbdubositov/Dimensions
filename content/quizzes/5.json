@@ -3,59 +3,59 @@
   "draft": true,
   "questions": [
     {
-      "q": "Somonchalardan yasalgan tesserakt modelida nechta somoncha ishlatiladi?",
+      "q": "Somonchalardan yasalgan tesserakt modelini (3D soyasini) qurish uchun jami nechta somoncha ishlatiladi?",
       "options": [
-        "16",
-        "32",
-        "24",
-        "48"
+        "16 ta",
+        "32 ta",
+        "24 ta",
+        "48 ta"
       ],
       "answer": 1,
-      "explain": "Katta kub (12) + kichik kub (12) + ularni tutashtiruvchi somonchalar (8) = 32 — tesseraktning qirralari soni."
+      "explain": "Tashqi katta kub uchun 12 ta, ichki kichik kub uchun 12 ta va ikkala kubning mos burchaklarini oʻzaro tutashtirish uchun yana 8 ta somoncha kerak boʻladi: 12 + 12 + 8 = 32 ta. Bu tesseraktning qirralari soniga teng."
     },
     {
-      "q": "Modeldagi plastilin sharchalar (tutashmalar) soni nimaga teng?",
+      "q": "Qoʻlda yasalgan modeldagi plastilin sharchalar (burchak tutashmalari) soni tesseraktning qaysi qismiga mos keladi?",
       "options": [
         "Qirralar soniga — 32 ta",
         "Kublar soniga — 8 ta",
         "Uchlar soniga — 16 ta",
-        "Kvadratlar soniga — 24 ta"
+        "Kvadrat yuzalar soniga — 24 ta"
       ],
       "answer": 2,
-      "explain": "Har bir sharcha — bitta uch: katta kubda 8 ta va kichik kubda 8 ta, jami 16 ta."
+      "explain": "Modeldagi har bir plastilin sharcha tesseraktning bitta uchini ifodalaydi: tashqi katta kubda 8 ta va ichki kichik kubda 8 ta, jami 16 ta uch."
     },
     {
-      "q": "Tesserakt yoyilmasi nechta kubdan iborat?",
+      "q": "Tesseraktni 3 oʻlchamli fazoga “kesib, yoyib chiqsak”, uning yoyilmasi nechta kubdan iborat boʻladi?",
       "options": [
-        "6",
-        "12",
-        "16",
-        "8"
+        "6 ta",
+        "12 ta",
+        "16 ta",
+        "8 ta"
       ],
       "answer": 3,
-      "explain": "Kub yoyilmasi 6 ta kvadratdan iborat boʻlgani kabi, tesserakt yoyilmasi uning 8 ta kubidan iborat."
+      "explain": "Xuddi 3 oʻlchamli kubning tekis yoyilmasi 6 ta kvadratdan tashkil topgani kabi, 4 oʻlchamli tesseraktning hajmli yoyilmasi ham uning 8 ta kubidan iborat boʻladi."
     },
     {
-      "q": "5 oʻlchamli giperkubda nechta qirra bor?",
+      "q": "5 oʻlchamli giperkubda (penteraktda) jami nechta qirra mavjud?",
       "options": [
-        "80",
-        "40",
-        "64",
-        "160"
+        "80 ta",
+        "40 ta",
+        "64 ta",
+        "160 ta"
       ],
       "answer": 0,
-      "explain": "Tesseraktning 32 ta qirrasi ikki baravar boʻladi (64) va har bir eski uchdan bittadan yangi qirra qoʻshiladi (16): 64 + 16 = 80."
+      "explain": "“Nusxa ol, siljit, tutashtir” qoidasiga koʻra, tesseraktning 32 ta qirrasi ikki baravar koʻpayadi (64 ta) va uning 16 ta eski uchidan bittadan yangi tutashtiruvchi qirra tortiladi: 64 + 16 = 80 ta."
     },
     {
-      "q": "Salvador Dalíning “Corpus Hypercubus” (1954) asarida xoch qanday shaklda tasvirlangan?",
+      "q": "Mashhur rassom Salvador Dalíning “Corpus Hypercubus” (1954) kartinasida xoch qanday geometrik shaklda tasvirlangan?",
       "options": [
-        "Kub soyasi shaklida",
-        "Tesserakt yoyilmasi shaklida",
-        "Doiralar shaklida",
-        "Yassi dunyo xaritasi shaklida"
+        "Oddiy kubning devordagi soyasi shaklida",
+        "8 ta kubdan iborat tesserakt yoyilmasi shaklida",
+        "Ustma-ust tushgan doiralar shaklida",
+        "Yassi dunyo xaritasi koʻrinishida"
       ],
       "answer": 1,
-      "explain": "Asardagi xoch 8 ta kubdan tuzilgan — bu tesserakt yoyilmasi."
+      "explain": "Dalí oʻz asarida xochni ustma-ust va yonma-yon yopishtirilgan 8 ta 3D kub koʻrinishida chizgan — bu aynan toʻrt oʻlchamli tesseraktning bizning olamimizdagi yoyilmasidir."
     }
   ]
 }

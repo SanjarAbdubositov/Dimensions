@@ -3,29 +3,29 @@
   "draft": true,
   "questions": [
     {
-      "q": "3D da “z oʻqi atrofida burish” aslida qaysi tekislikda burish?",
+      "q": "3D fazoda biz odatda aytadigan “z oʻqi atrofida burish” aslida qaysi tekislik ichida yuz beradi?",
       "options": [
-        "XZ",
-        "YZ",
-        "ZW",
-        "XY"
+        "XZ tekisligida",
+        "YZ tekisligida",
+        "ZW tekisligida",
+        "XY tekisligida"
       ],
       "answer": 3,
-      "explain": "Bu burishda z oʻzgarmaydi, faqat x va y oʻzgaradi. Demak, burish XY tekisligida boʻladi."
+      "explain": "Jism z oʻqi atrofida aylanganda uning z koordinatasi oʻzgarishsiz qoladi, faqatgina x va y koordinatalari oʻzgaradi. Demak, haqiqiy harakat XY tekisligida sodir boʻladi."
     },
     {
-      "q": "4D da nechta aylanish tekisligi bor?",
+      "q": "Toʻrt oʻlchamli (4D) fazoda jami nechta aylanish tekisligi mavjud?",
       "options": [
-        "6",
-        "3",
-        "4",
-        "8"
+        "6 ta",
+        "3 ta",
+        "4 ta",
+        "8 ta"
       ],
       "answer": 0,
-      "explain": "Toʻrtta oʻqdan ikkitasini tanlash kerak: C(4, 2) = 6. Ular: XY, XZ, XW, YZ, YW, ZW."
+      "explain": "Har bir aylanish tekisligi toʻrtta koordinata oʻqidan juft-juft qilib ikkitasini tanlash orqali hosil boʻladi: C(4, 2) = 6 ta. Bular: XY, XZ, XW, YZ, YW va ZW tekisliklaridir."
     },
     {
-      "q": "Qaysi ikki burishni qaysi tartibda bajarsak ham natija bir xil boʻladi?",
+      "q": "Quyidagi burish juftliklarining qaysi birida amallarni qaysi tartibda (oldin yo keyin) bajarsak ham yakuniy natija bir xil chiqaveradi?",
       "options": [
         "XY va XW",
         "XY va ZW",
@@ -33,21 +33,21 @@
         "XW va YW"
       ],
       "answer": 1,
-      "explain": "XY va ZW tekisliklarida umumiy oʻq yoʻq: biri faqat x va y ni, ikkinchisi faqat z va w ni oʻzgartiradi. Qolgan juftliklarda umumiy oʻq bor."
+      "explain": "XY va ZW tekisliklarining umumiy oʻqi yoʻq: birinchisi faqat x va y koordinatalarini, ikkinchisi esa faqat z va w ni oʻzgartiradi — ular bir-biriga umuman xalaqit bermaydi. Qolgan juftliklarda esa bittadan umumiy oʻq mavjud."
     },
     {
-      "q": "XW slayderini surganda ichki kub tashqariga chiqadi. Bu nimani bildiradi?",
+      "q": "Simulyatorda XW slayderini surganimizda, ichkaridagi kichik kub kengayib tashqariga chiqadi. Bu jarayon nimani anglatadi?",
       "options": [
-        "Tesserakt choʻziladi",
-        "Qirralar uzunligi oʻzgaradi",
-        "Tesseraktning oʻzi oʻzgarmaydi, faqat uning soyasi oʻzgaradi",
-        "Bu simulyatordagi xato"
+        "Tesserakt rezinka kabi choʻzilib ketadi",
+        "Shaklning qirralari uzunligi oʻzgarib turadi",
+        "4D fazoda tesseraktning oʻzi zarracha oʻzgarmaydi, ekranda faqat uning soyasi (proyeksiyasi) oʻzgaryapti",
+        "Bu kompyuter dasturidagi grafik xatolik"
       ],
       "answer": 2,
-      "explain": "Burish uzunliklarni oʻzgartirmaydi. Ekranda koʻrinayotgani — tesseraktning proyeksiyasi, u burilganda oʻzgaradi."
+      "explain": "Fazoviy burish hech qachon jismning asl uzunliklarini va shaklini buzmaydi. Biz ekranda koʻrayotgan oʻzgarishlar — aylanayotgan tesseraktning bizning olamimizga tushayotgan soyasi (proyeksiyasi), xolos."
     },
     {
-      "q": "(1, 0) nuqtani 90° ga (soat millariga teskari) burganda u qayerga oʻtadi?",
+      "q": "Tekislikdagi (1, 0) nuqtani koordinatalar boshi atrofida soat millariga teskari yoʻnalishda 90° burchakka bursak, u qaysi nuqtaga borib tushadi?",
       "options": [
         "(−1, 0)",
         "(0, −1)",
@@ -55,7 +55,7 @@
         "(0, 1)"
       ],
       "answer": 3,
-      "explain": "cos 90° = 0, sin 90° = 1. Formula boʻyicha x′ = 0, y′ = 1."
+      "explain": "Trigonometriyadan maʼlumki, cos 90° = 0 va sin 90° = 1 ga teng. Burish formulasiga qoʻysak, yangi koordinatalar x′ = 0 va y′ = 1 boʻlib chiqadi."
     }
   ]
 }

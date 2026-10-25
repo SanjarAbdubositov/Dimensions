@@ -98,10 +98,9 @@ Dars matnlari va testlarni Claude (AI) qoralama sifatida yozgan. Quyidagi faktla
 
 ## Hali toʻldirilmagan joylar
 
-Darslar, testlar, lugʻat va “Loyiha haqida” sahifasidan “Qoralama” belgisi olib tashlandi (muallif qarori, 2026-10-25).
+Darslar, testlar, lugʻat va “Loyiha haqida” sahifasidan “Qoralama” belgisi olib tashlandi (muallif qarori, 2026-10-25). Maxfiylik sahifasini muallif toʻldirdi: server Seulda, yozuvlar 1 yil saqlanadi (Supabaseʼda pg_cron vazifasi), bogʻlanish — Telegram va email.
 
 | Fayl | Nima yetishmaydi |
 |---|---|
-| `privacy.html` | server mintaqasi, saqlash muddati, bogʻlanish yoʻli — boʻsh joylar |
 | `README.md` | “AI yordami”, “Muallif”, “Skrinshotlar” — boʻsh joylar |
 | `docs/LOYIHA-TARIXI.md` | “Muallifning oʻz hissasi” — boʻsh joy |

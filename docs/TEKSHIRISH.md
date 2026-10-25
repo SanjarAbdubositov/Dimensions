@@ -100,7 +100,7 @@ Dars matnlari va testlarni Claude (AI) qoralama sifatida yozgan. Quyidagi faktla
 
 | Fayl | Belgisi |
 |---|---|
-| `content/lessons/1.md` … `6.md` | `draft: true` |
+| `content/lessons/2.md` … `6.md` (1-dars — muallif qayta yozdi) | `draft: true` |
 | `content/quizzes/1.json` … `6.json` | `"draft": true` |
 | `content/tests/prepost.json` | `"draft": true` |
 | `glossary.html`, `about.html`, `privacy.html` | “Qoralama” belgisi |

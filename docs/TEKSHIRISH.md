@@ -12,6 +12,7 @@ Darslar va testlarni muallif oʻzi qayta yozgan (2026-10-25). Lekin ulardagi ko�
   - saytda “Roziman” → bitta darsni oching → Supabase **Table Editor → events** da yangi qatorlar chiqadimi;
   - `admin.html` ga admin bilan kiring → raqamlar SQL bilan bir xilmi; admin boʻlmagan foydalanuvchi → “Ruxsat yoʻq”;
   - brauzer konsolida “Content Security Policy” xatosi chiqmayaptimi.
+- [ ] **Izoh ustunini oʻchirish.** Fikr formasida endi faqat yulduzlar bor. Sayt yangilangandan keyin Supabase → SQL Editorʼda bir marta: `alter table public.feedback drop column if exists comment;`
 
 ## 2. Darslardagi faktlar — manba bilan tekshirish
 

@@ -12,8 +12,8 @@ begin
   set local role anon;
   insert into public.events (anon_id, session_id, event_type, lesson_id, score, max_score, group_code, meta)
   values ('00000000-0000-0000-0000-000000000000', gen_random_uuid(), 'quiz_submit', 1, 4, 5, 'TEST-1', '{"test": true}');
-  insert into public.feedback (anon_id, lesson_id, rating, comment)
-  values ('00000000-0000-0000-0000-000000000000', 1, 5, 'test');
+  insert into public.feedback (anon_id, lesson_id, rating)
+  values ('00000000-0000-0000-0000-000000000000', 1, 5);
   reset role; -- keyingi blok yana SQL Editor egasi sifatida boshlansin
 end $$;
 
@@ -28,8 +28,7 @@ declare
     $q$insert into public.events (anon_id, session_id, event_type, lesson_id) values (gen_random_uuid(), gen_random_uuid(), 'quiz_submit', 1)$q$,
     $q$insert into public.events (anon_id, session_id, event_type, group_code) values (gen_random_uuid(), gen_random_uuid(), 'page_view', 'Ali +998901234567')$q$,
     $q$insert into public.events (anon_id, session_id, event_type, meta) values (gen_random_uuid(), gen_random_uuid(), 'page_view', jsonb_build_object('x', repeat('a', 3000)))$q$,
-    $q$insert into public.feedback (anon_id, rating) values (gen_random_uuid(), 6)$q$,
-    $q$insert into public.feedback (anon_id, rating, comment) values (gen_random_uuid(), 3, repeat('a', 501))$q$
+    $q$insert into public.feedback (anon_id, rating) values (gen_random_uuid(), 6)$q$
   ];
   q text;
 begin

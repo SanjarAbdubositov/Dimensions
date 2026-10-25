@@ -92,7 +92,7 @@ td:first-child, th:first-child { text-align: left; }
 /* ---------- Fikr formasi ---------- */
 .lesson-feedback { margin-top: 2.5rem; }
 .feedback { display: grid; gap: 0.5rem; }
-.stars { border: 0; padding: 0; margin: 0 0 0.5rem; }
+.stars { border: 0; padding: 0; margin: 0; }
 .stars legend { font-weight: 600; margin-bottom: 0.4rem; padding: 0; }
 .star-row { display: flex; gap: 0.25rem; }
 .star {
@@ -103,11 +103,5 @@ td:first-child, th:first-child { text-align: left; }
 .star:active { transform: scale(0.9); }
 .star.on { color: var(--accent); }
 .stars input:focus-visible + .star { outline: 3px solid var(--accent); outline-offset: 1px; }
-.feedback-label { font-weight: 600; }
-.feedback textarea {
-  font: inherit; width: 100%; padding: 0.6rem 0.75rem; resize: vertical;
-  border: 1px solid var(--field); border-radius: var(--radius); background: var(--surface); color: var(--text);
-}
-.feedback-warning { margin: 0; font-size: 0.95rem; font-weight: 600; color: var(--bad); background: var(--bad-soft); border-radius: var(--radius); padding: 0.35rem 0.6rem; }
 .feedback button[type="submit"] { justify-self: start; margin-top: 0.25rem; }
 .feedback-status { margin: 0; }

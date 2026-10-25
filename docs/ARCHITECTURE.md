@@ -147,7 +147,7 @@ Kalit: `tortinchi-olchov.progress.v1`. Agar `localStorage` ishlamasa (maxfiy rej
 | `js/analytics-core.js` | Sof funksiyalar: seminar kodi, rozilik mantigʻi, qator tuzish, taqiqlangan kalitni aniqlash |
 | `js/analytics.js` | Brauzer qismi: IDʼlar, `track()`, `sendFeedback()`, Supabase klientini yuklash |
 | `js/consent-ui.js` | Rozilik banneri va “Statistika sozlamalari” oynasi |
-| `js/feedback.js` | Dars oxiridagi fikr formasi (1–5 yulduz, izoh) |
+| `js/feedback.js` | Dars oxiridagi fikr formasi (faqat 1–5 yulduz; matnli izoh ataylab yoʻq — oʻquvchi ismini yozib qoʻymasin) |
 | `js/config.js` | Supabase URL va publishable/anon kalit (boʻsh = statistika oʻchiq) |
 | `docs/SETUP.md` | Supabaseʼni qadamma-qadam sozlash va xavfsizlik tekshiruvi |
 
@@ -209,7 +209,7 @@ Qatorlar `return=minimal` rejimida yuboriladi (supabase-jsʼda `.insert()` dan k
 
 ### XSS va `textContent`
 
-Izohlar va seminar kodlarini **foydalanuvchilar** yozadi. Agar ular `innerHTML` bilan sahifaga qoʻyilsa, `<img src=x onerror="…">` kabi matn **kod sifatida** ishga tushib, admin sessiyasini oʻgʻirlashi mumkin edi. `textContent` esa har qanday matnni faqat harf sifatida koʻrsatadi. `tests/admin.test.js` admin fayllarida `innerHTML` yoʻqligini tekshiradi.
+Seminar kodlarini **foydalanuvchilar** yozadi. Agar ular `innerHTML` bilan sahifaga qoʻyilsa, `<img src=x onerror="…">` kabi matn **kod sifatida** ishga tushib, admin sessiyasini oʻgʻirlashi mumkin edi. `textContent` esa har qanday matnni faqat harf sifatida koʻrsatadi. `tests/admin.test.js` admin fayllarida `innerHTML` yoʻqligini tekshiradi.
 
 ### Sahifalab yuklash
 

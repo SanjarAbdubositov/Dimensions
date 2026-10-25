@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import {
-  EVENT_TYPES, isValidGroupCode, parseGroupCode, shouldShowBanner, canSend, normalizeConsent,
+  EVENT_TYPES, isValidGroupCode, parseGroupCode, shouldShowBanner, canSend, normalizeConsent, resolveConsent,
   buildEvent, buildFeedback, isForbiddenKey, isConfigured, looksPersonal,
 } from '../js/analytics-core.js';
 
@@ -129,4 +129,13 @@ test('schema.sql: RLS yoqilgan, UPDATE/DELETE va anon SELECT berilmagan', () => 
   assert.doesNotMatch(sql, /grant[^;]*public\.admins[^;]*to/, 'admins jadvaliga GRANT yoʻq');
   assert.doesNotMatch(sql, /for (update|delete|all)\b/, 'UPDATE/DELETE siyosati yoʻq');
   assert.match(sql, /security definer\s+set search_path = ''/, 'is_admin: search_path qatʼiy');
+});
+
+test('rozilik: “Roziman” doimiy, “Yoʻq” faqat shu tashrif uchun', () => {
+  assert.equal(resolveConsent('granted', null), 'granted');
+  assert.equal(resolveConsent('granted', 'denied'), 'granted');
+  assert.equal(resolveConsent(null, 'denied'), 'denied');   // shu tashrifda qayta soʻralmaydi
+  assert.equal(resolveConsent(null, null), null);           // keyingi kirishda yana soʻraladi
+  assert.equal(resolveConsent('denied', null), null);       // eski versiyadagi doimiy “yoʻq” — yana soʻraladi
+  assert.equal(shouldShowBanner({ configured: true, consent: resolveConsent(null, null) }), true);
 });

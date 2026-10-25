@@ -3,15 +3,16 @@
 // Asosiy qoida: bu fayldagi hech narsa xato tashlamaydi va saytning ishiga xalaqit bermaydi.
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from './config.js';
 import {
-  buildEvent, buildFeedback, canSend, shouldShowBanner, normalizeConsent,
+  buildEvent, buildFeedback, canSend, shouldShowBanner, normalizeConsent, resolveConsent,
   parseGroupCode, isConfigured, isForbiddenKey, isUuid,
 } from './analytics-core.js';
 import { showConsentBanner } from './consent-ui.js';
 import { loadSupabase } from './supabase-lib.js';
 import { isExcluded } from './device.js';
+import { showSeminarBar } from './seminar-bar.js';
 
 const KEYS = {
-  consent: 'tortinchi-olchov.consent',   // localStorage: 'granted' | 'denied'
+  consent: 'tortinchi-olchov.consent',   // 'granted' — localStorage'da, 'denied' — sessionStorage'da
   anonId: 'tortinchi-olchov.anon-id',    // localStorage: qurilma ID'si (faqat rozilikdan keyin)
   group: 'tortinchi-olchov.group',       // localStorage: seminar kodi
   sessionId: 'tortinchi-olchov.session-id', // sessionStorage: shu tashrif ID'si
@@ -40,16 +41,18 @@ function write(store, key, value) {
 export function getStatus() {
   return {
     configured,
-    consent: normalizeConsent(read('localStorage', KEYS.consent)),
+    consent: resolveConsent(read('localStorage', KEYS.consent), read('sessionStorage', KEYS.consent)),
     excluded: isExcluded(), // admin qurilmasi — hech narsa yuborilmaydi (device.js)
     groupCode: read('localStorage', KEYS.group),
   };
 }
 
-// Rozilikni saqlash. Rad etilsa, qurilma ID'si ham unutiladi
+// Rozilikni saqlash. "Roziman" — doimiy; "Yoʻq" — faqat shu tashrifga, qurilma ID'si ham unutiladi
 export function setConsent(value) {
-  write('localStorage', KEYS.consent, normalizeConsent(value));
-  if (value === 'denied') write('localStorage', KEYS.anonId, null);
+  const consent = normalizeConsent(value);
+  write('localStorage', KEYS.consent, consent === 'granted' ? 'granted' : null);
+  write('sessionStorage', KEYS.consent, consent === 'denied' ? 'denied' : null);
+  if (consent === 'denied') write('localStorage', KEYS.anonId, null);
 }
 
 // ID'ni oʻqish yoki yangisini yaratish (crypto.randomUUID — tasodifiy, hech kimga bogʻliq emas)
@@ -168,6 +171,7 @@ function init() {
   });
 
   if (shouldShowBanner(getStatus())) openConsentSettings(false);
+  showSeminarBar(); // seminar paytida: “Oxiridagi testni topshirish” tugmasi (rozilikka bogʻliq emas)
   trackPageView();
 }
 

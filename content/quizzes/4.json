@@ -1,6 +1,6 @@
 {
   "lesson": 4,
-  "draft": true,
+  "draft": false,
   "questions": [
     {
       "q": "4D fazodagi (x, y, z, w) nuqtani 3D olamga perspektiv proyeksiya qilish (soyasini tushirish) formulasi qanday koʻrinishga ega? (Bu yerda d — fonar yoki kameragacha boʻlgan masofa)",

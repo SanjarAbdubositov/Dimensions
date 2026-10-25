@@ -96,14 +96,12 @@ Dars matnlari va testlarni Claude (AI) qoralama sifatida yozgan. Quyidagi faktla
 - [ ] Simulyatorda w ranglari oʻrtada (firuza → zafar oraligʻida) zaytun rangga oʻtadi — palitraning tabiiy natijasi. Yoqmasa, `--w-mid` ni oʻzgartirish mumkin.
 - [ ] Bosh sahifadagi emblemalar: n-dars yonida (n+1) oʻlchamli kub. Bu dizayn qarori, dars mavzusiga bogʻliq emas.
 
-## Hali qoralama boʻlgan fayllar
+## Hali toʻldirilmagan joylar
 
-| Fayl | Belgisi |
+Darslar, testlar, lugʻat va “Loyiha haqida” sahifasidan “Qoralama” belgisi olib tashlandi (muallif qarori, 2026-10-25).
+
+| Fayl | Nima yetishmaydi |
 |---|---|
-| `content/quizzes/1.json` … `6.json` (darslarni muallif qayta yozdi, testlarni hali tekshirmagan) | `"draft": true` |
-| `content/tests/prepost.json` | `"draft": true` |
-| `glossary.html`, `about.html`, `privacy.html` | “Qoralama” belgisi |
-| `about.html` | “Muallif” va “AI yordami” — boʻsh joylar |
-| `privacy.html` | mintaqa, saqlash muddati, bogʻlanish — boʻsh joylar |
+| `privacy.html` | server mintaqasi, saqlash muddati, bogʻlanish yoʻli — boʻsh joylar |
 | `README.md` | “AI yordami”, “Muallif”, “Skrinshotlar” — boʻsh joylar |
 | `docs/LOYIHA-TARIXI.md` | “Muallifning oʻz hissasi” — boʻsh joy |

@@ -198,6 +198,8 @@ small, .hint { font-size: 0.85rem; }
 .consent { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: var(--surface); border-top: 2px solid var(--accent); }
 .consent-inner { max-width: 46rem; margin: 0 auto; padding: 1rem; font-size: 1rem; }
 .consent-text { margin: 0 0 0.5rem; }
+.consent-choices { margin: 0; padding-left: 1.2rem; font-size: 0.9rem; color: var(--muted); }
+.consent-choices strong { color: var(--text); }
 .consent-state { margin: 0 0 0.5rem; color: var(--muted); font-size: 0.9rem; }
 .consent-buttons { margin: 0.75rem 0 0.25rem; }
 .consent-more { font-size: 0.9rem; display: inline-block; padding: 0.4rem 0; }

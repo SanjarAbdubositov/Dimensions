@@ -2,7 +2,12 @@
 // Sahifani bloklamaydi: pastda turadi, sayt undan oldin ham, keyin ham toʻliq ishlaydi.
 import { el } from './dom.js';
 
-const TEXT = 'Biz darslarni yaxshilash uchun anonim statistika yigʻamiz (qaysi dars ochildi, test natijasi). Ism yoki telefon soʻralmaydi.';
+const TEXT = 'Darslarni yaxshilash uchun anonim statistika yigʻamiz. Ism, telefon yoki email soʻralmaydi.';
+// Har bir tugma bosilganda nima boʻlishi — tanlashdan oldin aniq koʻrinsin
+const CHOICES = [
+  ['Roziman', ' — maʼlumot Seuldagi (Janubiy Koreya) serverga yuboriladi, 1 yil saqlanadi.'],
+  ['Yoʻq, rahmat', ' — hech narsa yuborilmaydi. Darslar, testlar va simulyator ishlayveradi, faqat fikr yuborib boʻlmaydi.'],
+];
 
 let current = null; // bir vaqtda faqat bitta banner
 
@@ -12,7 +17,10 @@ export function showConsentBanner({ status, settingsMode, onChoose }) {
   const close = () => { current?.remove(); current = null; document.body.style.paddingBottom = ''; };
   const choose = (value) => { onChoose(value); close(); };
 
-  const children = [el('p', { class: 'consent-text', text: TEXT })];
+  const children = [
+    el('p', { class: 'consent-text', text: TEXT }),
+    el('ul', { class: 'consent-choices' }, CHOICES.map(([name, what]) => el('li', {}, [el('strong', { text: name }), what]))),
+  ];
   if (settingsMode) {
     const state = status.consent === 'granted' ? 'yoqilgan' : 'oʻchirilgan';
     children.push(el('p', { class: 'consent-state', text: `Hozir statistika: ${state}.` }));
@@ -25,7 +33,7 @@ export function showConsentBanner({ status, settingsMode, onChoose }) {
   if (settingsMode) buttons.push(el('button', { type: 'button', class: 'btn btn-secondary', text: 'Yopish', onclick: close }));
   children.push(
     el('div', { class: 'btn-row consent-buttons' }, buttons),
-    el('a', { href: 'privacy.html', class: 'consent-more', text: 'Batafsil: qanday maʼlumot yigʻiladi' }),
+    el('a', { href: 'privacy.html', class: 'consent-more', text: 'Batafsil (tanlovni keyin oʻzgartirsa boʻladi)' }),
   );
 
   current = el('section', { class: 'consent', role: 'region', 'aria-label': 'Statistika roziligi' }, [

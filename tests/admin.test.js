@@ -32,7 +32,7 @@ test('el() yordamchisida HTML qoʻyish imkoniyati yoʻq', () => {
 });
 
 test('admin kodida innerHTML yoʻq (izohlar faqat textContent bilan chiqadi)', () => {
-  for (const file of ['js/admin.js', 'js/admin-view.js', 'js/admin-data.js', 'js/chart.js', 'js/stats.js', 'js/csv.js']) {
+  for (const file of ['js/admin.js', 'js/admin-view.js', 'js/admin-data.js', 'js/admin-seminar.js', 'js/seminar.js', 'js/chart.js', 'js/stats.js', 'js/csv.js']) {
     const src = code(file);
     assert.doesNotMatch(src, /innerHTML|outerHTML|insertAdjacentHTML|document\.write/, file);
     assert.doesNotMatch(src, /\bhtml\s*:/, `${file}: el(..., { html }) ishlatilmasin`);

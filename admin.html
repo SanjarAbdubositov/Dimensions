@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="css/admin.css">
   <!-- Barcha modullarni birdaniga yuklash (sekin internetda importlar zanjirini kutmaslik uchun). tests/preload.test.js tekshiradi -->
   <link rel="modulepreload" href="js/admin-data.js">
+  <link rel="modulepreload" href="js/admin-seminar.js">
   <link rel="modulepreload" href="js/admin-view.js">
   <link rel="modulepreload" href="js/admin.js">
   <link rel="modulepreload" href="js/analytics-core.js">
@@ -24,8 +25,10 @@
   <link rel="modulepreload" href="js/csv.js">
   <link rel="modulepreload" href="js/device.js">
   <link rel="modulepreload" href="js/dom.js">
+  <link rel="modulepreload" href="js/seminar.js">
   <link rel="modulepreload" href="js/stats.js">
   <link rel="modulepreload" href="js/supabase-lib.js">
+  <link rel="modulepreload" href="js/vendor/qrcode.js">
 </head>
 <body>
   <header class="site-header">
@@ -71,6 +74,18 @@
         <p id="device-state"></p>
         <button id="device-toggle" class="btn btn-secondary" type="button" aria-pressed="false"></button>
       </div>
+
+      <section id="seminars" class="card admin-seminars" aria-labelledby="seminars-title">
+        <h2 id="seminars-title">Seminarlar</h2>
+        <p class="def">Har bir seminar uchun alohida kod yarating va oʻquvchilarga havolasini yoki QR-kodini bering. Ular shu havola orqali kirib, “Roziman” bossa, natijalari shu kod bilan belgilanadi. Seminar boshida — “boshidagi test”, oxirida — “oxiridagi test”. Roʻyxat shu brauzerda saqlanadi; natija yigʻilgan kodlar bu yerga oʻzi qoʻshiladi.</p>
+        <form id="seminar-form" class="seminar-form">
+          <label for="seminar-name">Yangi seminar nomi</label>
+          <input id="seminar-name" type="text" maxlength="60" placeholder="masalan: Synergy 9-A" autocomplete="off">
+          <button class="btn" type="submit">Yaratish</button>
+          <p id="seminar-preview" class="def" role="status" aria-live="polite"></p>
+        </form>
+        <ul id="seminar-list" class="seminar-list"></ul>
+      </section>
 
       <form id="filters" class="card admin-filters" aria-label="Filtrlar">
         <div class="filter-field">

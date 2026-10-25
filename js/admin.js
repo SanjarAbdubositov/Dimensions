@@ -6,6 +6,7 @@ import { groupCodes } from './stats.js';
 import { toCsv, csvFilename, EVENT_COLUMNS, FEEDBACK_COLUMNS } from './csv.js';
 import { isExcluded, setExcluded } from './device.js';
 import { el } from './dom.js';
+import { setupSeminars, loadSeminars } from './admin-seminar.js';
 
 const $ = (id) => document.getElementById(id);
 const views = { login: $('login'), denied: $('denied'), dashboard: $('dashboard') };
@@ -17,6 +18,7 @@ let client = null;
 let data = { events: [], feedback: [] };
 const knownGroups = new Set();
 let loadToken = 0; // eski (kechikkan) soʻrov natijasi yangisining ustiga yozilmasin
+let updateSeminars = () => {}; // "Seminarlar" roʻyxatini maʼlumotdagi kodlar bilan yangilash
 
 // Faqat bitta boʻlimni koʻrsatish (yoki hech birini)
 function showView(name) {
@@ -41,12 +43,13 @@ function renderDeviceToggle() {
   $('device-toggle').setAttribute('aria-pressed', String(excluded));
 }
 
-// Guruh tanlash roʻyxati: Hammasi, Guruhsiz va koʻrilgan seminar kodlari
+// Guruh tanlash roʻyxati: Hammasi, Guruhsiz, koʻrilgan va yaratilgan seminar kodlari
 function renderGroupOptions() {
   const select = $('filter-group');
   const current = select.value;
   const options = [el('option', { value: '', text: 'Hamma guruhlar' }), el('option', { value: NO_GROUP_FILTER, text: 'Guruhsiz' })];
-  for (const code of [...knownGroups].sort()) options.push(el('option', { value: code, text: code }));
+  const codes = new Set([...knownGroups, ...loadSeminars().map((s) => s.code)]);
+  for (const code of [...codes].sort()) options.push(el('option', { value: code, text: code }));
   select.replaceChildren(...options);
   select.value = [...select.options].some((o) => o.value === current) ? current : '';
 }
@@ -69,6 +72,7 @@ async function loadData() {
     data = { events, feedback };
     groupCodes(events).forEach((g) => knownGroups.add(g));
     renderGroupOptions();
+    updateSeminars([...knownGroups]);
     if (!events.length && !feedback.length) {
       report.replaceChildren();
       dataStatus.textContent = 'Tanlangan filtr boʻyicha maʼlumot yoʻq.';
@@ -164,6 +168,11 @@ async function init() {
   $('export-events').addEventListener('click', () => download('events', data.events, EVENT_COLUMNS));
   $('export-feedback').addEventListener('click', () => download('feedback', data.feedback, FEEDBACK_COLUMNS));
   $('device-toggle').addEventListener('click', () => { setExcluded(!isExcluded()); renderDeviceToggle(); });
+  // Seminar tanlansa — filtr shu kodga oʻrnatiladi va hisobot yuklanadi
+  updateSeminars = setupSeminars($('seminars'), {
+    codesChanged: renderGroupOptions,
+    showReport: (code) => { renderGroupOptions(); $('filter-group').value = code; loadData(); $('filters').scrollIntoView(); },
+  });
 
   const { data: { session } } = await client.auth.getSession();
   status.textContent = '';

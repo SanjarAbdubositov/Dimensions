@@ -203,3 +203,8 @@ small, .hint { font-size: 0.85rem; }
 .consent-state { margin: 0 0 0.5rem; color: var(--muted); font-size: 0.9rem; }
 .consent-buttons { margin: 0.75rem 0 0.25rem; }
 .consent-more { font-size: 0.9rem; display: inline-block; padding: 0.4rem 0; }
+
+/* ---------- Seminar: “Oxiridagi testni topshirish” (faqat seminar paytida) ---------- */
+.seminar-bar { background: var(--accent-soft); border-bottom: 1px solid var(--border); }
+.seminar-bar .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; padding-block: 0.6rem; }
+.seminar-bar p { margin: 0; font-size: 0.95rem; }

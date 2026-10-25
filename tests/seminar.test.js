@@ -21,12 +21,12 @@ test('yaratilgan kod saytdagi ?g= orqali aynan oʻzi boʻlib oʻqiladi', () => {
   }
 });
 
-test('seminarLinks: bosh sahifa, boshidagi va oxiridagi test havolalari', () => {
+test('seminarLinks: birinchisi — asosiy seminar havolasi (boshidagi test)', () => {
   const links = seminarLinks('https://sanjarabdubositov.github.io/Dimensions/admin.html', 'SYNERGY-9-A');
   assert.deepEqual(links.map((l) => l.url), [
-    'https://sanjarabdubositov.github.io/Dimensions/index.html?g=SYNERGY-9-A',
     'https://sanjarabdubositov.github.io/Dimensions/test.html?type=pre&g=SYNERGY-9-A',
     'https://sanjarabdubositov.github.io/Dimensions/test.html?type=post&g=SYNERGY-9-A',
+    'https://sanjarabdubositov.github.io/Dimensions/index.html?g=SYNERGY-9-A',
   ]);
   for (const l of links) assert.equal(parseGroupCode(new URL(l.url).search), 'SYNERGY-9-A');
 });

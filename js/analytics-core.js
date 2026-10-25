@@ -38,6 +38,14 @@ export function normalizeConsent(value) {
   return value === 'granted' || value === 'denied' ? value : null;
 }
 
+// Rozilik qayerda saqlanadi: "Roziman" — doimiy (localStorage), "Yoʻq" — faqat shu tashrif (sessionStorage).
+// Shuning uchun rozi boʻlgan odamdan qayta soʻralmaydi, rad etgandan esa keyingi kirishda yana soʻraladi.
+// Eski versiyada localStorage'ga yozilgan 'denied' hisobga olinmaydi (yana soʻraladi).
+export function resolveConsent(localValue, sessionValue) {
+  if (localValue === 'granted') return 'granted';
+  return sessionValue === 'denied' ? 'denied' : null;
+}
+
 // Banner koʻrsatilsinmi: statistika sozlangan va foydalanuvchi hali javob bermagan boʻlsa
 export function shouldShowBanner({ configured, consent }) {
   return Boolean(configured) && normalizeConsent(consent) === null;

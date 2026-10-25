@@ -333,12 +333,17 @@ Faqat `transform` va `opacity`. Oʻz-oʻzidan harakat — faqat bosh sahifadagi 
 
 ## Seminarlar (admin panel)
 
-Admin panelda “Seminarlar” boʻlimi: seminar nomini yozasiz (masalan, “Synergy 9-A”), u `SYNERGY-9-A` kodiga aylanadi va uchta havola chiqadi — bosh sahifa, seminar boshidagi test, seminar oxiridagi test. Har bir havolani nusxalash, QR-kodini koʻrish va PNG qilib yuklab olish mumkin. “Natijalarni koʻrish” — filtrni shu kodga qoʻyib, hisobotni yuklaydi.
+Admin panelda “Seminarlar” boʻlimi: seminar nomini yozasiz (masalan, “Synergy 9-A”), u `SYNERGY-9-A` kodiga aylanadi va havolalar chiqadi. Asosiysi — birinchisi (seminar boshidagi test); oxirgi test va bosh sahifa havolalari zaxira uchun.
+
+**Bitta QR qoidasi.** Telefonda har bir brauzerning (Telegram ichidagi brauzer, QR skaner, Chrome, maxfiy oyna) xotirasi alohida. Oʻquvchi ikki testni ikki xil yoʻl bilan ochsa, sayt uni ikki qurilma deb biladi va oldin/keyin juftlanmaydi. Shuning uchun oʻquvchi faqat bitta QR bilan kiradi; boshidagi testdan keyin har sahifada “Oxiridagi testni topshirish” tugmasi chiqadi (`js/seminar-bar.js`, 24 soat davomida) va oxirgi test oʻsha brauzerda ochiladi. Oʻquvchi hech narsa yozmaydi. Telefonlarni “taniydigan” boshqa usullar (IP, qurilma modeli) ataylab ishlatilmaydi — maxfiylik sahifasidagi vaʼdaga zid.
+
+**Rozilik.** “Roziman” — `localStorage`da, boshqa soʻralmaydi. “Yoʻq, rahmat” — faqat `sessionStorage`da: shu tashrif davomida soʻralmaydi, keyingi kirishda yana soʻraladi (`resolveConsent`, `js/analytics-core.js`). Har bir havolani nusxalash, QR-kodini koʻrish va PNG qilib yuklab olish mumkin. “Natijalarni koʻrish” — filtrni shu kodga qoʻyib, hisobotni yuklaydi.
 
 | Fayl | Vazifasi |
 |---|---|
 | `js/seminar.js` | Sof funksiyalar: nomdan kod (`?g=` qoidasi bilan bir xil), havolalar, roʻyxatni birlashtirish, QR matritsasi |
 | `js/admin-seminar.js` | Boʻlim interfeysi: forma, roʻyxat, nusxalash, QR (SVG) va PNG yuklab olish |
+| `js/seminar-bar.js` | Seminar paytida sarlavha ostidagi “Oxiridagi testni topshirish” tugmasi |
 | `js/vendor/qrcode.js` | QR-kod kutubxonasi: qrcode-generator 2.0.4 (Kazuhiko Arase, MIT), oʻzgartirilmagan. Tarmoqqa chiqmaydi |
 
 **Nega bazaga yozilmaydi?** Admin panel bazani faqat oʻqiydi — bu xavfsizlik qoidasi. Shuning uchun yaratilgan seminarlar roʻyxati shu brauzerning `localStorage`ʼida saqlanadi. Boshqa kompyuterdan kirsangiz, roʻyxat boʻsh boʻladi, lekin natijasi yigʻilgan har bir kod roʻyxatga baribir oʻzi qoʻshiladi (maʼlumotdan olinadi). Roʻyxatdan olib tashlash yigʻilgan natijalarni oʻchirmaydi.

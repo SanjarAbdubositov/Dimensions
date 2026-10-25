@@ -15,14 +15,15 @@ export function codeFromName(name) {
   return isValidGroupCode(code) ? code : '';
 }
 
-// Seminar uchun uchta havola. base — sayt ildizi, masalan "https://…/Dimensions/"
+// Seminar uchun havolalar. base — sayt ildizi, masalan "https://…/Dimensions/".
+// Oʻquvchilarga faqat birinchisini berish kifoya: oxirgi test tugmasi saytning oʻzida chiqadi (seminar-bar.js).
 export function seminarLinks(base, code) {
   const root = new URL('.', base);
   const g = encodeURIComponent(code);
   return [
-    { key: 'home', label: 'Bosh sahifa', url: new URL(`index.html?g=${g}`, root).href },
-    { key: 'pre', label: 'Seminar boshidagi test', url: new URL(`test.html?type=pre&g=${g}`, root).href },
-    { key: 'post', label: 'Seminar oxiridagi test', url: new URL(`test.html?type=post&g=${g}`, root).href },
+    { key: 'pre', label: 'Seminar havolasi — oʻquvchilarga shuni bering (boshidagi test)', url: new URL(`test.html?type=pre&g=${g}`, root).href },
+    { key: 'post', label: 'Oxiridagi test — zaxira (odatda kerak emas)', url: new URL(`test.html?type=post&g=${g}`, root).href },
+    { key: 'home', label: 'Bosh sahifa (testsiz, faqat darslar)', url: new URL(`index.html?g=${g}`, root).href },
   ];
 }
 

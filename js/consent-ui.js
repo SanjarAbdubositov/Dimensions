@@ -5,8 +5,8 @@ import { el } from './dom.js';
 const TEXT = 'Darslarni yaxshilash uchun anonim statistika yigʻamiz. Ism, telefon yoki email soʻralmaydi.';
 // Har bir tugma bosilganda nima boʻlishi — tanlashdan oldin aniq koʻrinsin
 const CHOICES = [
-  ['Roziman', ' — maʼlumot Seuldagi (Janubiy Koreya) serverga yuboriladi, 1 yil saqlanadi.'],
-  ['Yoʻq, rahmat', ' — hech narsa yuborilmaydi. Darslar, testlar va simulyator ishlayveradi, faqat fikr yuborib boʻlmaydi.'],
+  ['Roziman', ' — maʼlumot Seuldagi (Janubiy Koreya) serverga yuboriladi, 1 yil saqlanadi. Boshqa soʻralmaydi.'],
+  ['Yoʻq, rahmat', ' — hech narsa yuborilmaydi, keyingi kirishda yana soʻraladi. Darslar, testlar va simulyator ishlayveradi, faqat fikr yuborib boʻlmaydi.'],
 ];
 
 let current = null; // bir vaqtda faqat bitta banner

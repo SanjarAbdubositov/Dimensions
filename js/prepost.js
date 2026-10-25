@@ -5,12 +5,13 @@ import { renderQuiz } from './quiz-ui.js';
 import { loadProgress, saveTestResult } from './progress.js';
 import { el } from './dom.js';
 import { track } from './analytics.js';
+import { showSeminarBar } from './seminar-bar.js';
 
 const TEXT = {
   pre: {
     title: 'Seminar boshidagi test',
     intro: 'Bu test baho uchun emas. Hozir nimani bilishingizni koʻrish uchun. Bilmasangiz, taxmin qiling — bu mutlaqo normal.',
-    done: 'Rahmat! Toʻgʻri javoblarni seminar oxirida, ikkinchi testdan keyin koʻrasiz.',
+    done: 'Rahmat! Toʻgʻri javoblarni seminar oxirida, ikkinchi testdan keyin koʻrasiz. Seminar tugaguncha shu oynani yopmang: oxirgi testni tepadagi “Oxiridagi testni topshirish” tugmasi orqali ochasiz.',
   },
   post: {
     title: 'Seminar oxiridagi test',
@@ -43,6 +44,7 @@ function afterSubmit(result, message) {
   if (type === 'post' && pre) text += ` Seminar boshida: ${pre.score}/${pre.max}, hozir: ${result.score}/${result.max}.`;
   message.textContent = text;
   message.hidden = false;
+  if (type === 'pre') showSeminarBar();
 }
 
 // Sahifa ochilganda: test turini aniqlash, savollarni yuklash va chizish

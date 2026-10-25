@@ -69,3 +69,22 @@
 .feedback-comment { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 
 .admin-export { margin-top: 1rem; }
+
+/* Seminarlar: yaratish formasi, havolalar, QR-kod */
+.seminar-form { display: grid; gap: 0.5rem; max-width: 26rem; }
+.seminar-form button { justify-self: start; }
+.seminar-form p { margin: 0; min-height: 1.4em; }
+.seminar-list { list-style: none; padding: 0; margin: 1rem 0 0; }
+.seminar { border-top: 1px solid var(--border); padding: 0.25rem 0 0.75rem; }
+.seminar summary { cursor: pointer; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.75rem; min-height: 2.75rem; padding-top: 0.5rem; }
+.seminar summary .def { margin: 0; }
+.seminar-code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 700; }
+.seminar-link { display: grid; gap: 0.35rem; margin: 0.75rem 0; }
+.seminar-link .btn-row { margin: 0; gap: 0.5rem; }
+.admin .seminar-url { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.85rem; }
+.qr-box { display: grid; gap: 0.25rem; justify-items: start; }
+.qr { display: block; border-radius: 4px; }
+.seminar summary { list-style: none; }
+.seminar summary::-webkit-details-marker { display: none; }
+.seminar summary::before { content: "▸"; color: var(--muted); width: 1em; }
+.seminar[open] summary::before { content: "▾"; }

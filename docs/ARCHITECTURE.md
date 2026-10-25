@@ -330,3 +330,17 @@ Tesseraktning 16 ta uchi har bir oʻq boʻylab 0 dan 1 gacha “choʻziladi” (
 ### Harakat qoidalari
 
 Faqat `transform` va `opacity`. Oʻz-oʻzidan harakat — faqat bosh sahifadagi bitta animatsiya. Qolgani foydalanuvchi biror narsa qilganda: tugma bosilganda choʻkishi, test javobi chiqishi, dars tugaganda progress chizigʻining toʻlishi. Oltin (zafar) rang faqat progress va “yaqin” uchun.
+
+## Seminarlar (admin panel)
+
+Admin panelda “Seminarlar” boʻlimi: seminar nomini yozasiz (masalan, “Synergy 9-A”), u `SYNERGY-9-A` kodiga aylanadi va uchta havola chiqadi — bosh sahifa, seminar boshidagi test, seminar oxiridagi test. Har bir havolani nusxalash, QR-kodini koʻrish va PNG qilib yuklab olish mumkin. “Natijalarni koʻrish” — filtrni shu kodga qoʻyib, hisobotni yuklaydi.
+
+| Fayl | Vazifasi |
+|---|---|
+| `js/seminar.js` | Sof funksiyalar: nomdan kod (`?g=` qoidasi bilan bir xil), havolalar, roʻyxatni birlashtirish, QR matritsasi |
+| `js/admin-seminar.js` | Boʻlim interfeysi: forma, roʻyxat, nusxalash, QR (SVG) va PNG yuklab olish |
+| `js/vendor/qrcode.js` | QR-kod kutubxonasi: qrcode-generator 2.0.4 (Kazuhiko Arase, MIT), oʻzgartirilmagan. Tarmoqqa chiqmaydi |
+
+**Nega bazaga yozilmaydi?** Admin panel bazani faqat oʻqiydi — bu xavfsizlik qoidasi. Shuning uchun yaratilgan seminarlar roʻyxati shu brauzerning `localStorage`ʼida saqlanadi. Boshqa kompyuterdan kirsangiz, roʻyxat boʻsh boʻladi, lekin natijasi yigʻilgan har bir kod roʻyxatga baribir oʻzi qoʻshiladi (maʼlumotdan olinadi). Roʻyxatdan olib tashlash yigʻilgan natijalarni oʻchirmaydi.
+
+QR-kodlar testda tuzilishi boʻyicha (`tests/seminar.test.js`), qoʻlda esa jsQR dekoderi bilan qayta oʻqib tekshirilgan.

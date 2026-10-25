@@ -3,18 +3,18 @@
   "draft": true,
   "questions": [
     {
-      "q": "(2, 3) va (3, 2) haqida qaysi gap toʻgʻri?",
+      "q": "Tekislikdagi (2, 3) va (3, 2) koordinatalar haqida qaysi mulohaza toʻgʻri?",
       "options": [
-        "Bular bir xil nuqta",
-        "Ular faqat 3D da farq qiladi",
-        "Bular turli nuqtalar, chunki vektorda tartib muhim",
-        "Bular vektor emas"
+        "Bular aslida bitta nuqtaning ikki xil yozilishi",
+        "Ular faqatgina 3 oʻlchamli fazoda bir-biridan farq qiladi",
+        "Bular fazodagi boshqa-boshqa nuqtalardir, chunki vektorda sonlar tartibi hal qiluvchi ahamiyatga ega",
+        "Bularni matematikada vektor deb atab boʻlmaydi"
       ],
       "answer": 2,
-      "explain": "Vektor — tartiblangan sonlar roʻyxati. Birinchi son x, ikkinchisi y, shuning uchun tartib almashsa, nuqta ham boshqa boʻladi."
+      "explain": "Vektor — bu qatʼiy tartiblangan sonlar roʻyxatidir. Birinchi oʻrinda doim x, ikkinchisida esa y koordinatasi keladi; shu bois sonlar oʻrni almashishi bilan fazodagi nuqta ham butunlay boshqa joyga koʻchadi."
     },
     {
-      "q": "Qaysi ikki uch tesseraktda qirra bilan tutashgan?",
+      "q": "Quyidagi uchlardan qaysi juftligi tesseraktda oʻzaro qirra bilan bevosita tutashgan?",
       "options": [
         "(1, 1, 1, 1) va (−1, −1, 1, 1)",
         "(1, 1, 1, 1) va (−1, −1, −1, −1)",
@@ -22,10 +22,10 @@
         "(1, 1, 1, 1) va (1, 1, 1, −1)"
       ],
       "answer": 3,
-      "explain": "Qirra faqat bitta koordinatada farq qiladigan uchlarni tutashtiradi. Bu yerda faqat oxirgi koordinata farq qiladi."
+      "explain": "Tesseraktda qirra faqatgina bitta koordinatasi bilan farq qiladigan qoʻshni uchlarni oʻzaro bogʻlaydi. Ushbu juftlikda dastlabki uchta son bir xil boʻlib, faqat oxirgi (w) koordinata ishorasi bilan farq qilyapti."
     },
     {
-      "q": "Tomoni 2 boʻlgan tesseraktning bosh diagonali, yaʼni (−1, −1, −1, −1) dan (1, 1, 1, 1) gacha masofa qancha?",
+      "q": "Qirrasining uzunligi 2 ga teng boʻlgan tesseraktning bosh diagonali, yaʼni (−1, −1, −1, −1) uchidan (1, 1, 1, 1) uchigacha boʻlgan masofa qanchaga teng?",
       "options": [
         "4",
         "2",
@@ -33,29 +33,29 @@
         "8"
       ],
       "answer": 0,
-      "explain": "Har bir koordinata farqi 2 ga teng: √(2² + 2² + 2² + 2²) = √16 = 4."
+      "explain": "Toʻrtala koordinataning har birida nuqtalar orasidagi farq 2 ga teng. Pifagorning 4 oʻlchamli masofa formulasiga qoʻysak: √(2² + 2² + 2² + 2²) = √16 = 4 kelib chiqadi."
     },
     {
-      "q": "Tesseraktning har bir uchidan nechta qirra chiqadi?",
+      "q": "Toʻrt oʻlchamli tesseraktning har bitta uchidan nechta qirra chiqadi?",
       "options": [
-        "2",
-        "4",
-        "3",
-        "8"
+        "2 ta",
+        "4 ta",
+        "3 ta",
+        "8 ta"
       ],
       "answer": 1,
-      "explain": "Toʻrtta koordinatadan istalgan bittasining ishorasini almashtirsak, qoʻshni uch hosil boʻladi. Demak, har bir uchdan 4 ta qirra chiqadi."
+      "explain": "Tesseraktning har bir uchida 4 tadan koordinata bor. Ulardan istalgan bittasining ishorasini qarama-qarshisiga almashtirsak, unga qoʻshni boʻlgan uchga borib tushamiz. Demak, har bir uchdan aniq 4 tadan qirra chiqadi."
     },
     {
-      "q": "Pythonʼdagi product([-1, 1], repeat=5) nechta uch beradi?",
+      "q": "Python dasturlash tilidagi product([-1, 1], repeat=5) buyrugʻi 5 oʻlchamli giperkub uchun jami nechta uch hosil qilib beradi?",
       "options": [
-        "10",
-        "25",
-        "32",
-        "64"
+        "10 ta",
+        "25 ta",
+        "32 ta",
+        "64 ta"
       ],
       "answer": 2,
-      "explain": "Har bir koordinata uchun 2 ta tanlov bor, koordinatalar 5 ta: 2 · 2 · 2 · 2 · 2 = 32."
+      "explain": "5 oʻlchamli fazoda har bir nuqta 5 ta koordinatadan iborat va ularning har biri uchun 2 tadan tanlov (−1 yoki +1) mavjud: 2 · 2 · 2 · 2 · 2 = 32 ta uch."
     }
   ]
 }

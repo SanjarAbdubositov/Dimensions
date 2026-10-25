@@ -3,59 +3,59 @@
   "draft": true,
   "questions": [
     {
-      "q": "Embedding nima?",
+      "q": "Sunʼiy intellekt tilida “embedding” tushunchasi nimani anglatadi?",
       "options": [
-        "Soʻzni rasmga aylantirish",
-        "Soʻzlarni alifbo tartibida saralash",
-        "Soʻzni sonlar roʻyxati — koʻp oʻlchamli fazodagi nuqta bilan ifodalash",
-        "Soʻzni boshqa tilga tarjima qilish"
+        "Soʻzni rangli rasmga aylantirishni",
+        "Soʻzlarni lugʻatdagi alifbo tartibida saralashni",
+        "Har bir soʻzni sonlar roʻyxati (vektor), yaʼni koʻp oʻlchamli fazodagi bitta nuqta sifatida ifodalashni",
+        "Soʻzni bir tildan boshqa tilga avtomatik tarjima qilishni"
       ],
       "answer": 2,
-      "explain": "Embeddingda har bir soʻz vektorga, yaʼni masalan, 200 oʻlchamli fazodagi nuqtaga aylanadi."
+      "explain": "Embedding texnologiyasida har bir soʻz tartiblangan sonlar roʻyxatiga (vektorga), yaʼni masalan, 200 oʻlchamli fazodagi aniq bir nuqtaga aylantiriladi."
     },
     {
-      "q": "Embedding fazosida maʼnosi yaqin soʻzlar qanday joylashadi?",
+      "q": "Embedding fazosida maʼnosi bir-biriga yaqin boʻlgan soʻzlar (masalan, “mushuk” va “it”) qanday joylashadi?",
       "options": [
-        "Bir-biridan eng uzoqda",
-        "Doim bitta toʻgʻri chiziqda",
-        "Tasodifiy joylarda",
-        "Bir-biriga yaqin"
+        "Bir-biridan eng uzoq burchaklarda",
+        "Har doim bitta toʻgʻri chiziq ustida",
+        "Mutlaqo tasodifiy va tartibsiz joylarda",
+        "Fazoda bir-biriga juda yaqin masofada"
       ],
       "answer": 3,
-      "explain": "Oʻxshash joylarda ishlatiladigan soʻzlar oʻxshash sonlar oladi, shuning uchun ular fazoda yaqin turadi."
+      "explain": "Matnlarda oʻxshash kontekstda (yonma-yon) ishlatiladigan soʻzlarga dastur bir-biriga yaqin koordinatalarni beradi, natijada maʼnodosh va yaqin soʻzlar fazoda ham qoʻshni boʻlib joylashadi."
     },
     {
-      "q": "PCA nimani qidiradi?",
+      "q": "Koʻp oʻlchamli maʼlumotlarni ekranga tushirishda PCA (bosh komponentlar tahlili) algoritmi nimani qidiradi?",
       "options": [
-        "Maʼlumot soyasi eng keng yoyiladigan yoʻnalishlarni",
-        "Eng qisqa soʻzni",
-        "Eng yaqin ikki nuqtani",
-        "Tasodifiy burchakni"
+        "Nuqtalar bulutining soyasi eng keng va aniq yoyiladigan burchak hamda yoʻnalishlarni",
+        "Lugʻatdagi eng qisqa soʻzni",
+        "Fazodagi bir-biriga eng yaqin turgan ikkita nuqtani",
+        "Soyani tushirish uchun mutlaqo tasodifiy burchakni"
       ],
       "answer": 0,
-      "explain": "PCA nuqtalar eng koʻp yoyilgan yoʻnalishlarni topib, ularga proyeksiya qiladi: “soyasi eng keng yoyiladigan burchakni top”."
+      "explain": "PCA algoritmi nuqtalar ustma-ust tushib qolmasligi uchun ular fazoda eng keng tarqalgan yoʻnalishlarni topadi va maʼlumotlarni aynan oʻsha tekislikka proyeksiya qiladi."
     },
     {
-      "q": "t-SNE haqida qaysi gap toʻgʻri?",
+      "q": "Mashhur t-SNE proyeksiya usuli haqida qaysi mulohaza toʻgʻri?",
       "options": [
-        "U barcha masofalarni aniq saqlaydi",
-        "U yaqin qoʻshnilarni saqlaydi, lekin uzoq masofalarni buzishi mumkin",
-        "U faqat 4D da ishlaydi",
-        "Undagi guruhlar kattaligi doim aniq maʼnoga ega"
+        "U 200 oʻlchamdagi barcha masofalarni 2D ekranda ham bexato saqlaydi",
+        "U yaqin qoʻshni nuqtalarni yonma-yon saqlab qoladi, biroq uzoq masofalarni buzib koʻrsatishi mumkin",
+        "U faqatgina 4 oʻlchamli tesserakt uchun ishlaydi",
+        "Unda hosil boʻlgan guruhlarning katta-kichikligi doim aniq matematik maʼnoga ega"
       ],
       "answer": 1,
-      "explain": "t-SNE rasmidan “kim kimning qoʻshnisi” degan xulosa chiqarish mumkin, lekin guruhlar orasidagi masofa va guruh kattaligiga ishonib boʻlmaydi."
+      "explain": "t-SNE chizmasidan faqat “qaysi soʻz qaysi soʻzning yaqin qoʻshnisi” degan xulosani olish mumkin. Biroq uzoqdagi guruhlar orasidagi masofaga va guruhlarning ekrandagi oʻlchamiga qarab xulosa chiqarib boʻlmaydi."
     },
     {
-      "q": "200 oʻlchamli fazoda ikki nuqta orasidagi masofa qanday hisoblanadi?",
+      "q": "200 oʻlchamli fazoda joylashgan ikkita nuqta (soʻz) orasidagi masofa qanday hisoblanadi?",
       "options": [
-        "Faqat birinchi ikkita koordinata bilan",
-        "Uni hisoblab boʻlmaydi",
-        "200 ta farq kvadratlari yigʻindisidan kvadrat ildiz",
-        "Koordinatalarni qoʻshib"
+        "Faqatgina dastlabki ikkita koordinatasini ayirish orqali",
+        "Bunday yuqori oʻlchamda masofani hisoblab boʻlmaydi",
+        "Barcha 200 ta koordinata farqlarining kvadratlari yigʻindisidan kvadrat ildiz chiqarish orqali",
+        "Ikkala nuqtaning barcha koordinatalarini bir-biriga oddiy qoʻshish orqali"
       ],
       "answer": 2,
-      "explain": "2-darsdagi formula: √(Δ₁² + Δ₂² + … + Δ₂₀₀²). Har bir oʻlcham uchun bitta qoʻshiluvchi."
+      "explain": "Bu yerda 2-darsdagi umumlashgan Pifagor formulasi ishlaydi: √(Δ₁² + Δ₂² + … + Δ₂₀₀²). Har bir yangi oʻlcham uchun ildiz ostiga bitta qoʻshiluvchi qoʻshiladi."
     }
   ]
 }

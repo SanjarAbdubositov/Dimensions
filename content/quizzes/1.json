@@ -3,59 +3,59 @@
   "draft": true,
   "questions": [
     {
-      "q": "Olma Yassi dunyo orqali oʻtganda, u yerdagi mavjudot nimani koʻradi?",
+      "q": "Uch oʻlchamli olma Yassi dunyo tekisligini kesib oʻtganda, u yerdagi mavjudot nimaning guvohi boʻladi?",
       "options": [
-        "Butun olmani birdaniga",
-        "Olmaning kesimlarini: avval oʻsib, keyin kichrayadigan doirani",
-        "Hech narsani",
-        "Olmaning rangli suratini"
+        "Butun olmani birvarakayiga koʻradi",
+        "Olmaning yassi kesimlarini: avval kengayib, soʻng kichrayib yoʻqoladigan doirani",
+        "Umuman hech narsani koʻrmaydi",
+        "Olmaning uch oʻlchamli rangli tasvirini"
       ],
       "answer": 1,
-      "explain": "Yassi dunyolik faqat olma bilan oʻz dunyosi kesishgan joyni — kesimni koʻradi. Olma oʻtib borgani sari kesim oʻzgaradi."
+      "explain": "Yassi dunyo vakili olmani butunligicha koʻra olmaydi, u faqatgina olma bilan oʻz olami tutashgan yassi kesimlarni koʻradi. Olma pastga tushgani sari bu kesim doira shaklida kattalashib-kichrayib boradi."
     },
     {
-      "q": "Tesseraktda nechta uch bor?",
+      "q": "Toʻrt oʻlchamli tesseraktda jami nechta uch mavjud?",
       "options": [
-        "8",
-        "12",
-        "16",
-        "32"
+        "8 ta",
+        "12 ta",
+        "16 ta",
+        "32 ta"
       ],
       "answer": 2,
-      "explain": "Har bir yangi oʻlchamda uchlar ikki baravar koʻpayadi: kubda 8 ta, tesseraktda 8 · 2 = 16 ta."
+      "explain": "Har bir yangi fazoviy oʻlchamga oʻtganda shaklning uchlari soni ikki baravar koʻpayadi: oddiy kubda 8 ta uch boʻlsa, tesseraktda 8 · 2 = 16 ta boʻladi."
     },
     {
-      "q": "Tesseraktda nechta qirra bor?",
+      "q": "Tesserakt nechta qirradan tashkil topgan?",
       "options": [
-        "16",
-        "24",
-        "64",
-        "32"
+        "16 ta",
+        "24 ta",
+        "64 ta",
+        "32 ta"
       ],
       "answer": 3,
-      "explain": "Kubning 12 ta qirrasi ikki baravar boʻladi (24) va har bir eski uchdan bittadan yangi qirra qoʻshiladi (8): 24 + 8 = 32."
+      "explain": "Kubdan nusxa olganimizda uning 12 ta qirrasi ikkilanadi (24 ta) va ikkala kubning 8 ta mos uchini tutashtiruvchi yana 8 ta yangi qirra qoʻshiladi: 24 + 8 = 32 ta."
     },
     {
-      "q": "Tesserakt nechta kubdan “yasalgan”?",
+      "q": "Xuddi kub 6 ta kvadratdan yigʻilgani kabi, tesserakt nechta 3D kubdan “qurilgan”?",
       "options": [
-        "8",
-        "4",
-        "6",
-        "16"
+        "8 ta",
+        "4 ta",
+        "6 ta",
+        "16 ta"
       ],
       "answer": 0,
-      "explain": "Kubning 1 ta kubi ikki baravar boʻladi (2) va kubning har bir kvadrat yuzi choʻzilib yangi kub beradi (6): 2 + 6 = 8."
+      "explain": "Asl kub va uning nusxasi 2 ta kubni beradi, shuningdek, siljish paytida kubning 6 ta kvadrat yuzi choʻzilib, yana 6 ta yangi kubni hosil qiladi: 2 + 6 = 8 ta."
     },
     {
-      "q": "1908-yilda fazo va vaqtni bitta toʻrt oʻlchamli fazo-vaqt sifatida koʻrishni kim taklif qilgan?",
+      "q": "1908-yilda fazo va vaqtni alohida emas, balki yagona toʻrt oʻlchamli “fazo-vaqt” tizimi sifatida koʻrishni kim taklif qilgan?",
       "options": [
         "Albert Eynshteyn",
         "German Minkovskiy",
-        "Carl Sagan",
-        "Edwin Abbott"
+        "Karl Sagan",
+        "Edvin Abbott"
       ],
       "answer": 1,
-      "explain": "Eynshteyn 1905-yilda ikki qoidadan vaqt sekinlashuvini keltirib chiqargan. Fazo-vaqt gʻoyasini esa 1908-yilda Minkovskiy taklif qilgan."
+      "explain": "Albert Eynshteyn 1905-yilda maxsus nisbiylik nazariyasi orqali vaqt sekinlashuvini kashf etgan boʻlsa, 1908-yilda matematik German Minkovskiy fazo va vaqtni yagona 4 oʻlchamli “fazo-vaqt”ga birlashtirish gʻoyasini ilgari surgan."
     }
   ]
 }

@@ -72,3 +72,13 @@ test('JS dagi foydalanuvchiga koʻrinadigan matnda ASCII tutuq belgisi (\') yoʻ
   }
   assert.deepEqual(problems, [], `JS matnida ASCII ' topildi (oʻrniga ʼ ishlating):\n${problems.join('\n')}`);
 });
+
+test('lotin soʻz ichida kirill harfi yoʻq (masalan, lotin o oʻrniga kirill о)', () => {
+  const problems = [];
+  for (const path of listFiles(ROOT).filter((p) => ['.md', '.json', '.html'].includes(extname(p)))) {
+    textOf(path).split('\n').forEach((line, k) => {
+      if (/\p{Script=Latin}\p{Script=Cyrillic}|\p{Script=Cyrillic}\p{Script=Latin}/u.test(line)) problems.push(`${path.replace(ROOT, '')}:${k + 1}: ${line.trim().slice(0, 80)}`);
+    });
+  }
+  assert.deepEqual(problems, [], `Aralash harflar topildi:\n${problems.join('\n')}`);
+});
